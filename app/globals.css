@@ -2,3 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Font declarations */
+@font-face {
+  font-family: 'Bakbak';
+  src: url('/fonts/Heading-Bakbak_One/BakbakOne-Regular.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Zain';
+  src: url('/fonts/Body-Zain/Zain-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Zain', Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bakbak', Arial, Helvetica, sans-serif;
+}
+
+/* Font sizes for desktop */
+.title {
+  font-family: 'Bakbak', Arial, sans-serif;
+  font-size: 75px;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+h1, .heading-1 {
+  font-family: 'Bakbak', Arial, sans-serif;
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h2, .heading-2 {
+  font-family: 'Bakbak', Arial, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h3, .heading-3 {
+  font-family: 'Bakbak', Arial, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+body, p, .body-text {
+  font-family: 'Zain', Arial, sans-serif;
+  font-size: 25px;
+  line-height: 1.5;
+}
+
+/* Mobile typography */
+@media (max-width: 768px) {
+  h1, .heading-1 {
+    font-size: 28px;
+  }
+
+  h2, .heading-2 {
+    font-size: 26px;
+  }
+
+  h3, .heading-3 {
+    font-size: 24px;
+  }
+
+  body, p, .body-text {
+    font-size: 20px;
+  }
+}
+
+/* Content block spacing */
+.content-block {
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .content-block {
+    margin-bottom: 20px;
+  }
+}

@@ -1,7 +1,7 @@
 // app/gallery/[slug]/page.tsx
 
 import CategoryGrid from '@/components/gallery/CategoryGrid';
-import GalleryHero from '@/components/hero';
+import Hero from '@/components/hero';
 import NextBreadcrumb from '@/components/NextBreadcrumb';
 import Link from 'next/link';
 
@@ -14,7 +14,7 @@ interface Props {
 export default function CategoryPage({ params }: Props) {
   return (
     <>
-    <GalleryHero title="Gallery" backgroundImage="/gallery-banner.jpg" />
+    <Hero title="Gallery" backgroundImage="/gallery-banner.jpg" />
 
     {/* Breadcrumbs */}
     <div className="max-w-7xl mx-auto px-6 mt-4">

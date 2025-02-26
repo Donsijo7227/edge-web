@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import Image from 'next/image';
 import emailjs from '@emailjs/browser';
 
 // Initialize EmailJS
 emailjs.init("qS2YT04v2162dGLTr");
 
-const ContactSection = () => {
+// The component accepts a hideHeading prop
+const ContactSection = ({ hideHeading = false }) => {
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
@@ -86,100 +86,83 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-10 px-4 content-block">
-      <div className="container mx-auto">
-        <h2 className="heading-2 mb-6 text-[#123800] text-left">Contact Us</h2>
-        
-        <div className="flex flex-col md:flex-row md:gap-6">
-          <div className="w-full md:w-[466px] md:mr-0">
-            <form 
-              onSubmit={handleSubmit} 
-              className="border border-[#123800] rounded-lg p-4 space-y-3"
-            >
-              <div>
-                <label htmlFor="name" className="block mb-1 font-medium text-[#123800]">Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="surname" className="block mb-1 font-medium text-[#123800]">Surname</label>
-                <input 
-                  type="text" 
-                  id="surname" 
-                  value={formData.surname}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block mb-1 font-medium text-[#123800]">Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block mb-1 font-medium text-[#123800]">Message</label>
-                <textarea 
-                  id="message" 
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
-                ></textarea>
-              </div>
-
-              {status && (
-                <div className={`
-                  p-2 rounded-md text-center text-sm
-                  ${status.includes('successfully') 
-                    ? 'bg-green-100 text-green-800' 
-                    : 'bg-red-100 text-red-800'}
-                `}>
-                  {status}
-                </div>
-              )}
-              
-              <button 
-                type="submit" 
-                className="w-full py-2 bg-[#123800] text-white font-bold rounded-md hover:bg-opacity-90 transition-colors"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-          
-          <div className="hidden md:block md:flex-1">
-            <div className="relative w-full" style={{ height: '640px' }}>
-              <Image 
-                src="/images/contact-plants.jpg" 
-                alt="Succulent plants collection" 
-                fill
-                className="rounded-lg object-cover"
-                style={{ objectPosition: 'center' }}
-                sizes="(max-width: 1200px) 60vw, 700px"
-                priority
-              />
-            </div>
-          </div>
+    <>
+      {/* Only render the heading if hideHeading is false */}
+      {!hideHeading && (
+        <h2 className="heading-2 mb-6 text-[#123800]">Contact Us</h2>
+      )}
+      
+      <form 
+        onSubmit={handleSubmit} 
+        className="border border-[#123800] rounded-lg p-4 space-y-3"
+      >
+        <div>
+          <label htmlFor="name" className="block mb-1 font-medium text-[#123800]">Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
+          />
         </div>
-      </div>
-    </section>
+        
+        <div>
+          <label htmlFor="surname" className="block mb-1 font-medium text-[#123800]">Surname</label>
+          <input 
+            type="text" 
+            id="surname" 
+            value={formData.surname}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
+          />
+        </div>
+        
+        <div>
+          <label htmlFor="email" className="block mb-1 font-medium text-[#123800]">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
+          />
+        </div>
+        
+        <div>
+          <label htmlFor="message" className="block mb-1 font-medium text-[#123800]">Message</label>
+          <textarea 
+            id="message" 
+            rows={4}
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-1.5 border border-[#123800] rounded-md"
+          ></textarea>
+        </div>
+
+        {status && (
+          <div className={`
+            p-2 rounded-md text-center text-sm
+            ${status.includes('successfully') 
+              ? 'bg-green-100 text-green-800' 
+              : 'bg-red-100 text-red-800'}
+          `}>
+            {status}
+          </div>
+        )}
+        
+        <button 
+          type="submit" 
+          className="w-full py-2 bg-[#123800] text-white font-bold rounded-md hover:bg-opacity-90 transition-colors"
+        >
+          Submit
+        </button>
+      </form>
+    </>
   );
 };
 

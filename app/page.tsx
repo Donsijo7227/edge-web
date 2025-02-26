@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/navBar";
+import NavBar from "@/components/navBar";
 import ContactSection from "@/components/contactsection";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      <NavBar />
       <main className="flex flex-col min-h-screen">
         {/* Hero section */}
         <section className="relative h-screen bg-edge-green-primary bg-opacity-30">
@@ -111,9 +112,38 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contact Us section - now using the component */}
-        <ContactSection />
+        {/* Contact Us section with new layout */}
+        <section className="py-16 px-4 content-block">
+          <div className="container mx-auto">
+            {/* Heading in its own row */}
+            <h2 className="heading-2 mb-8 text-[#123800]">Contact Us</h2>
+            
+            {/* Form and image in a row */}
+            <div className="flex flex-col md:flex-row md:gap-8">
+              {/* Contact form - passing hideHeading to avoid duplicate heading */}
+              <div className="w-full md:w-1/2 mb-8 md:mb-0">
+                <ContactSection hideHeading={true} />
+              </div>
+              
+              {/* Image */}
+              <div className="w-full md:w-1/2">
+                <div className="relative w-full h-96 md:h-full min-h-[500px]">
+                  <Image 
+                    src="/images/contact-plants.jpg" 
+                    alt="Succulent plants collection" 
+                    fill
+                    className="rounded-lg object-cover"
+                    style={{ objectPosition: 'center' }}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+      <Footer />
     </>
   );
 }

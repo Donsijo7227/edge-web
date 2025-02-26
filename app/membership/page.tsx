@@ -28,8 +28,8 @@ export default function Membership() {
                         className="rounded-3xl h-full w-full md:w-[20rem]"
                         src="/rect1.png"
                         alt="rect"
-                        width={500}  // Set a width for the image
-                        height={700} // Set a height for the image
+                        width={500}  
+                        height={700} 
                     />
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex flex-col gap-4">
@@ -39,8 +39,8 @@ export default function Membership() {
                                         className="rounded-3xl h-[46px] w-[58px]"
                                         src="/leaf.svg"
                                         alt="rect"
-                                        width={100}  // Set a width for the image
-                                        height={100} // Set a height for the image
+                                        width={100}  
+                                        height={100} 
                                     />
                                     <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
                                 </div>
@@ -54,8 +54,8 @@ export default function Membership() {
                                         className="rounded-3xl h-[46px] w-[58px]"
                                         src="/leaf.svg"
                                         alt="rect"
-                                        width={100}  // Set a width for the image
-                                        height={100} // Set a height for the image
+                                        width={100}  
+                                        height={100} 
                                     />
                                     <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
                                 </div>
@@ -71,8 +71,8 @@ export default function Membership() {
                                         className="rounded-3xl h-[46px] w-[58px]"
                                         src="/leaf.svg"
                                         alt="rect"
-                                        width={100}  // Set a width for the image
-                                        height={100} // Set a height for the image
+                                        width={100}  
+                                        height={100} 
                                     />
                                     <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
                                 </div>
@@ -86,8 +86,8 @@ export default function Membership() {
                                         className="rounded-3xl h-[46px] w-[58px]"
                                         src="/leaf.svg"
                                         alt="rect"
-                                        width={100}  // Set a width for the image
-                                        height={100} // Set a height for the image
+                                        width={100}  
+                                        height={100} 
                                     />
                                     <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
                                 </div>
@@ -108,8 +108,8 @@ export default function Membership() {
                             className="h-[160px] md:h-[160px]"
                             src="/pot1.png"
                             alt="rect"
-                            width={160}  // Set a width for the image
-                            height={160} // Set a height for the image
+                            width={160}  
+                            height={160} 
                         />
                         <div>
                             <h1>Step 1: Download application form</h1>
@@ -124,8 +124,8 @@ export default function Membership() {
                             className="h-[160px] md:h-[160px]"
                             src="/pot2.png"
                             alt="rect"
-                            width={160}  // Set a width for the image
-                            height={160} // Set a height for the image
+                            width={160}  
+                            height={160} 
                         />
                         <div>
                             <h1>Step 2: Pay membership fee</h1>
@@ -140,8 +140,8 @@ export default function Membership() {
                             className="h-[160px] md:h-[160px]"
                             src="/pot3.png"
                             alt="rect"
-                            width={160}  // Set a width for the image
-                            height={160} // Set a height for the image
+                            width={160}  
+                            height={160} 
                         />
                         <div>
                             <h1>Step 3: Wait for your login information</h1>

@@ -4,7 +4,7 @@ export default function Membership() {
     return (
         <>
             {/* main */}
-            <main className="flex flex-col justify-end">
+            <main className="flex flex-col justify-end membership-head">
                 <h1 className="text-3xl font-semibold mx-4 text-white relative bottom-[25px]">
                     Membership Information
                 </h1>

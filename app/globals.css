@@ -96,11 +96,3 @@ body, p, .body-text {
     margin-bottom: 20px;
   }
 }
-
-/* membership page stylings */
-.membership-head{
-  background: linear-gradient(180deg, rgba(18, 56, 0, 0.5) 71%, rgba(137, 156, 128, 0.7) 96.5%), url('/image.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 40vh;
-}

@@ -122,7 +122,7 @@ export default function ResponsiveNavbar() {
                   <Link href="/gallery">Gallery</Link>
                 </li>
                 <li className="px-4 py-1 hover:bg-[#a8d080]">
-                  <Link href="/resources/other-clubs">Other Clubs</Link>
+                  <Link href="/garden-clubs">Garden Clubs</Link>
                 </li>
               </ul>
             )}
@@ -229,11 +229,11 @@ export default function ResponsiveNavbar() {
                   </li>
                   <li className="text-center">
                     <Link
-                      href="/resources/other-clubs"
+                      href="/garden-clubs"
                       className="block py-2 hover:text-[#a8d080] transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      Other Clubs
+                      Garden Clubs
                     </Link>
                   </li>
                 </ul>

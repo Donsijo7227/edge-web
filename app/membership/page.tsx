@@ -1,97 +1,128 @@
+'use client';
+
 import Image from "next/image";
+import NavBar from "@/components/navBar";
+import Hero from "@/components/hero";
+import NextBreadcrumb from "@/components/NextBreadcrumb";
+
 
 export default function Membership() {
     return (
         <>
-            {/* main */}
-            <main className="flex flex-col justify-end membership-head">
-                <h1 className="text-3xl font-semibold mx-4 text-white relative bottom-[25px]">
-                    Membership Information
-                </h1>
-            </main>
+            <NavBar />
+            {/* Hero Component */}
+            <Hero 
+                title="Membership Information" 
+                backgroundImage="/images/membership-hero-banner.jpg" 
+            />
 
-            <p className="text-[#123800] mx-4 my-5"><span className="underline">Home</span> {">"} <span className="underline">Membership</span></p>
-            <div className="max-w-[25rem] md:max-w-full m-auto md:mx-4 my-5 flex flex-col gap-2">
-                <p className="text-lg md:flex-1 md:leading-none">
-                    Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima.
-                </p>
-                <p className="text-lg md:flex-1 md:leading-none">
-                    Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima.
-                </p>
+            {/* Breadcrumb Navigation */}
+            <div className="container mx-auto px-4 py-4">
+                <NextBreadcrumb 
+                    homeElement={<span>Home</span>}
+                    separator={<span className="mx-2">&gt;</span>}
+                    containerClasses="flex items-center text-[#123800]"
+                    listClasses="hover:underline"
+                    activeClasses="font-semibold no-underline"
+                    capitalizeLinks={true}
+                />
             </div>
-            <div className="max-w-[25rem] md:max-w-full m-auto md:mx-4 my-5 flex flex-col gap-2">
-                <h1 className="text-3xl text-[#123800] mb-5 md:flex-1">
-                    Benefits
-                </h1>
-                <div className="flex flex-col md:flex-row gap-4 md:items-center">
-                    <Image
-                        className="rounded-3xl h-full w-full md:w-[20rem]"
-                        src="/rect1.png"
-                        alt="rect"
-                        width={500}  
-                        height={700} 
-                    />
-                    <div className="flex flex-col md:flex-row gap-4">
-                        <div className="flex flex-col gap-4">
-                            <div className="w-full">
-                                <div className="flex gap-6 items-center">
+
+            {/* Introduction paragraphs */}
+            <div className="container mx-auto px-4 py-6">
+                <div className="max-w-12xl">
+                    <p className="text-lg mb-4">
+                        Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+                    </p>
+                    <p className="text-lg">
+                        Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+                    </p>
+                </div>
+            </div>
+
+            {/* Benefits Section */}
+            <div className="container mx-auto px-4 py-6">
+                <h2 className="text-3xl font-heading text-[#123800] mb-6">Benefits</h2>
+                
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Image section */}
+                    <div className="col-span-1">
+                        <Image
+                            src="/images/benefit-image.png"
+                            alt="Plants on shelves"
+                            width={500}
+                            height={500}
+                            className="rounded-lg w-full h-auto"
+                        />
+                    </div>
+                    
+                    {/* Benefits list */}
+                    <div className="col-span-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Benefit Item 1 */}
+                            <div className="benefit-item">
+                                <div className="flex items-center mb-2">
                                     <Image
-                                        className="rounded-3xl h-[46px] w-[58px]"
-                                        src="/leaf.svg"
-                                        alt="rect"
-                                        width={100}  
-                                        height={100} 
+                                        src="/images/leaf.png"
+                                        alt="Leaf icon"
+                                        width={40}
+                                        height={40}
+                                        className="mr-3"
                                     />
-                                    <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
+                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
                                 </div>
-                                <p className="text-lg md:leading-none">
+                                <p className="text-base">
                                     Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
                                 </p>
                             </div>
-                            <div className="w-full">
-                                <div className="flex gap-6 items-center">
+                            
+                            {/* Benefit Item 2 */}
+                            <div className="benefit-item">
+                                <div className="flex items-center mb-2">
                                     <Image
-                                        className="rounded-3xl h-[46px] w-[58px]"
-                                        src="/leaf.svg"
-                                        alt="rect"
-                                        width={100}  
-                                        height={100} 
+                                        src="/images/leaf.png"
+                                        alt="Leaf icon"
+                                        width={40}
+                                        height={40}
+                                        className="mr-3"
                                     />
-                                    <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
+                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
                                 </div>
-                                <p className="text-lg md:leading-none">
+                                <p className="text-base">
                                     Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
                                 </p>
                             </div>
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            <div className="w-full">
-                                <div className="flex gap-6 items-center">
+                            
+                            {/* Benefit Item 3 */}
+                            <div className="benefit-item">
+                                <div className="flex items-center mb-2">
                                     <Image
-                                        className="rounded-3xl h-[46px] w-[58px]"
-                                        src="/leaf.svg"
-                                        alt="rect"
-                                        width={100}  
-                                        height={100} 
+                                        src="/images/leaf.png"
+                                        alt="Leaf icon"
+                                        width={40}
+                                        height={40}
+                                        className="mr-3"
                                     />
-                                    <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
+                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
                                 </div>
-                                <p className="text-lg md:leading-none">
+                                <p className="text-base">
                                     Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
                                 </p>
                             </div>
-                            <div className="w-full">
-                                <div className="flex gap-6 items-center">
+                            
+                            {/* Benefit Item 4 */}
+                            <div className="benefit-item">
+                                <div className="flex items-center mb-2">
                                     <Image
-                                        className="rounded-3xl h-[46px] w-[58px]"
-                                        src="/leaf.svg"
-                                        alt="rect"
-                                        width={100}  
-                                        height={100} 
+                                        src="/images/leaf.png"
+                                        alt="Leaf icon"
+                                        width={40}
+                                        height={40}
+                                        className="mr-3"
                                     />
-                                    <h1 className="text-3xl text-[#123800]">Lorem Ipsum</h1>
+                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
                                 </div>
-                                <p className="text-lg md:leading-none">
+                                <p className="text-base">
                                     Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
                                 </p>
                             </div>
@@ -100,58 +131,67 @@ export default function Membership() {
                 </div>
             </div>
 
-            <div className="max-w-[25rem] md:max-w-full m-auto md:mx-4 my-5 mt-8 flex flex-col md:flex-row gap-2 md:p-[25px] md:gap-4">
-                <h1 className="text-6xl md:my-auto text-[#123800] mb-5 md:flex-1">How to apply</h1>
-                <div className="flex flex-col gap-4 md:flex-2">
-                    <div className="flex border-[1px] rounded-md p-[18px] gap-4 border-[#D9D9D9]">
-                        <Image
-                            className="h-[160px] md:h-[160px]"
-                            src="/pot1.png"
-                            alt="rect"
-                            width={160}  
-                            height={160} 
-                        />
-                        <div>
-                            <h1>Step 1: Download application form</h1>
-                            <p>Body text for whatever you’d like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.</p>
-                            <button className="bg-[#123800] w-fit text-white px-4 py-2 rounded-xl mt-4">
-                                Download
-                            </button>
+            {/* How to Apply Section */}
+            <div className="container mx-auto px-4 py-10">
+                <h2 className="text-3xl font-heading text-[#123800] mb-6">How to Apply</h2>
+                
+                <div className="space-y-6">
+                    {/* Step 1 */}
+                    <div className="border border-gray-200 rounded-lg p-4 flex flex-col sm:flex-row gap-4">
+                        <div className="flex-shrink-0 w-full sm:w-auto">
+                            <Image
+                                src="/images/application-1.jpg"
+                                alt="Plant in pot"
+                                width={160}
+                                height={160}
+                                className="rounded-lg mx-auto sm:mx-0"
+                            />
+                        </div>
+                        <div className="flex-grow">
+                            <h3 className="text-xl font-heading text-[#123800] mb-2">Step 1: Download application form</h3>
+                            <p className="text-base mb-4">
+                                Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.
+                            </p>
                         </div>
                     </div>
-                    <div className="flex border-[1px] rounded-md p-[18px] gap-4 border-[#D9D9D9]">
-                        <Image
-                            className="h-[160px] md:h-[160px]"
-                            src="/pot2.png"
-                            alt="rect"
-                            width={160}  
-                            height={160} 
-                        />
-                        <div>
-                            <h1>Step 2: Pay membership fee</h1>
-                            <p>Body text for whatever you’d like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.</p>
-                            <button className="bg-[#123800] w-fit text-white px-4 py-2 rounded-xl mt-4">
-                                Download
-                            </button>
+                    
+                    {/* Step 2 */}
+                    <div className="border border-gray-200 rounded-lg p-4 flex flex-col sm:flex-row gap-4">
+                        <div className="flex-shrink-0 w-full sm:w-auto">
+                            <Image
+                                src="/images/application-2.jpg"
+                                alt="Plant in pot"
+                                width={160}
+                                height={160}
+                                className="rounded-lg mx-auto sm:mx-0"
+                            />
+                        </div>
+                        <div className="flex-grow">
+                            <h3 className="text-xl font-heading text-[#123800] mb-2">Step 2: Pay membership fee</h3>
+                            <p className="text-base mb-4">
+                                Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.
+                            </p>
                         </div>
                     </div>
-                    <div className="flex border-[1px] rounded-md p-[18px] gap-4 border-[#D9D9D9]">
-                        <Image
-                            className="h-[160px] md:h-[160px]"
-                            src="/pot3.png"
-                            alt="rect"
-                            width={160}  
-                            height={160} 
-                        />
-                        <div>
-                            <h1>Step 3: Wait for your login information</h1>
-                            <p>Body text for whatever you’d like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.</p>
-                            <button className="bg-[#123800] w-fit text-white px-4 py-2 rounded-xl mt-4">
-                                Download
-                            </button>
+                    
+                    {/* Step 3 */}
+                    <div className="border border-gray-200 rounded-lg p-4 flex flex-col sm:flex-row gap-4">
+                        <div className="flex-shrink-0 w-full sm:w-auto">
+                            <Image
+                                src="/images/application-3.jpg"
+                                alt="Plant in pot"
+                                width={160}
+                                height={160}
+                                className="rounded-lg mx-auto sm:mx-0"
+                            />
+                        </div>
+                        <div className="flex-grow">
+                            <h3 className="text-xl font-heading text-[#123800] mb-2">Step 3: Wait for your login information</h3>
+                            <p className="text-base mb-4">
+                                Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.
+                            </p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </>

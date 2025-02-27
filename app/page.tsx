@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import NavBar from "@/components/navBar";
 import ContactSection from "@/components/contactsection";
-import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -143,7 +142,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

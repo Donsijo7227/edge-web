@@ -14,8 +14,8 @@ const Footer = () => {
               <Image 
                 src="/EDGE Logo.png" 
                 alt="EDGE Logo" 
-                width={100} 
-                height={100}
+                width={199} 
+                height={199}
               />
             </div>
             <p className="text-lg font-heading font-bold">Elmvale District Garden Enthusiasts</p>

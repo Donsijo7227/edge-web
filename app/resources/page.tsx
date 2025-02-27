@@ -92,7 +92,7 @@ export default function ResourcesPage() {
               </Link>
 
               {/* Garden Clubs Card */}
-              <Link href="/resources/garden-clubs" className="block">
+              <Link href="/garden-clubs" className="block">
                 <div className="rounded-lg overflow-hidden border-2 border-[#123800] transition-transform hover:scale-[1.01]">
                   <div className="relative aspect-[16/9] w-full">
                     <Image 

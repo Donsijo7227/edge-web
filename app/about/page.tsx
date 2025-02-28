@@ -39,27 +39,27 @@ export default function About() {
       <div className="container mx-auto px-4 py-6">
         <h2 className="text-3xl font-heading text-[#123800] mb-6">History</h2>
 
-        <GreenCard desc='The Elmvale and District Horticultural Society was started in 1949 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1949'} />
-        <WhiteCard desc='Since 1949, EDGE has created and supported horticultural, garden-related, floral artistry, environmental and educational projects. The floral emblem of EDGE is the geranium.' year={'1949 - 2018'} />
-        <GreenCard year='2018' desc='To recognize the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
-        <WhiteCard year='2019' desc='The Elmvale and District Horticultural Society changed its name in 2019 to "Elmvale District Garden Enthusiasts" EDGE.' />
-        <GreenCard year='2025' desc='EDGE mask an achievement of 50 members...' />
+        <WhiteCard desc='The Elmvale and District Horticultural Society was started in 1949 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1949'} />
+        <GreenCard desc='Since 1949, EDGE has created and supported horticultural, garden-related, floral artistry, environmental and educational projects. The floral emblem of EDGE is the geranium.' year={'1949 - 2018'} />
+        <WhiteCard year='2018' desc='To recognize the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
+        <GreenCard year='2019' desc='The Elmvale and District Horticultural Society changed its name in 2019 to "Elmvale District Garden Enthusiasts" EDGE.' />
+        <WhiteCard year='2025' desc='EDGE mask an achievement of 50 members...' />
 
       </div>
 
       {/* Mission Statement */}
       <div className="container mx-auto px-4 py-6">
         <h2 className="text-3xl font-heading text-[#123800] mb-6">Mission Statement</h2>
-        <div className='flex flex-col gap-4 md:flex-row items-center'>
+        <div className='flex flex-col gap-4 md:flex-row items-center md:gap-8'>
           <Image
             src="/images/mission-statement-image.jpg"
             alt="Plant in pot"
             width={500}
             height={500}
-            className="rounded-lg mx-auto sm:mx-0 md:w-[20rem] md:h-[20rem] h-full w-full md:m-auto"
+            className="rounded-3xl mx-auto sm:mx-0 md:flex-1 h-full w-full md:m-auto"
           />
-          <p className="text-lg mb-4">
-            Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+          <p className="text-lg mb-4 md:flex-1">
+            Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod solutaEst blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusta Et velit esse vel perferendis recusandae uo architecto odit aut uos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
           </p>
         </div>
       </div>

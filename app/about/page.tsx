@@ -39,11 +39,11 @@ export default function About() {
       <div className="container mx-auto px-4 py-6">
         <h2 className="text-3xl font-heading text-[#123800] mb-6">History</h2>
 
-        <GreenCard desc='The Elmvale and District Horticultural Society was started in 1949 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1949'} />
-        <WhiteCard desc='Since 1949, EDGE has created and supported horticultural, garden-related, floral artistry, environmental and educational projects. The floral emblem of EDGE is the geranium.' year={'1949 - 2018'} />
-        <GreenCard year='2018' desc='To recognize the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
-        <WhiteCard year='2019' desc='The Elmvale and District Horticultural Society changed its name in 2019 to "Elmvale District Garden Enthusiasts" EDGE.' />
-        <GreenCard year='2025' desc='EDGE mask an achievement of 50 members...' />
+        <WhiteCard desc='The Elmvale and District Horticultural Society was started in 1949 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1949'} />
+        <GreenCard desc='Since 1949, EDGE has created and supported horticultural, garden-related, floral artistry, environmental and educational projects. The floral emblem of EDGE is the geranium.' year={'1949 - 2018'} />
+        <WhiteCard year='2018' desc='To recognize the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
+        <GreenCard year='2019' desc='The Elmvale and District Horticultural Society changed its name in 2019 to "Elmvale District Garden Enthusiasts" EDGE.' />
+        <WhiteCard year='2025' desc='EDGE mask an achievement of 50 members...' />
 
       </div>
 

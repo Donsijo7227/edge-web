@@ -91,7 +91,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="space-y-4">
-                <p className="body-text">
+                <p className="body-desktop">
                   Membership offers exclusive access to workshops, expert-led lectures, and special events focused on sustainable gardening, conservation, and civic beautification. Whether you're looking to enhance your gardening skills, meet like-minded individuals, or make a positive impact on the environment, our club provides a supportive and inspiring space to grow.
                 </p>
               </div>

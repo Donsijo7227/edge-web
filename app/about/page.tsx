@@ -28,16 +28,16 @@ export default function About() {
 
       {/* Land Acknowledgement section */}
       <div className="container mx-auto px-4 py-6">
-        <h2 className="text-3xl font-heading text-[#123800] mb-6">Land Acknowledgement</h2>
+        <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Land Acknowledgement</h1>
 
-        <p className="text-lg mb-4">
-          Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+        <p className="body-desktop body-mobile mb-4">
+          EDGE respectfully acknowledges that we gather, learn, and cultivate on the traditional territories of Indigenous peoples who have stewarded this land for generations. We recognize their deep-rooted connection to the earth and honor their knowledge, traditions, and ongoing contributions to environmental sustainability. As a community dedicated to horticulture and conservation, we commit to learning from Indigenous practices, respecting the land, and promoting sustainability in all that we do. We strive to foster a deeper understanding of our shared responsibility to care for the environment and support reconciliation efforts through education and action.
         </p>
       </div>
 
       {/* History section */}
       <div className="container mx-auto px-4 py-6">
-        <h2 className="text-3xl font-heading text-[#123800] mb-6">History</h2>
+        <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">History</h1>
 
         <WhiteCard desc='The Elmvale and District Horticultural Society was started in 1949 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1949'} />
         <GreenCard desc='Since 1949, EDGE has created and supported horticultural, garden-related, floral artistry, environmental and educational projects. The floral emblem of EDGE is the geranium.' year={'1949 - 2018'} />
@@ -49,7 +49,7 @@ export default function About() {
 
       {/* Mission Statement */}
       <div className="container mx-auto px-4 py-6">
-        <h2 className="text-3xl font-heading text-[#123800] mb-6">Mission Statement</h2>
+        <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Mission Statement</h1>
         <div className='flex flex-col gap-4 md:flex-row items-center md:gap-8'>
           <Image
             src="/images/mission-statement-image.jpg"
@@ -58,8 +58,8 @@ export default function About() {
             height={500}
             className="rounded-3xl mx-auto sm:mx-0 md:flex-1 h-full w-full md:m-auto"
           />
-          <p className="text-lg mb-4 md:flex-1">
-            Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod solutaEst blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusta Et velit esse vel perferendis recusandae uo architecto odit aut uos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+          <p className="body-desktop body-mobile mb-4 md:flex-1">
+            We are a non-profit organization that educates and promotes all branches of horticulture. This includes promoting and implementing civic beautification. Encourage planting trees, shrubs and flowers in our communities. Promote protection of the environment through practice, lectures and public education. 
           </p>
         </div>
       </div>

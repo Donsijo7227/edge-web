@@ -154,8 +154,9 @@ export default function Membership() {
                             <p className="body-desktop body-mobile mb-4">
                                 Download the application form below and fill in your information.
                             </p>
-                            {/* TODO */}
-                            <button> Download button here</button>
+                            <button className="bg-[#123800] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-colors">
+                            Download
+                        </button>
                         </div>
                     </div>
                     

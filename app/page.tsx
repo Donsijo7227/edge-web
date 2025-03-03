@@ -99,7 +99,7 @@ export default function Home() {
             
             <div className="flex justify-end">
               <Link 
-                href="#" 
+                href="/membership" 
                 className="inline-flex items-center text-edge-green-dark font-medium"
               >
                 <span className="mr-2">Learn more</span>

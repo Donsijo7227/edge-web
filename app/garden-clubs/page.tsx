@@ -1,6 +1,5 @@
 'use client';
 
-import NavBar from "@/components/navBar";
 import NextBreadcrumb from "@/components/NextBreadcrumb";
 import Hero from "@/components/hero";
 import Link from "next/link";
@@ -37,7 +36,6 @@ export default function GardenClubsPage() {
 
   return (
     <>
-      <NavBar />
       <main className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <Hero 

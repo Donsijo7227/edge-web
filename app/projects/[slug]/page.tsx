@@ -1,13 +1,21 @@
-// app/gallery/page.tsx
-import GalleryGrid from '@/components/gallery/GalleryGrid';
+// app/projects/[slug]/page.tsx
+import ProjectDetail from '@/components/projects/ProjectDetail';
 import GalleryHero from '@/components/hero';
 import NextBreadcrumb from '@/components/NextBreadcrumb';
 import Link from 'next/link';
 
-export default function GalleryPage() {
+interface ProjectDetailPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  const slug = params.slug;
+
   return (
     <>
-      <GalleryHero title="Gallery" backgroundImage="/gallery-banner.jpg" />
+      <GalleryHero title="Projects" backgroundImage="/projects-banner.jpg" />
 
       {/* Breadcrumbs */}
       <div className="w-full px-5 pt-4">
@@ -22,7 +30,8 @@ export default function GalleryPage() {
           />
         </div>
       </div>
-      <GalleryGrid />
+      
+      <ProjectDetail slug={slug} />
     </>
   );
 }

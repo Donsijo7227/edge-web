@@ -1,13 +1,13 @@
-// app/gallery/page.tsx
-import GalleryGrid from '@/components/gallery/GalleryGrid';
+// app/projects/page.tsx
+import ProjectGrid from '@/components/projects/ProjectGrid';
 import GalleryHero from '@/components/hero';
 import NextBreadcrumb from '@/components/NextBreadcrumb';
 import Link from 'next/link';
 
-export default function GalleryPage() {
+export default function ProjectsPage() {
   return (
     <>
-      <GalleryHero title="Gallery" backgroundImage="/gallery-banner.jpg" />
+      <GalleryHero title="Projects" backgroundImage="/projects-banner.jpg" />
 
       {/* Breadcrumbs */}
       <div className="w-full px-5 pt-4">
@@ -22,7 +22,8 @@ export default function GalleryPage() {
           />
         </div>
       </div>
-      <GalleryGrid />
+      
+      <ProjectGrid />
     </>
   );
 }

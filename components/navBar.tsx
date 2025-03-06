@@ -126,10 +126,10 @@ export default function ResponsiveNavbar() {
               {isDropdownOpen && (
                 <ul className="absolute left-0 mt-2 w-40 bg-white text-black shadow-md rounded">
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/resources/news">News</Link>
+                    <Link href="/news">News</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/resources/projects">Projects</Link>
+                    <Link href="/projects">Projects</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
                     <Link href="/gallery">Gallery</Link>

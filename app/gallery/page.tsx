@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function GalleryPage() {
   return (
     <>
-      <GalleryHero title="Gallery" backgroundImage="/gallery-banner.jpg" />
+      <GalleryHero title="Gallery" backgroundImage="/images/gallery-banner.jpg" />
 
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-4">

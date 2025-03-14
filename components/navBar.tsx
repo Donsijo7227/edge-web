@@ -126,7 +126,7 @@ export default function ResponsiveNavbar() {
               {isDropdownOpen && (
                 <ul className="absolute left-0 mt-2 w-40 bg-white text-black shadow-md rounded">
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/news">News</Link>
+                    <Link href="/recognition">Recognition</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
                     <Link href="/projects">Projects</Link>
@@ -136,6 +136,9 @@ export default function ResponsiveNavbar() {
                   </li>
                   <li className="px-4 py-1 hover:bg-[#a8d080]">
                     <Link href="/garden-clubs">Garden Clubs</Link>
+                  </li>
+                  <li className="px-4 py-1 hover:bg-[#a8d080]">
+                    <Link href="/memberhub">Member Hub</Link>
                   </li>
                 </ul>
               )}
@@ -219,11 +222,11 @@ export default function ResponsiveNavbar() {
                   <ul className="mt-2 space-y-2 w-full">
                     <li className="text-center">
                       <Link
-                        href="/resources/news"
+                        href="/resources/recognition"
                         className="block py-2 hover:text-[#a8d080] transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        News
+                        Recognition
                       </Link>
                     </li>
                     <li className="text-center">
@@ -251,6 +254,15 @@ export default function ResponsiveNavbar() {
                         onClick={() => setIsMenuOpen(false)}
                       >
                         Garden Clubs
+                      </Link>
+                    </li>
+                    <li className="text-center">
+                      <Link
+                        href="/memberhub"
+                        className="block py-2 hover:text-[#a8d080] transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Member Hub
                       </Link>
                     </li>
                   </ul>

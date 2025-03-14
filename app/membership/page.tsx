@@ -1,12 +1,63 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { groq } from 'next-sanity';
 import Image from "next/image";
 import NavBar from "@/components/navBar";
 import Hero from "@/components/hero";
 import NextBreadcrumb from "@/components/NextBreadcrumb";
+import { client } from '@/sanity/lib/client';
 
+// TypeScript interface for member resources
+interface MembershipForm {
+  _id: string;
+  title: string;
+  resourceFile: {
+    asset: {
+      _ref: string;
+      url: string;
+    };
+  };
+}
 
 export default function Membership() {
+    const [membershipForm, setMembershipForm] = useState<MembershipForm | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    
+    useEffect(() => {
+        const fetchMembershipForm = async () => {
+            try {
+                const query = groq`
+                    *[_type == "memberResource" && category == "membershipForm"][0] {
+                        _id,
+                        title,
+                        resourceFile {
+                            asset-> {
+                                _ref,
+                                url
+                            }
+                        }
+                    }
+                `;
+                
+                const data = await client.fetch(query);
+                setMembershipForm(data);
+                setLoading(false);
+            } catch (err) {
+                console.error("Failed to fetch membership form:", err);
+                setLoading(false);
+            }
+        };
+
+        fetchMembershipForm();
+    }, []);
+    
+    const downloadMembershipForm = () => {
+        if (membershipForm?.resourceFile?.asset?.url) {
+            window.open(membershipForm.resourceFile.asset.url, '_blank');
+        }
+    };
+
     return (
         <>
             <NavBar />
@@ -31,18 +82,20 @@ export default function Membership() {
             {/* Introduction paragraphs */}
             <div className="container mx-auto px-4 py-6">
                 <div className="max-w-12xl">
-                    <p className="text-lg mb-4">
-                        Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+                    <p className="body-desktop body-mobile mb-4">
+                        Be part of a passionate network of gardeners, nature lovers, and environmental advocates dedicated to making our world greener. As a member, you'll have the chance to expand your horticultural knowledge, get involved in hands-on gardening projects, and support initiatives that enhance our local landscapes.
                     </p>
-                    <p className="text-lg">
-                        Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+                    <p className="body-desktop body-mobile">
+                        Membership gives you access to exclusive workshops, expert-led talks, and special events centered around sustainable gardening, conservation, and community beautification. Whether you're looking to refine your gardening skills, connect with like-minded individuals, or contribute to environmental stewardship, our club provides the perfect space to learn and grow.
+
+                        By joining us, you'll do more than just cultivate plants—you'll help cultivate a greener, more beautiful future for everyone. Sign up today and become a part of something truly rewarding!
                     </p>
                 </div>
             </div>
 
             {/* Benefits Section */}
             <div className="container mx-auto px-4 py-6">
-                <h2 className="text-3xl font-heading text-[#123800] mb-6">Benefits</h2>
+                <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Benefits</h1>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Image section */}
@@ -69,10 +122,10 @@ export default function Membership() {
                                         height={40}
                                         className="mr-3"
                                     />
-                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
+                                    <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Learn & Grow</h3>
                                 </div>
-                                <p className="text-base">
-                                    Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
+                                <p className=" body-desktop body-mobile">
+                                    Gain expert knowledge through workshops, lectures, and hands-on gardening experiences. Whether you're a beginner or seasoned gardener, there's always something new to explore.
                                 </p>
                             </div>
                             
@@ -86,10 +139,10 @@ export default function Membership() {
                                         height={40}
                                         className="mr-3"
                                     />
-                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
+                                    <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Build Connections</h3>
                                 </div>
-                                <p className="text-base">
-                                    Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
+                                <p className="body-desktop body-mobile">
+                                    Join a supportive community of plant lovers, exchange ideas, and make lasting friendships through events and volunteer projects.
                                 </p>
                             </div>
                             
@@ -103,10 +156,10 @@ export default function Membership() {
                                         height={40}
                                         className="mr-3"
                                     />
-                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
+                                    <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Boost Well-Being</h3>
                                 </div>
-                                <p className="text-base">
-                                    Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
+                                <p className="body-desktop body-mobile">
+                                    Gardening promotes relaxation, reduces stress, and connects you with nature, enhancing both mental and physical health.
                                 </p>
                             </div>
                             
@@ -120,10 +173,10 @@ export default function Membership() {
                                         height={40}
                                         className="mr-3"
                                     />
-                                    <h3 className="text-xl font-heading text-[#123800]">Lorem Ipsum</h3>
+                                    <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Inspiration</h3>
                                 </div>
-                                <p className="text-base">
-                                    Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto.
+                                <p className="body-desktop body-mobile">
+                                    Be a role model by educating youth and the community on the importance of plants, biodiversity, and environmental care.
                                 </p>
                             </div>
                         </div>
@@ -133,7 +186,7 @@ export default function Membership() {
 
             {/* How to Apply Section */}
             <div className="container mx-auto px-4 py-10">
-                <h2 className="text-3xl font-heading text-[#123800] mb-6">How to Apply</h2>
+                <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">How to Apply</h1>
                 
                 <div className="space-y-6">
                     {/* Step 1 */}
@@ -148,10 +201,17 @@ export default function Membership() {
                             />
                         </div>
                         <div className="flex-grow">
-                            <h3 className="text-xl font-heading text-[#123800] mb-2">Step 1: Download application form</h3>
-                            <p className="text-base mb-4">
-                                Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.
+                            <h2 className="h2-desktop h2-mobile font-heading text-[#123800] mb-2">Step 1: Download application form</h2>
+                            <p className="body-desktop body-mobile mb-4">
+                                Download the application form below and fill in your information.
                             </p>
+                            <button 
+                                className="bg-[#123800] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-colors"
+                                onClick={downloadMembershipForm}
+                                disabled={loading || !membershipForm}
+                            >
+                                {loading ? "Loading..." : "Download"}
+                            </button>
                         </div>
                     </div>
                     
@@ -167,9 +227,9 @@ export default function Membership() {
                             />
                         </div>
                         <div className="flex-grow">
-                            <h3 className="text-xl font-heading text-[#123800] mb-2">Step 2: Pay membership fee</h3>
-                            <p className="text-base mb-4">
-                                Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.
+                            <h2 className="h2-desktop h2-mobile font-heading text-[#123800] mb-2">Step 2: Pay membership fee</h2>
+                            <p className="body-desktop body-mobile mb-4">
+                                Bring the complete application, along with our annual fee $15 to EDGE at [ADDRESS].
                             </p>
                         </div>
                     </div>
@@ -186,9 +246,9 @@ export default function Membership() {
                             />
                         </div>
                         <div className="flex-grow">
-                            <h3 className="text-xl font-heading text-[#123800] mb-2">Step 3: Wait for your login information</h3>
-                            <p className="text-base mb-4">
-                                Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story.
+                            <h2 className="h2-desktop h2-mobile font-heading text-[#123800] mb-2">Step 3: Wait for your login information</h2>
+                            <p className="body-desktop body-mobile mb-4">
+                                Our admin will review your application and send out your login information via your email provided on the application form.
                             </p>
                         </div>
                     </div>

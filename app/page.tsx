@@ -21,9 +21,9 @@ export default function Home() {
           </div>
           <div className="relative z-10 container mx-auto px-4 py-12 h-full flex flex-col">
             <div className="flex-1 flex flex-col justify-center max-w-2xl">
-              <h1 className="title text-white mb-4">Lorem ipsum dolor sit amet</h1>
+              <h1 className="title text-white mb-4">Find Your Peace at the EDGE of Nature</h1>
               <p className="body-text text-white mb-6">
-                Et magnam quam ea nulla dignissimos est quia illo qui voluptas ratione. Sit eaque alias in nihil repudiandae aut tempora internos eum accusantium dolores. Est provident maiores est sunt temporibus et aliquid atque.
+                We are a non-profit organization dedicated to educating and promoting all branches of horticulture. Through civic beautification, tree planting, and environmental education, we inspire communities to cultivate a greener, more vibrant future. Join us in making a lasting impact!
               </p>
               <Link 
                 href="#learn-more" 
@@ -43,12 +43,12 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="space-y-4">
                 <p className="body-text">
-                  Et magnam quam ea nulla dignissimos est quia illo qui voluptas ratione. Sit eaque alias in nihil repudiandae aut tempora internos eum accusantium dolores. Est provident maiores est sunt temporibus et aliquid atque.
+                  Welcome to a community where a love for plants, nature, and environmental stewardship brings people together! Our club is dedicated to educating, inspiring, and supporting individuals who share a passion for horticulture, whether you're an experienced gardener or just starting your journey.
                 </p>
               </div>
               <div className="space-y-4">
                 <p className="body-text">
-                  Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+                  We offer a welcoming space for learning and connection, with hands-on workshops, expert-led lectures, and community projects that promote sustainable gardening practices and civic beautification. From planting trees and flowers to advocating for environmental protection, we believe in the power of greenery to transform our surroundings and enrich our lives.
                 </p>
               </div>
             </div>
@@ -87,19 +87,19 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8 mb-4">
               <div className="space-y-4">
                 <p className="body-text">
-                  Et magnam quam ea nulla dignissimos est quia illo qui voluptas ratione. Sit eaque alias in nihil repudiandae aut tempora internos eum accusantium dolores. Est provident maiores est sunt temporibus et aliquid atque.
+                  Join our growing community of plant enthusiasts, gardeners, and environmental advocates! As a member, you’ll have the opportunity to deepen your knowledge of horticulture, participate in hands-on gardening projects, and contribute to meaningful initiatives that beautify our communities.
                 </p>
               </div>
               <div className="space-y-4">
-                <p className="body-text">
-                  Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ut repudiandae sint et provident enim ut beatae porro ut quod soluta.
+                <p className="body-desktop">
+                  Membership offers exclusive access to workshops, expert-led lectures, and special events focused on sustainable gardening, conservation, and civic beautification. Whether you're looking to enhance your gardening skills, meet like-minded individuals, or make a positive impact on the environment, our club provides a supportive and inspiring space to grow.
                 </p>
               </div>
             </div>
             
             <div className="flex justify-end">
               <Link 
-                href="#" 
+                href="/membership" 
                 className="inline-flex items-center text-edge-green-dark font-medium"
               >
                 <span className="mr-2">Learn more</span>

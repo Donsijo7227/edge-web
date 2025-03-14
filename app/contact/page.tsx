@@ -1,6 +1,4 @@
 'use client';
-
-import NavBar from "@/components/navBar";
 import ContactSection from "@/components/contactsection";
 import NextBreadcrumb from "@/components/NextBreadcrumb";
 import Hero from "@/components/hero";
@@ -8,7 +6,7 @@ import Hero from "@/components/hero";
 export default function ContactPage() {
   return (
     <>
-      <NavBar />
+    
       <main className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <Hero 

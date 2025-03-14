@@ -12,5 +12,5 @@ export const schemaTypes = [
   event,
   project,
   recognition,
-  memberResource
+  memberResource,
 ]

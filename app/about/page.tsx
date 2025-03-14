@@ -58,7 +58,7 @@ export default function About() {
             height={500}
             className="rounded-3xl mx-auto sm:mx-0 md:flex-1 h-full w-full md:m-auto"
           />
-          <p className="body-desktop body-mobile mb-4 md:flex-1">
+          <p className="body-desktop git bbody-mobile mb-4 md:flex-1">
             We are a non-profit organization that educates and promotes all branches of horticulture. This includes promoting and implementing civic beautification. Encourage planting trees, shrubs and flowers in our communities. Promote protection of the environment through practice, lectures and public education. 
           </p>
         </div>

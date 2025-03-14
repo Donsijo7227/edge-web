@@ -9,18 +9,16 @@ export default function GalleryPage() {
     <>
       <GalleryHero title="Gallery" backgroundImage="/gallery-banner.jpg" />
 
-      {/* Breadcrumbs */}
-      <div className="w-full px-5 pt-4">
-        <div className="flex items-center text-gray-600 flex-wrap">
-          <NextBreadcrumb
-            homeElement={<span className="text-green-700 hover:underline">Home</span>}
-            separator={<span className="mx-1 text-gray-500"> &gt; </span>}
-            activeClasses="text-gray-800"
-            containerClasses="flex items-center flex-wrap"
-            listClasses="text-green-700 hover:underline"
-            capitalizeLinks
-          />
-        </div>
+      {/* Breadcrumb Navigation */}
+      <div className="container mx-auto px-4 py-4">
+                <NextBreadcrumb 
+                    homeElement={<span>Home</span>}
+                    separator={<span className="mx-2">&gt;</span>}
+                    containerClasses="flex items-center text-[#123800]"
+                    listClasses="hover:underline"
+                    activeClasses="font-semibold no-underline"
+                    capitalizeLinks={true}
+                />
       </div>
       <GalleryGrid />
     </>

@@ -31,6 +31,7 @@ export default defineType({
           {title: 'EDGE Constitution', value: 'constitution'},
           {title: 'BY-Law', value: 'byLaws'},
           {title: 'Financial Year End Report', value: 'financialReports'},
+          {title: 'Membership Form', value: 'membershipForm'},
           {title: 'Other', value: 'other'}
         ]
       },

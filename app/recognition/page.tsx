@@ -8,18 +8,15 @@ export default function RecognitionPage() {
     <>
       <GalleryHero title="Recognition" backgroundImage="/recognition-banner.jpg" />
 
-      {/* Breadcrumbs */}
-      <div className="w-full px-5 pt-4">
-        <div className="flex items-center text-edge-text flex-wrap">
-          <NextBreadcrumb
-            homeElement={<span className="text-edge-green-dark hover:underline">Home</span>}
-            separator={<span className="mx-1 text-edge-text"> &gt; </span>}
-            activeClasses="text-edge-text"
-            containerClasses="flex items-center flex-wrap"
-            listClasses="text-edge-green-dark hover:underline font-zain"
-            capitalizeLinks
-          />
-        </div>
+      <div className="container mx-auto px-4 py-4">
+                <NextBreadcrumb 
+                    homeElement={<span>Home</span>}
+                    separator={<span className="mx-2">&gt;</span>}
+                    containerClasses="flex items-center text-[#123800]"
+                    listClasses="hover:underline"
+                    activeClasses="font-semibold no-underline"
+                    capitalizeLinks={true}
+                />
       </div>
       
       <RecognitionGrid />

@@ -83,7 +83,7 @@ const Footer = () => {
               className="mr-3"
             />
           </div>
-          <p className="text-lg font-medium text-center mb-4">Elmvale District Garden Enthusiasts</p>
+          <p className="text-lg font-medium text-center mb-4">Elmvale and District Garden Enthusiast's </p>
           
           <div className="flex justify-center mb-4">
             <input 

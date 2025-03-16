@@ -5,6 +5,9 @@ import photo from './photo'
 import project from './project'
 import recognition from './recognition'
 import memberResource from './memberResource'
+import bursary from './bursary'
+import applicationSteps from './applicationSteps'
+import importantDate from './importantDate'
 
 export const schemaTypes = [
   category, 
@@ -13,4 +16,7 @@ export const schemaTypes = [
   project,
   recognition,
   memberResource,
+  bursary,
+  applicationSteps,
+  importantDate,
 ]

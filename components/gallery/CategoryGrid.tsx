@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Photo } from '@/types/gallery';
 import { client, urlFor } from '@/sanity/lib/client';
 import { useParams } from 'next/navigation';
+import LoadingSpinner from '../LoadingSpinner';
 
 interface CategoryGridProps {
   slug?: string;
@@ -134,9 +135,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ slug: propSlug }) => {
 
   if (loading) {
     return (
-      <div className="w-full px-5 py-8">
-        <p>Loading photos...</p>
-      </div>
+      <LoadingSpinner contentType="photos" />      
     );
   }
 

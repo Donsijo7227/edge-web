@@ -135,7 +135,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ slug: propSlug }) => {
 
   if (loading) {
     return (
-      <LoadingSpinner contentType="photos" />      
+      <LoadingSpinner contentType="photos"/>      
     );
   }
 

@@ -147,16 +147,19 @@ export default function ResponsiveNavbar() {
               {isDropdownOpen && (
                 <ul className="absolute left-0 mt-2 w-40 bg-white text-black shadow-md rounded">
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/resources/news" onClick={handleDropdownLinkClick}>News</Link>
+                    <Link href="/recognition" onClick={handleDropdownLinkClick}>Recognition</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/resources/projects" onClick={handleDropdownLinkClick}>Projects</Link>
+                    <Link href="/projects" onClick={handleDropdownLinkClick}>Projects</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
                     <Link href="/gallery" onClick={handleDropdownLinkClick}>Gallery</Link>
                   </li>
                   <li className="px-4 py-1 hover:bg-[#a8d080]">
                     <Link href="/garden-clubs" onClick={handleDropdownLinkClick}>Garden Clubs</Link>
+                  </li>
+                  <li className="px-4 py-1 hover:bg-[#a8d080]">
+                    <Link href="/memberhub" onClick={handleDropdownLinkClick}>Member Hub</Link>
                   </li>
                 </ul>
               )}
@@ -240,16 +243,16 @@ export default function ResponsiveNavbar() {
                   <ul className="mt-2 space-y-2 w-full">
                     <li className="text-center">
                       <Link
-                        href="/resources/news"
+                        href="/recognition"
                         className="block py-2 hover:text-[#a8d080] transition-colors"
                         onClick={handleDropdownLinkClick}
                       >
-                        News
+                        Recognition
                       </Link>
                     </li>
                     <li className="text-center">
                       <Link
-                        href="/resources/projects"
+                        href="/projects"
                         className="block py-2 hover:text-[#a8d080] transition-colors"
                         onClick={handleDropdownLinkClick}
                       >
@@ -272,6 +275,15 @@ export default function ResponsiveNavbar() {
                         onClick={handleDropdownLinkClick}
                       >
                         Garden Clubs
+                      </Link>
+                    </li>
+                    <li className="text-center">
+                      <Link
+                        href="/memberhub"
+                        className="block py-2 hover:text-[#a8d080] transition-colors"
+                        onClick={handleDropdownLinkClick}
+                      >
+                        Member Hub
                       </Link>
                     </li>
                   </ul>

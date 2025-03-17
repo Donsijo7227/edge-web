@@ -1,12 +1,63 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { groq } from 'next-sanity';
 import Image from "next/image";
 import NavBar from "@/components/navBar";
 import Hero from "@/components/hero";
 import NextBreadcrumb from "@/components/NextBreadcrumb";
+import { client } from '@/sanity/lib/client';
 
+// TypeScript interface for member resources
+interface MembershipForm {
+  _id: string;
+  title: string;
+  resourceFile: {
+    asset: {
+      _ref: string;
+      url: string;
+    };
+  };
+}
 
 export default function Membership() {
+    const [membershipForm, setMembershipForm] = useState<MembershipForm | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    
+    useEffect(() => {
+        const fetchMembershipForm = async () => {
+            try {
+                const query = groq`
+                    *[_type == "memberResource" && category == "membershipForm"][0] {
+                        _id,
+                        title,
+                        resourceFile {
+                            asset-> {
+                                _ref,
+                                url
+                            }
+                        }
+                    }
+                `;
+                
+                const data = await client.fetch(query);
+                setMembershipForm(data);
+                setLoading(false);
+            } catch (err) {
+                console.error("Failed to fetch membership form:", err);
+                setLoading(false);
+            }
+        };
+
+        fetchMembershipForm();
+    }, []);
+    
+    const downloadMembershipForm = () => {
+        if (membershipForm?.resourceFile?.asset?.url) {
+            window.open(membershipForm.resourceFile.asset.url, '_blank');
+        }
+    };
+
     return (
         <>
             <NavBar />
@@ -35,9 +86,9 @@ export default function Membership() {
                         Be part of a passionate network of gardeners, nature lovers, and environmental advocates dedicated to making our world greener. As a member, you'll have the chance to expand your horticultural knowledge, get involved in hands-on gardening projects, and support initiatives that enhance our local landscapes.
                     </p>
                     <p className="body-desktop body-mobile">
-                        Membership gives you access to exclusive workshops, expert-led talks, and special events centered around sustainable gardening, conservation, and community beautification. Whether you’re looking to refine your gardening skills, connect with like-minded individuals, or contribute to environmental stewardship, our club provides the perfect space to learn and grow.
+                        Membership gives you access to exclusive workshops, expert-led talks, and special events centered around sustainable gardening, conservation, and community beautification. Whether you're looking to refine your gardening skills, connect with like-minded individuals, or contribute to environmental stewardship, our club provides the perfect space to learn and grow.
 
-                        By joining us, you’ll do more than just cultivate plants—you’ll help cultivate a greener, more beautiful future for everyone. Sign up today and become a part of something truly rewarding!
+                        By joining us, you'll do more than just cultivate plants—you'll help cultivate a greener, more beautiful future for everyone. Sign up today and become a part of something truly rewarding!
                     </p>
                 </div>
             </div>
@@ -74,7 +125,7 @@ export default function Membership() {
                                     <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Learn & Grow</h3>
                                 </div>
                                 <p className=" body-desktop body-mobile">
-                                    Gain expert knowledge through workshops, lectures, and hands-on gardening experiences. Whether you're a beginner or seasoned gardener, there’s always something new to explore.
+                                    Gain expert knowledge through workshops, lectures, and hands-on gardening experiences. Whether you're a beginner or seasoned gardener, there's always something new to explore.
                                 </p>
                             </div>
                             
@@ -154,9 +205,13 @@ export default function Membership() {
                             <p className="body-desktop body-mobile mb-4">
                                 Download the application form below and fill in your information.
                             </p>
-                            <button className="bg-[#123800] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-colors">
-                            Download
-                        </button>
+                            <button 
+                                className="bg-[#123800] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-colors"
+                                onClick={downloadMembershipForm}
+                                disabled={loading || !membershipForm}
+                            >
+                                {loading ? "Loading..." : "Download"}
+                            </button>
                         </div>
                     </div>
                     
@@ -173,7 +228,7 @@ export default function Membership() {
                         </div>
                         <div className="flex-grow">
                             <h2 className="h2-desktop h2-mobile font-heading text-[#123800] mb-2">Step 2: Pay membership fee</h2>
-                            <p className="bodu-desktop body-mobile mb-4">
+                            <p className="body-desktop body-mobile mb-4">
                                 Bring the complete application, along with our annual fee $15 to EDGE at [ADDRESS].
                             </p>
                         </div>

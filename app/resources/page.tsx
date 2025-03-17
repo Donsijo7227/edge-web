@@ -33,8 +33,8 @@ export default function ResourcesPage() {
         <section className="py-8 px-4 content-block">
           <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* News Card */}
-              <Link href="/resources/news" className="block">
+              {/* recognition Card */}
+              <Link href="/recognition" className="block">
                 <div className="rounded-lg overflow-hidden border-2 border-[#123800] transition-transform hover:scale-[1.01]">
                   <div className="relative aspect-[16/9] w-full">
                     <Image 
@@ -47,14 +47,14 @@ export default function ResourcesPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
                     <h2 className="absolute bottom-4 left-4 text-white font-heading text-h2">
-                      News
+                      Recognition
                     </h2>
                   </div>
                 </div>
               </Link>
 
               {/* Projects Card */}
-              <Link href="/resources/projects" className="block">
+              <Link href="/projects" className="block">
                 <div className="rounded-lg overflow-hidden border-2 border-[#123800] transition-transform hover:scale-[1.01]">
                   <div className="relative aspect-[16/9] w-full">
                     <Image 

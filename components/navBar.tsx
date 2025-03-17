@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { FaUserCircle } from 'react-icons/fa';
 import LoginOverlay from './LoginOverlay';
@@ -11,6 +11,7 @@ export default function ResponsiveNavbar() {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0
   );
+  const dropdownRef = useRef(null); // Reference for dropdown menu for outside clicks
 
   // Handle window resize
   useEffect(() => {
@@ -25,6 +26,18 @@ export default function ResponsiveNavbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Handle outside clicks to close dropdown
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
+
   // Toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,7 +48,8 @@ export default function ResponsiveNavbar() {
   };
 
   // Toggle dropdown in mobile menu
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    e.stopPropagation(); // Prevent event bubbling
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -49,11 +63,18 @@ export default function ResponsiveNavbar() {
     setIsLoginOpen(false);
   };
 
+  // Close dropdown when a dropdown link is clicked
+  const handleDropdownLinkClick = () => {
+    setIsDropdownOpen(false);
+    setIsMenuOpen(false);
+  };
+
   return (
     <>
+    <div className='global-nav'>
       <nav
         style={{ fontFamily: 'Bakbak' }}
-        className="absolute top-0 left-0 w-full text-white px-5 py-4 bg-transparent z-20"
+        className="absolute top-0 left-0 w-full text-white px-5 py-4 bg-transparent z-20 "
       >
         <div className="flex justify-between items-center w-full">
           {/* Logo (only shown on desktop) */}
@@ -116,26 +137,29 @@ export default function ResponsiveNavbar() {
             </li>
 
             {/* Dropdown Menu for Resources (Desktop) */}
-            <li className="relative">
+            <li className="relative" ref={dropdownRef}>
               <button
                 className="hover:text-[#a8d080] transition-colors focus:outline-none"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onClick={toggleDropdown}
               >
                 RESOURCES ▾
               </button>
               {isDropdownOpen && (
                 <ul className="absolute left-0 mt-2 w-40 bg-white text-black shadow-md rounded">
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/news">News</Link>
+                    <Link href="/recognition" onClick={handleDropdownLinkClick}>Recognition</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/projects">Projects</Link>
+                    <Link href="/projects" onClick={handleDropdownLinkClick}>Projects</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#a8d080]">
-                    <Link href="/gallery">Gallery</Link>
+                    <Link href="/gallery" onClick={handleDropdownLinkClick}>Gallery</Link>
                   </li>
                   <li className="px-4 py-1 hover:bg-[#a8d080]">
-                    <Link href="/garden-clubs">Garden Clubs</Link>
+                    <Link href="/garden-clubs" onClick={handleDropdownLinkClick}>Garden Clubs</Link>
+                  </li>
+                  <li className="px-4 py-1 hover:bg-[#a8d080]">
+                    <Link href="/memberhub" onClick={handleDropdownLinkClick}>Member Hub</Link>
                   </li>
                 </ul>
               )}
@@ -219,18 +243,18 @@ export default function ResponsiveNavbar() {
                   <ul className="mt-2 space-y-2 w-full">
                     <li className="text-center">
                       <Link
-                        href="/resources/news"
+                        href="/recognition"
                         className="block py-2 hover:text-[#a8d080] transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={handleDropdownLinkClick}
                       >
-                        News
+                        Recognition
                       </Link>
                     </li>
                     <li className="text-center">
                       <Link
-                        href="/resources/projects"
+                        href="/projects"
                         className="block py-2 hover:text-[#a8d080] transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={handleDropdownLinkClick}
                       >
                         Projects
                       </Link>
@@ -239,7 +263,7 @@ export default function ResponsiveNavbar() {
                       <Link
                         href="/gallery"
                         className="block py-2 hover:text-[#a8d080] transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={handleDropdownLinkClick}
                       >
                         Gallery
                       </Link>
@@ -248,9 +272,18 @@ export default function ResponsiveNavbar() {
                       <Link
                         href="/garden-clubs"
                         className="block py-2 hover:text-[#a8d080] transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={handleDropdownLinkClick}
                       >
                         Garden Clubs
+                      </Link>
+                    </li>
+                    <li className="text-center">
+                      <Link
+                        href="/memberhub"
+                        className="block py-2 hover:text-[#a8d080] transition-colors"
+                        onClick={handleDropdownLinkClick}
+                      >
+                        Member Hub
                       </Link>
                     </li>
                   </ul>
@@ -282,6 +315,7 @@ export default function ResponsiveNavbar() {
 
       {/* Login Overlay */}
       <LoginOverlay isOpen={isLoginOpen} onClose={closeLogin} />
+      </div>
     </>
   );
 }

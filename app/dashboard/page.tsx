@@ -1,5 +1,5 @@
 'use client'
-import { AppSidebar } from "@/components/app-sidebar"
+import AppSidebar from "@/components/app-sidebar"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -35,7 +35,9 @@ export default function Page() {
           }
         `}</style>
       <SidebarProvider>
-        <AppSidebar />
+        <div>
+          <AppSidebar />
+        </div>
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">

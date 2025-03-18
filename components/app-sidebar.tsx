@@ -1,166 +1,96 @@
-"use client"
+import React from 'react';
+import { FiHome, FiFile, FiClipboard } from "react-icons/fi";
+import { LuUsers } from "react-icons/lu";
+import { BiCube } from "react-icons/bi";
+import { CgFileDocument } from "react-icons/cg";
+import { FaRegUser } from "react-icons/fa";
+import { TbSettings } from "react-icons/tb";
+import Link from 'next/link';
 
-import * as React from "react"
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
-
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
-} from "@/components/ui/sidebar"
-
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Edge",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+type NavOption = {
+  title: string;
+  icon: React.ReactNode;
+  link: string;
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+const DashboardOptions: NavOption[] = [
+  {
+    title: 'Live site',
+    icon: <FiHome size={20} />,
+    link: '#'
+  },
+  {
+    title: 'Users',
+    icon: <LuUsers size={20} />,
+    link: '#'
+  },
+  {
+    title: 'Bursary',
+    icon: <FiFile size={20} />,
+    link: '#'
+  },
+  {
+    title: 'Forms',
+    icon: <FiClipboard size={20} />,
+    link: '#'
+  },
+  {
+    title: 'Content Management System',
+    icon: <BiCube size={20} />,
+    link: '#'
+  },
+  {
+    title: 'Documentations',
+    icon: <CgFileDocument size={20} />,
+    link: '#'
+  },
+]
+
+const PreferencesOptions: NavOption[] = [
+  {
+    title: 'Profile',
+    icon: <FaRegUser size={20} />,
+    link: '#'
+  },
+  {
+    title: 'Setting',
+    icon: <TbSettings size={20} />,
+    link: '#'
+  },
+]
+
+function AppSidebar() {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
-      </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
+    <div className='bg-edge-green-secondary h-full py-4 px-2 flex flex-col gap-10'>
+      <div>
+        <p className='text-edge-text heading font-bold text-xl'>Dashboard</p>
+        <div className='gap-4 flex flex-col mt-4'>
+          {DashboardOptions.map(item => (
+            <Link href={item.link} className='flex gap-4 items-center cursor-pointer'>
+              {item.icon}
+              <div className='body text-base'>
+                {item.title}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className='text-edge-text heading font-bold text-xl'>Preferences</p>
+        <div className='gap-4 flex flex-col mt-4'>
+          {PreferencesOptions.map(item => (
+            <Link href={item.link} className='flex gap-4 items-center cursor-pointer'>
+              {item.icon}
+              <div className='body text-base'>
+                {item.title}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
+
+export default AppSidebar

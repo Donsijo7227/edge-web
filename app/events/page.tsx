@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function EventsPage() {
   return (
     <>
-      <GalleryHero title="Events" backgroundImage="/events-banner.jpg" />
+      <GalleryHero title="Events" backgroundImage="/images/events-hero-banner.jpg" />
 
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-4">

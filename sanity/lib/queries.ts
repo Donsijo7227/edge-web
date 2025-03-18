@@ -30,6 +30,9 @@ export async function getBursaryPageData() {
         "stepImage": stepImage.asset->url,
         stepDescription
       },
+      applicationUrl,
+      isInternalApplication,
+      showApplyButton,
       order
     },
     "importantDates": *[_type == "importantDate"] | order(order asc) {

@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="flex flex-col items-center text-center">
             <div className="flex justify-center mb-3">
               <Image 
-                src="/EDGE Logo.png" 
+                src="/images/edgelogo.png" 
                 alt="EDGE Logo" 
                 width={199} 
                 height={199}

@@ -2,7 +2,6 @@
 
 import { useState, useEffect, ReactElement } from "react";
 import Image from "next/image";
-import NavBar from "@/components/navBar";
 import Hero from "@/components/hero";
 import NextBreadcrumb from "@/components/NextBreadcrumb";
 import Link from "next/link";
@@ -22,6 +21,9 @@ interface ApplicationStep {
   bursaryId: string;
   bursaryTitle: string;
   steps: Step[];
+  applicationUrl?: string;
+  isInternalApplication?: boolean;
+  showApplyButton?: boolean;
   order: number;
 }
 
@@ -105,14 +107,32 @@ export default function Bursary() {
     };
 
     // Helper to find application steps for a specific bursary
-    const getApplicationStepsForBursary = (bursaryId: string): Step[] => {
-        if (!pageData?.applicationSteps) return [];
+    const getApplicationStepsForBursary = (bursaryId: string): ApplicationStep | undefined => {
+        if (!pageData?.applicationSteps) return undefined;
         
-        const stepSet = pageData.applicationSteps.find(
+        return pageData.applicationSteps.find(
             (s) => s.bursaryId === bursaryId
         );
-        
-        return stepSet?.steps || [];
+    };
+
+    // Helper to render application button based on application step settings
+    const renderApplicationButton = (appStep: ApplicationStep | undefined) => {
+        if (!appStep || !appStep.applicationUrl || !appStep.showApplyButton) {
+            return null;
+        }
+
+        return (
+            <div className="mt-6 flex justify-center">
+                <Link 
+                    href={appStep.applicationUrl}
+                    target={!appStep.isInternalApplication ? "_blank" : undefined}
+                    rel={!appStep.isInternalApplication ? "noopener noreferrer" : undefined}
+                    className="px-6 py-3 bg-edge-green-dark text-white font-medium rounded-md hover:opacity-90 transition-colors"
+                >
+                    {appStep.isInternalApplication ? "Apply Now" : "Apply at External Site"}
+                </Link>
+            </div>
+        );
     };
 
     // Sort important dates by order (should already be sorted from query)
@@ -136,10 +156,7 @@ export default function Bursary() {
 
     return (
         <>
-            {/* Navigation Bar */}
-            <NavBar />
-
-            {/* Hero Component - Using hardcoded values as requested */}
+           {/* Hero Component - Using hardcoded values as requested */}
             <Hero 
                 title="Bursary" 
                 backgroundImage="/images/bursary-hero-banner.jpg"
@@ -252,8 +269,8 @@ export default function Bursary() {
                     // Mobile view - Each bursary has its own toggle section
                     <div className="space-y-4">
                         {pageData?.bursaries?.map((bursary) => {
-                            const steps = getApplicationStepsForBursary(bursary._id);
-                            if (steps.length === 0) return null;
+                            const appStep = getApplicationStepsForBursary(bursary._id);
+                            if (!appStep || !appStep.steps || appStep.steps.length === 0) return null;
                             
                             return (
                                 <div key={`apply-${bursary._id}`} className="border border-edge-green-dark rounded-md overflow-hidden">
@@ -268,7 +285,7 @@ export default function Bursary() {
                                     {expandedBursary === `apply-${bursary._id}` && (
                                         <div className="p-4 bg-white">
                                             <div className="space-y-8">
-                                                {steps.map((step, stepIndex) => (
+                                                {appStep.steps.map((step, stepIndex) => (
                                                     <div key={stepIndex} className="flex items-start space-x-6">
                                                         <div className="flex-shrink-0">
                                                             <Image
@@ -286,6 +303,9 @@ export default function Bursary() {
                                                     </div>
                                                 ))}
                                             </div>
+                                            
+                                            {/* Application Link - Mobile */}
+                                            {renderApplicationButton(appStep)}
                                         </div>
                                     )}
                                 </div>
@@ -298,8 +318,8 @@ export default function Bursary() {
                         <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
                             {pageData?.bursaries?.map((bursary) => {
                                 // Only show bursaries that have application steps
-                                const steps = getApplicationStepsForBursary(bursary._id);
-                                if (steps.length === 0) return null;
+                                const appStep = getApplicationStepsForBursary(bursary._id);
+                                if (!appStep || !appStep.steps || appStep.steps.length === 0) return null;
                                 
                                 return (
                                     <div key={`steps-${bursary._id}`} className="border border-edge-green-dark rounded-lg overflow-hidden flex flex-col h-full">
@@ -307,7 +327,7 @@ export default function Bursary() {
                                             {bursary.title}
                                         </div>
                                         <div className="p-6 bg-white text-black space-y-8 flex-grow">
-                                            {steps.map((step, stepIndex) => (
+                                            {appStep.steps.map((step, stepIndex) => (
                                                 <div key={stepIndex} className="flex items-start space-x-6">
                                                     <div className="flex-shrink-0">
                                                         <Image
@@ -324,6 +344,9 @@ export default function Bursary() {
                                                     </div>
                                                 </div>
                                             ))}
+                                            
+                                            {/* Application Link - Desktop */}
+                                            {renderApplicationButton(appStep)}
                                         </div>
                                     </div>
                                 );

@@ -60,7 +60,7 @@ export default function ResponsiveNavbar() {
           <div className="hidden md:block text-xl font-bold pl-4">
             <Link href="/">
               <span className="cursor-pointer">
-                <img src="images/edgelogo.png" className="w-20" alt="Logo" />
+                <img src="/images/edgelogo.png" className="w-20" alt="Logo" />
               </span>
             </Link>
           </div>

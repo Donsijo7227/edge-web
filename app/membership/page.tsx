@@ -60,7 +60,6 @@ export default function Membership() {
 
     return (
         <>
-            <NavBar />
             {/* Hero Component */}
             <Hero 
                 title="Membership Information" 

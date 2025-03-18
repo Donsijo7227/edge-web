@@ -63,6 +63,26 @@ export default {
         validation: (Rule) => Rule.required().min(1)
       },
       {
+        name: 'applicationUrl',
+        title: 'Application URL',
+        type: 'string',
+        description: 'Internal link to application form (e.g., /bursary/application-form) or external application URL'
+      },
+      {
+        name: 'isInternalApplication',
+        title: 'Uses Internal Application Form',
+        type: 'boolean',
+        description: 'Check if this bursary uses our internal application form',
+        initialValue: false
+      },
+      {
+        name: 'showApplyButton',
+        title: 'Show Apply Button',
+        type: 'boolean',
+        description: 'Whether to show the Apply button for this application step',
+        initialValue: false
+      },
+      {
         name: 'order',
         title: 'Display Order',
         type: 'number',

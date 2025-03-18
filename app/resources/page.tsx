@@ -9,7 +9,6 @@ import Image from "next/image";
 export default function ResourcesPage() {
   return (
     <>
-      <NavBar />
       <main className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <Hero 

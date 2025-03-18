@@ -11,10 +11,12 @@ const Footer = () => {
         <div className="hidden md:grid md:grid-cols-3 gap-8 mb-6">
           <div className="flex flex-col items-center text-center">
             <div className="flex justify-center mb-3">
-              <Image
-                src="/EDGE Logo.png"
-                alt="EDGE Logo"
-                width={199}
+
+              <Image 
+                src="/images/edgelogo.png" 
+                alt="EDGE Logo" 
+                width={199} 
+
                 height={199}
               />
             </div>

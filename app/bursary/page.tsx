@@ -58,7 +58,6 @@ interface BursaryPageData {
 export default function Bursary() {
     const [expandedBursary, setExpandedBursary] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [selectedSchool, setSelectedSchool] = useState<string>(''); // Will be set to first bursary ID
     const [pageData, setPageData] = useState<BursaryPageData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -68,12 +67,6 @@ export default function Bursary() {
             try {
                 const data = await getBursaryPageData();
                 setPageData(data);
-                
-                // Set the first bursary as the default selected
-                if (data?.bursaries?.length > 0) {
-                    setSelectedSchool(data.bursaries[0]._id);
-                }
-                
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching bursary data:", error);
@@ -223,11 +216,11 @@ export default function Bursary() {
                     </div>
                 ) : (
                     // Desktop view - Side by side grid
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
                         {pageData?.bursaries?.map((bursary) => (
-                            <div key={bursary._id} className="border border-edge-green-dark rounded-lg overflow-hidden">
+                            <div key={bursary._id} className="border border-edge-green-dark rounded-lg overflow-hidden flex flex-col h-full">
                                 <div className="p-4 bg-edge-green-dark text-white heading-3">{bursary.title}</div>
-                                <div className="bg-edge-green-secondary text-edge-green-dark p-4">
+                                <div className="bg-edge-green-secondary text-black p-4 flex-grow">
                                     <PortableText value={bursary.description} />
                                     <div className="text-sm text-black mt-4">
                                         {bursary.website && (
@@ -300,53 +293,38 @@ export default function Bursary() {
                         })}
                     </div>
                 ) : (
-                    // Desktop view - Side by side boxes with clickable headers
+                    // Desktop view - Two column layout
                     <div>
-                        {/* Bursary selection headers */}
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
                             {pageData?.bursaries?.map((bursary) => {
                                 // Only show bursaries that have application steps
-                                const hasSteps = getApplicationStepsForBursary(bursary._id).length > 0;
-                                if (!hasSteps) return null;
-                                
-                                return (
-                                    <button 
-                                        key={bursary._id}
-                                        className={`${selectedSchool === bursary._id ? 'bg-edge-green-dark text-white' : 'bg-edge-green-secondary text-edge-green-dark'} p-4 text-center font-heading text-h3 rounded-t-lg border-2 border-edge-green-dark`}
-                                        onClick={() => setSelectedSchool(bursary._id)}
-                                    >
-                                        {bursary.title}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                        
-                        {/* Application Steps - Only show the selected bursary */}
-                        <div className="border border-edge-green-dark rounded-lg p-6 bg-white">
-                            {pageData?.bursaries?.map((bursary) => {
-                                if (selectedSchool !== bursary._id) return null;
-                                
                                 const steps = getApplicationStepsForBursary(bursary._id);
+                                if (steps.length === 0) return null;
                                 
                                 return (
-                                    <div key={`steps-${bursary._id}`} className="space-y-8">
-                                        {steps.map((step, stepIndex) => (
-                                            <div key={stepIndex} className="flex items-start space-x-6">
-                                                <div className="flex-shrink-0">
-                                                    <Image
-                                                        src={step.stepImage || "/images/application-1.jpg"}
-                                                        alt={step.stepTitle}
-                                                        width={80}
-                                                        height={80}
-                                                        className="rounded-md"
-                                                    />
+                                    <div key={`steps-${bursary._id}`} className="border border-edge-green-dark rounded-lg overflow-hidden flex flex-col h-full">
+                                        <div className="bg-edge-green-dark text-white p-4 font-heading text-h3">
+                                            {bursary.title}
+                                        </div>
+                                        <div className="p-6 bg-white text-black space-y-8 flex-grow">
+                                            {steps.map((step, stepIndex) => (
+                                                <div key={stepIndex} className="flex items-start space-x-6">
+                                                    <div className="flex-shrink-0">
+                                                        <Image
+                                                            src={step.stepImage || "/images/application-1.jpg"}
+                                                            alt={step.stepTitle}
+                                                            width={80}
+                                                            height={80}
+                                                            className="rounded-md"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="heading-3 text-edge-green-dark mb-2">{step.stepTitle}</h4>
+                                                        <PortableText value={step.stepDescription} />
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <h4 className="heading-3 text-edge-green-dark mb-2">{step.stepTitle}</h4>
-                                                    <PortableText value={step.stepDescription} />
-                                                </div>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
                                 );
                             })}

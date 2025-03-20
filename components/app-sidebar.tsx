@@ -1,11 +1,20 @@
-import React from 'react';
 import { FiHome, FiFile, FiClipboard } from "react-icons/fi";
 import { LuUsers } from "react-icons/lu";
 import { BiCube } from "react-icons/bi";
 import { CgFileDocument } from "react-icons/cg";
 import { FaRegUser } from "react-icons/fa";
 import { TbSettings } from "react-icons/tb";
-import Link from 'next/link';
+import Link from "next/link";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
 
 type NavOption = {
   title: string;
@@ -17,7 +26,7 @@ const DashboardOptions: NavOption[] = [
   {
     title: 'Live site',
     icon: <FiHome size={20} />,
-    link: '#'
+    link: '/'
   },
   {
     title: 'Users',
@@ -37,7 +46,7 @@ const DashboardOptions: NavOption[] = [
   {
     title: 'Content Management System',
     icon: <BiCube size={20} />,
-    link: '#'
+    link: '/studio'
   },
   {
     title: 'Documentations',
@@ -61,36 +70,47 @@ const PreferencesOptions: NavOption[] = [
 
 function AppSidebar() {
   return (
-    <div className='bg-edge-green-secondary h-full py-4 px-2 flex flex-col gap-10'>
-      <div>
-        <p className='text-edge-text heading font-bold text-xl'>Dashboard</p>
-        <div className='gap-4 flex flex-col mt-4'>
-          {DashboardOptions.map(item => (
-            <Link href={item.link} className='flex gap-4 items-center cursor-pointer'>
-              {item.icon}
-              <div className='body text-base'>
-                {item.title}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <p className='text-edge-text heading font-bold text-xl'>Preferences</p>
-        <div className='gap-4 flex flex-col mt-4'>
-          {PreferencesOptions.map(item => (
-            <Link href={item.link} className='flex gap-4 items-center cursor-pointer'>
-              {item.icon}
-              <div className='body text-base'>
-                {item.title}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+    <>
+      <Sidebar collapsible="icon">
+        <SidebarContent className="bg-sidebar-accent">
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Dashboard</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {DashboardOptions.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
+                        {item.icon}
+                        <span className="text-lg">{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+          <SidebarGroup className="mt-3">
+            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Preferences</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {PreferencesOptions.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
+                        {item.icon}
+                        <span className="text-lg">{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+    </>
+  );
 }
 
-export default AppSidebar
+export default AppSidebar;

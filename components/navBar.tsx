@@ -8,11 +8,12 @@ import Image from 'next/image';
 export default function ResponsiveNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0
   );
-  const dropdownRef = useRef(null); // Reference for dropdown menu for outside clicks
+  const dropdownRef = useRef<HTMLLIElement | null>(null); // Added type to useRef
 
   // Handle window resize
   useEffect(() => {
@@ -29,8 +30,8 @@ export default function ResponsiveNavbar() {
 
   // Handle outside clicks to close dropdown
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
@@ -45,13 +46,21 @@ export default function ResponsiveNavbar() {
     // Close dropdown when toggling menu
     if (!isMenuOpen) {
       setIsDropdownOpen(false);
+      setIsMobileDropdownOpen(false);
     }
   };
 
-  // Toggle dropdown in mobile menu
-  const toggleDropdown = (e) => {
+  // Toggle dropdown in desktop menu
+  const toggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent event bubbling
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Toggle dropdown in mobile menu
+  const toggleMobileDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent event bubbling
+    e.preventDefault(); // Prevent default behavior
+    setIsMobileDropdownOpen(!isMobileDropdownOpen);
   };
 
   // Toggle login overlay
@@ -67,6 +76,12 @@ export default function ResponsiveNavbar() {
   // Close dropdown when a dropdown link is clicked
   const handleDropdownLinkClick = () => {
     setIsDropdownOpen(false);
+    setIsMenuOpen(false);
+  };
+
+  // Close mobile dropdown when a link is clicked
+  const handleMobileDropdownLinkClick = () => {
+    setIsMobileDropdownOpen(false);
     setIsMenuOpen(false);
   };
 
@@ -228,22 +243,23 @@ export default function ResponsiveNavbar() {
                   </Link>
                 </li>
 
-                {/* Resources dropdown in mobile menu */}
+                {/* Resources dropdown in mobile menu - FIXED */}
                 <li className="text-center w-full">
                   <button
                     className="flex items-center justify-center w-full py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={toggleDropdown}
+                    onClick={toggleMobileDropdown}
+                    type="button"
                   >
                     RESOURCES
-                    <span className="ml-2">{isDropdownOpen ? '▴' : '▾'}</span>
+                    <span className="ml-2">{isMobileDropdownOpen ? '▴' : '▾'}</span>
                   </button>
-                  {isDropdownOpen && (
+                  {isMobileDropdownOpen && (
                     <ul className="mt-2 space-y-2 w-full">
                       <li className="text-center">
                         <Link
                           href="/recognition"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={handleMobileDropdownLinkClick}
                         >
                           Recognition
                         </Link>
@@ -252,7 +268,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/projects"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={handleMobileDropdownLinkClick}
                         >
                           Projects
                         </Link>
@@ -261,7 +277,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/gallery"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={handleMobileDropdownLinkClick}
                         >
                           Gallery
                         </Link>
@@ -270,7 +286,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/garden-clubs"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={handleMobileDropdownLinkClick}
                         >
                           Garden Clubs
                         </Link>
@@ -279,7 +295,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/memberhub"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={handleMobileDropdownLinkClick}
                         >
                           Member Hub
                         </Link>

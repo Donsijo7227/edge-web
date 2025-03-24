@@ -1,5 +1,5 @@
 'use client'
-import AdminNavbar from "@/components/AdminNavbar"
+
 import AppSidebar from "@/components/app-sidebar"
 import {
   SidebarProvider,
@@ -9,9 +9,6 @@ import {
 export default function Page() {
   return (
     <div className="h-screen overflow-hidden">
-      {/* <div>
-        <AdminNavbar />
-      </div> */}
       <div className="pt-">
         <SidebarProvider >
           <div className="ml-2">

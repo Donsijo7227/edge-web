@@ -1,10 +1,10 @@
-import { FiHome, FiFile, FiClipboard } from "react-icons/fi";
+import { FiHome, FiFile, FiChevronDown, FiChevronRight } from "react-icons/fi";
 import { LuUsers } from "react-icons/lu";
 import { BiCube } from "react-icons/bi";
 import { CgFileDocument } from "react-icons/cg";
 import { FaRegUser } from "react-icons/fa";
-import { TbSettings } from "react-icons/tb";
 import Link from "next/link";
+import { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,12 +14,21 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
 } from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent
+} from "@/components/ui/collapsible";
 
 type NavOption = {
   title: string;
   icon: React.ReactNode;
   link: string;
+  isDropdown?: boolean;
 }
 
 const DashboardOptions: NavOption[] = [
@@ -31,16 +40,12 @@ const DashboardOptions: NavOption[] = [
   {
     title: 'Users',
     icon: <LuUsers size={20} />,
-    link: '#'
+    link: '#',
+    isDropdown: true
   },
   {
     title: 'Bursary',
     icon: <FiFile size={20} />,
-    link: '#'
-  },
-  {
-    title: 'Forms',
-    icon: <FiClipboard size={20} />,
     link: '#'
   },
   {
@@ -55,43 +60,92 @@ const DashboardOptions: NavOption[] = [
   },
 ]
 
+const UserOptions: NavOption[] = [
+  {
+    title: 'View All Users',
+    icon: <LuUsers size={20} />,
+    link: '/users'
+  },
+  {
+    title: 'Manage Users',
+    icon: <LuUsers size={20} />,
+    link: '/users/manage'
+  },
+]
+
 const PreferencesOptions: NavOption[] = [
   {
     title: 'Profile',
     icon: <FaRegUser size={20} />,
     link: '#'
   },
-  {
-    title: 'Setting',
-    icon: <TbSettings size={20} />,
-    link: '#'
-  },
 ]
 
 function AppSidebar() {
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
+
   return (
     <>
       <Sidebar collapsible="icon">
-        <SidebarContent className="bg-sidebar-accent">
+        <SidebarContent className="bg-edge-green-secondary">
           <SidebarGroup>
             <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Dashboard</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {DashboardOptions.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
-                        {item.icon}
-                        <span className="text-lg">{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {DashboardOptions.map((item) => {
+                  // If this is our Users item, render the dropdown instead
+                  if (item.isDropdown) {
+                    return (
+                      <SidebarMenuItem key={item.title}>
+                        <Collapsible open={isUsersOpen} onOpenChange={setIsUsersOpen}>
+                          <CollapsibleTrigger asChild>
+                            <SidebarMenuButton className="flex items-center justify-between w-full">
+                              <div className="flex items-center gap-3">
+                                {item.icon}
+                                <span className="text-lg">{item.title}</span>
+                              </div>
+                              {isUsersOpen ? 
+                                <FiChevronDown className="ml-2" size={16} /> : 
+                                <FiChevronRight className="ml-2" size={16} />
+                              }
+                            </SidebarMenuButton>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent>
+                            <SidebarMenuSub>
+                              {UserOptions.map((subItem) => (
+                                <SidebarMenuSubItem key={subItem.title}>
+                                  <SidebarMenuSubButton asChild>
+                                    <Link href={subItem.link} className="flex items-center gap-3">
+                                      {subItem.icon}
+                                      <span>{subItem.title}</span>
+                                    </Link>
+                                  </SidebarMenuSubButton>
+                                </SidebarMenuSubItem>
+                              ))}
+                            </SidebarMenuSub>
+                          </CollapsibleContent>
+                        </Collapsible>
+                      </SidebarMenuItem>
+                    );
+                  }
+                  
+                  // Otherwise render a normal menu item
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
+                          {item.icon}
+                          <span className="text-lg">{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
           <SidebarGroup className="mt-3">
-            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Preferences</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Admin</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {PreferencesOptions.map((item) => (

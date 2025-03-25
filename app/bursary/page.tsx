@@ -155,225 +155,324 @@ export default function Bursary() {
     }
 
     return (
-        <>
-           {/* Hero Component - Using hardcoded values as requested */}
-            <Hero 
-                title="Bursary" 
-                backgroundImage="/images/bursary-hero-banner.jpg"
-            />
+      <>
+        {/* Hero Component - Using hardcoded values as requested */}
+        <Hero
+          title="Bursary"
+          backgroundImage="/images/bursary-hero-banner.jpg"
+        />
 
-            {/* Breadcrumb Navigation */}
-            <div className="container mx-auto px-4 py-4">
-                <NextBreadcrumb 
-                    homeElement={<span>Home</span>}
-                    separator={<span className="mx-2">/</span>}
-                    containerClasses="flex items-center text-edge-green-dark"
-                    listClasses="hover:underline"
-                    activeClasses="font-semibold no-underline"
-                    capitalizeLinks={true}
-                />
-            </div>
+        {/* Breadcrumb Navigation */}
+        <div className="container mx-auto px-4 py-4">
+          <NextBreadcrumb
+            homeElement={<span>Home</span>}
+            separator={<span className="mx-2">/</span>}
+            containerClasses="flex items-center text-edge-green-dark"
+            listClasses="hover:underline"
+            activeClasses="font-semibold no-underline"
+            capitalizeLinks={true}
+          />
+        </div>
 
-            {/* Introduction Section */}
-            <div className="container mx-auto px-4 py-6 content-block">
-                <h2 className="heading-2 text-edge-green-dark mb-4">Introduction</h2>
-                <div>
-                    {pageData?.pageData?.introduction ? (
-                        <PortableText value={pageData.pageData.introduction} />
-                    ) : (
-                        // Fallback to hardcoded content if no Sanity data
-                        <p className="body-text text-black mb-4">
-                            Est blanditiis totam id dolorum totam est neque adipisci est totam nihil et consequatur voluptatem ut necessitatibus voluptatum id assumenda iusto. Et velit esse vel perferendis recusandae quo architecto odit aut quos minima. Non voluptas aperiam et dolorem voluptas ea reiciendis et provident enim est ut.
-                        </p>
-                    )}
-                </div>
-            </div>
+        {/* Introduction Section */}
+        <div className="container mx-auto px-4 py-6 content-block">
+          <h2 className="heading-2 text-edge-green-dark mb-4">Introduction</h2>
+          <div>
+            {pageData?.pageData?.introduction ? (
+              <PortableText value={pageData.pageData.introduction} />
+            ) : (
+              // Fallback to hardcoded content if no Sanity data
+              <p className="body-text text-black mb-4">
+                EDGE is proud to support students in their academic journeys by
+                offering this scholarship as a testament to our commitment to
+                education, innovation, and personal growth. We believe that
+                every student deserves the opportunity to pursue their dreams
+                without financial barriers holding them back. This scholarship
+                is more than just financial aid; it is a symbol of
+                encouragement, recognizing the dedication, hard work, and
+                resilience that students demonstrate in their studies. At EDGE,
+                we understand the challenges that come with academic pursuits,
+                and we want to empower students by easing their burdens so they
+                can focus on learning, exploring new ideas, and achieving their
+                goals. By investing in students today, we are helping to shape
+                the leaders, innovators, and change-makers of tomorrow. We hope
+                that this scholarship not only provides financial relief but
+                also serves as motivation, reminding students that their efforts
+                are seen, valued, and supported. Education is a powerful tool
+                that can transform lives, and we are honored to play a role in
+                this journey. EDGE remains committed to fostering a culture of
+                learning and excellence, and we look forward to seeing how our
+                scholarship recipients make a lasting impact in their fields and
+                communities.
+              </p>
+            )}
+          </div>
+        </div>
 
-            {/* Bursaries Section */}
-            <div className="container mx-auto px-4 py-6 content-block">
-                <h2 className="heading-2 text-edge-green-dark mb-6">Bursaries</h2>
-                
-                {isMobile ? (
-                    // Mobile view - Collapsible sections
-                    <div className="space-y-4">
-                        {pageData?.bursaries?.map((bursary) => (
-                            <div key={bursary._id} className="border border-edge-green-dark rounded-md overflow-hidden font-bakbak">
-                                <button 
-                                    className="w-full bg-edge-green-primary text-black p-4 text-left flex justify-between items-center font-heading"
-                                    onClick={() => toggleBursary(`bursary-${bursary._id}`)}
+        {/* Bursaries Section */}
+        <div className="container mx-auto px-4 py-6 content-block">
+          <h2 className="heading-2 text-edge-green-dark mb-6">Bursaries</h2>
+
+          {isMobile ? (
+            // Mobile view - Collapsible sections
+            <div className="space-y-4">
+              {pageData?.bursaries?.map((bursary) => (
+                <div
+                  key={bursary._id}
+                  className="border border-edge-green-dark rounded-md overflow-hidden font-bakbak"
+                >
+                  <button
+                    className="w-full bg-edge-green-primary text-black p-4 text-left flex justify-between items-center font-heading"
+                    onClick={() => toggleBursary(`bursary-${bursary._id}`)}
+                  >
+                    <span>{bursary.title}</span>
+                    <span
+                      className={`text-2xl transition-transform duration-200 ${expandedBursary === `bursary-${bursary._id}` ? "rotate-90" : ""}`}
+                    >
+                      &gt;
+                    </span>
+                  </button>
+
+                  {expandedBursary === `bursary-${bursary._id}` && (
+                    <div className="p-4 bg-edge-green-secondary">
+                      <div className="body-text text-black">
+                        <PortableText value={bursary.description} />
+                      </div>
+                      <div className="text-sm text-black mt-4">
+                        {bursary.website && (
+                          <p className="mb-2">
+                            For more details, visit{" "}
+                            <Link href={bursary.website} className="underline">
+                              {bursary.website}
+                            </Link>
+                          </p>
+                        )}
+                        {(bursary.contactPerson || bursary.contactEmail) && (
+                          <p>
+                            Contact:{" "}
+                            {bursary.contactPerson && (
+                              <span>{bursary.contactPerson}</span>
+                            )}
+                            {bursary.contactEmail && (
+                              <>
+                                {" "}
+                                -{" "}
+                                <Link
+                                  href={`mailto:${bursary.contactEmail}`}
+                                  className="underline"
                                 >
-                                    <span>{bursary.title}</span>
-                                    <span className={`text-2xl transition-transform duration-200 ${expandedBursary === `bursary-${bursary._id}` ? 'rotate-90' : ''}`}>&gt;</span>
-                                </button>
-                                
-                                {expandedBursary === `bursary-${bursary._id}` && (
-                                    <div className="p-4 bg-edge-green-secondary">
-                                        <div className="body-text text-black">
-                                            <PortableText value={bursary.description} />
-                                        </div>
-                                        <div className="text-sm text-black mt-4">
-                                            {bursary.website && (
-                                                <p className="mb-2">
-                                                    For more details, visit <Link href={bursary.website} className="underline">{bursary.website}</Link>
-                                                </p>
-                                            )}
-                                            {(bursary.contactPerson || bursary.contactEmail) && (
-                                                <p>
-                                                    Contact: {bursary.contactPerson && <span>{bursary.contactPerson}</span>}
-                                                    {bursary.contactEmail && (
-                                                        <> - <Link href={`mailto:${bursary.contactEmail}`} className="underline">{bursary.contactEmail}</Link></>
-                                                    )}
-                                                </p>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                                  {bursary.contactEmail}
+                                </Link>
+                              </>
+                            )}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                ) : (
-                    // Desktop view - Side by side grid
-                    <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
-                        {pageData?.bursaries?.map((bursary) => (
-                            <div key={bursary._id} className="border border-edge-green-dark rounded-lg overflow-hidden flex flex-col h-full">
-                                <div className="p-4 bg-edge-green-dark text-white heading-3">{bursary.title}</div>
-                                <div className="bg-edge-green-secondary text-black p-4 flex-grow">
-                                    <PortableText value={bursary.description} />
-                                    <div className="text-sm text-black mt-4">
-                                        {bursary.website && (
-                                            <p className="mb-2">
-                                                For more details, visit <Link href={bursary.website} className="underline">{bursary.website}</Link>
-                                            </p>
-                                        )}
-                                        {(bursary.contactPerson || bursary.contactEmail) && (
-                                            <p>
-                                                Contact: {bursary.contactPerson && <span>{bursary.contactPerson}</span>}
-                                                {bursary.contactEmail && (
-                                                    <> - <Link href={`mailto:${bursary.contactEmail}`} className="underline">{bursary.contactEmail}</Link></>
-                                                )}
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
-
-            {/* How to Apply Section */}
-            <div className="container mx-auto px-4 py-6 content-block">
-                <h2 className="heading-2 text-edge-green-dark mb-6">How to Apply</h2>
-                
-                {isMobile ? (
-                    // Mobile view - Each bursary has its own toggle section
-                    <div className="space-y-4">
-                        {pageData?.bursaries?.map((bursary) => {
-                            const appStep = getApplicationStepsForBursary(bursary._id);
-                            if (!appStep || !appStep.steps || appStep.steps.length === 0) return null;
-                            
-                            return (
-                                <div key={`apply-${bursary._id}`} className="border border-edge-green-dark rounded-md overflow-hidden">
-                                    <button 
-                                        className="w-full bg-edge-green-dark text-white p-4 text-left flex justify-between items-center font-heading"
-                                        onClick={() => toggleBursary(`apply-${bursary._id}`)}
-                                    >
-                                        <span>{bursary.title}</span>
-                                        <span className={`text-2xl transition-transform duration-200 ${expandedBursary === `apply-${bursary._id}` ? 'rotate-90' : ''}`}>&gt;</span>
-                                    </button>
-                                    
-                                    {expandedBursary === `apply-${bursary._id}` && (
-                                        <div className="p-4 bg-white">
-                                            <div className="space-y-8">
-                                                {appStep.steps.map((step, stepIndex) => (
-                                                    <div key={stepIndex} className="flex items-start space-x-6">
-                                                        <div className="flex-shrink-0">
-                                                            <Image
-                                                                src={step.stepImage || "/images/application-1.jpg"}
-                                                                alt={step.stepTitle}
-                                                                width={80}
-                                                                height={80}
-                                                                className="rounded-md"
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <h4 className="heading-3 text-edge-green-dark mb-2">{step.stepTitle}</h4>
-                                                            <PortableText value={step.stepDescription} />
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            
-                                            {/* Application Link - Mobile */}
-                                            {renderApplicationButton(appStep)}
-                                        </div>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
-                ) : (
-                    // Desktop view - Two column layout
-                    <div>
-                        <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
-                            {pageData?.bursaries?.map((bursary) => {
-                                // Only show bursaries that have application steps
-                                const appStep = getApplicationStepsForBursary(bursary._id);
-                                if (!appStep || !appStep.steps || appStep.steps.length === 0) return null;
-                                
-                                return (
-                                    <div key={`steps-${bursary._id}`} className="border border-edge-green-dark rounded-lg overflow-hidden flex flex-col h-full">
-                                        <div className="bg-edge-green-dark text-white p-4 font-heading text-h3">
-                                            {bursary.title}
-                                        </div>
-                                        <div className="p-6 bg-white text-black space-y-8 flex-grow">
-                                            {appStep.steps.map((step, stepIndex) => (
-                                                <div key={stepIndex} className="flex items-start space-x-6">
-                                                    <div className="flex-shrink-0">
-                                                        <Image
-                                                            src={step.stepImage || "/images/application-1.jpg"}
-                                                            alt={step.stepTitle}
-                                                            width={80}
-                                                            height={80}
-                                                            className="rounded-md"
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="heading-3 text-edge-green-dark mb-2">{step.stepTitle}</h4>
-                                                        <PortableText value={step.stepDescription} />
-                                                    </div>
-                                                </div>
-                                            ))}
-                                            
-                                            {/* Application Link - Desktop */}
-                                            {renderApplicationButton(appStep)}
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-            </div>
-
-            {/* Important Dates Section */}
-            <div className="container mx-auto px-4 py-6 content-block">
-                <h2 className="heading-2 text-edge-green-dark mb-6">Important Dates</h2>
-                
-                <div className="space-y-3">
-                    {sortedDates.map((date) => (
-                        <div key={date._id} className="grid grid-cols-[96px_1fr] bg-edge-green-secondary rounded-md overflow-hidden">
-                            <div className="bg-edge-green-primary flex flex-col items-center justify-center py-4">
-                                <div className="text-xs uppercase tracking-wider text-edge-green-dark">{date.month}</div>
-                                <div className="text-3xl font-bold text-edge-green-dark">{date.day}</div>
-                            </div>
-                            <div className="p-4 flex items-center">
-                                <p className="text-black">{date.description}</p>
-                            </div>
-                        </div>
-                    ))}
+                  )}
                 </div>
+              ))}
             </div>
-        </>
+          ) : (
+            // Desktop view - Side by side grid
+            <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
+              {pageData?.bursaries?.map((bursary) => (
+                <div
+                  key={bursary._id}
+                  className="border border-edge-green-dark rounded-lg overflow-hidden flex flex-col h-full"
+                >
+                  <div className="p-4 bg-edge-green-dark text-white heading-3">
+                    {bursary.title}
+                  </div>
+                  <div className="bg-edge-green-secondary text-black p-4 flex-grow">
+                    <PortableText value={bursary.description} />
+                    <div className="text-sm text-black mt-4">
+                      {bursary.website && (
+                        <p className="mb-2">
+                          For more details, visit{" "}
+                          <Link href={bursary.website} className="underline">
+                            {bursary.website}
+                          </Link>
+                        </p>
+                      )}
+                      {(bursary.contactPerson || bursary.contactEmail) && (
+                        <p>
+                          Contact:{" "}
+                          {bursary.contactPerson && (
+                            <span>{bursary.contactPerson}</span>
+                          )}
+                          {bursary.contactEmail && (
+                            <>
+                              {" "}
+                              -{" "}
+                              <Link
+                                href={`mailto:${bursary.contactEmail}`}
+                                className="underline"
+                              >
+                                {bursary.contactEmail}
+                              </Link>
+                            </>
+                          )}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* How to Apply Section */}
+        <div className="container mx-auto px-4 py-6 content-block">
+          <h2 className="heading-2 text-edge-green-dark mb-6">How to Apply</h2>
+
+          {isMobile ? (
+            // Mobile view - Each bursary has its own toggle section
+            <div className="space-y-4">
+              {pageData?.bursaries?.map((bursary) => {
+                const appStep = getApplicationStepsForBursary(bursary._id);
+                if (!appStep || !appStep.steps || appStep.steps.length === 0)
+                  return null;
+
+                return (
+                  <div
+                    key={`apply-${bursary._id}`}
+                    className="border border-edge-green-dark rounded-md overflow-hidden"
+                  >
+                    <button
+                      className="w-full bg-edge-green-dark text-white p-4 text-left flex justify-between items-center font-heading"
+                      onClick={() => toggleBursary(`apply-${bursary._id}`)}
+                    >
+                      <span>{bursary.title}</span>
+                      <span
+                        className={`text-2xl transition-transform duration-200 ${expandedBursary === `apply-${bursary._id}` ? "rotate-90" : ""}`}
+                      >
+                        &gt;
+                      </span>
+                    </button>
+
+                    {expandedBursary === `apply-${bursary._id}` && (
+                      <div className="p-4 bg-white">
+                        <div className="space-y-8">
+                          {appStep.steps.map((step, stepIndex) => (
+                            <div
+                              key={stepIndex}
+                              className="flex items-start space-x-6"
+                            >
+                              <div className="flex-shrink-0">
+                                <Image
+                                  src={
+                                    step.stepImage ||
+                                    "/images/application-1.jpg"
+                                  }
+                                  alt={step.stepTitle}
+                                  width={80}
+                                  height={80}
+                                  className="rounded-md"
+                                />
+                              </div>
+                              <div>
+                                <h4 className="heading-3 text-edge-green-dark mb-2">
+                                  {step.stepTitle}
+                                </h4>
+                                <PortableText value={step.stepDescription} />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Application Link - Mobile */}
+                        {renderApplicationButton(appStep)}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            // Desktop view - Two column layout
+            <div>
+              <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
+                {pageData?.bursaries?.map((bursary) => {
+                  // Only show bursaries that have application steps
+                  const appStep = getApplicationStepsForBursary(bursary._id);
+                  if (!appStep || !appStep.steps || appStep.steps.length === 0)
+                    return null;
+
+                  return (
+                    <div
+                      key={`steps-${bursary._id}`}
+                      className="border border-edge-green-dark rounded-lg overflow-hidden flex flex-col h-full"
+                    >
+                      <div className="bg-edge-green-dark text-white p-4 font-heading text-h3">
+                        {bursary.title}
+                      </div>
+                      <div className="p-6 bg-white text-black space-y-8 flex-grow">
+                        {appStep.steps.map((step, stepIndex) => (
+                          <div
+                            key={stepIndex}
+                            className="flex items-start space-x-6"
+                          >
+                            <div className="flex-shrink-0">
+                              <Image
+                                src={
+                                  step.stepImage || "/images/application-1.jpg"
+                                }
+                                alt={step.stepTitle}
+                                width={80}
+                                height={80}
+                                className="rounded-md"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="heading-3 text-edge-green-dark mb-2">
+                                {step.stepTitle}
+                              </h4>
+                              <PortableText value={step.stepDescription} />
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* Application Link - Desktop */}
+                        {renderApplicationButton(appStep)}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Important Dates Section */}
+        <div className="container mx-auto px-4 py-6 content-block">
+          <h2 className="heading-2 text-edge-green-dark mb-6">
+            Important Dates
+          </h2>
+
+          <div className="space-y-3">
+            {sortedDates.map((date) => (
+              <div
+                key={date._id}
+                className="grid grid-cols-[96px_1fr] bg-edge-green-secondary rounded-md overflow-hidden"
+              >
+                <div className="bg-edge-green-primary flex flex-col items-center justify-center py-4">
+                  <div className="text-xs uppercase tracking-wider text-edge-green-dark">
+                    {date.month}
+                  </div>
+                  <div className="text-3xl font-bold text-edge-green-dark">
+                    {date.day}
+                  </div>
+                </div>
+                <div className="p-4 flex items-center">
+                  <p className="text-black">{date.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </>
     );
+
 }

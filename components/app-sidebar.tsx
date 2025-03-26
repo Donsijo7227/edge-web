@@ -64,12 +64,12 @@ const UserOptions: NavOption[] = [
   {
     title: 'View All Users',
     icon: <LuUsers size={20} />,
-    link: '/users'
+    link: '/dashboard/view-users'
   },
   {
     title: 'Manage Users',
     icon: <LuUsers size={20} />,
-    link: '/users/manage'
+    link: '/dashboard/manage-users'
   },
 ]
 

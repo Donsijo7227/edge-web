@@ -1,166 +1,173 @@
-"use client"
 
-import * as React from "react"
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
+import { FiHome, FiFile, FiChevronDown, FiChevronRight } from "react-icons/fi";
+import { LuUsers } from "react-icons/lu";
+import { BiCube } from "react-icons/bi";
+import { CgFileDocument } from "react-icons/cg";
+import { FaRegUser } from "react-icons/fa";
+import Link from "next/link";
+import { useState } from "react";
 
-// import { NavMain } from "@/components/nav-main"
-// import { NavProjects } from "@/components/nav-projects"
-// import { NavUser } from "@/components/nav-user"
-// import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
-} from "@/components/ui/sidebar"
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
+} from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent
+} from "@/components/ui/collapsible";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+type NavOption = {
+  title: string;
+  icon: React.ReactNode;
+  link: string;
+  isDropdown?: boolean;
+}
+
+const DashboardOptions: NavOption[] = [
+  {
+    title: 'Live site',
+    icon: <FiHome size={20} />,
+    link: '/'
   },
-  teams: [
-    {
-      name: "Edge",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  {
+    title: 'Users',
+    icon: <LuUsers size={20} />,
+    link: '#',
+    isDropdown: true
+  },
+  {
+    title: 'Bursary',
+    icon: <FiFile size={20} />,
+    link: '#'
+  },
+  {
+    title: 'Content Management System',
+    icon: <BiCube size={20} />,
+    link: '/studio'
+  },
+  {
+    title: 'Documentations',
+    icon: <CgFileDocument size={20} />,
+    link: '#'
+  },
+]
+
+const UserOptions: NavOption[] = [
+  {
+    title: 'View All Users',
+    icon: <LuUsers size={20} />,
+    link: '/users'
+  },
+  {
+    title: 'Manage Users',
+    icon: <LuUsers size={20} />,
+    link: '/users/manage'
+  },
+]
+
+const PreferencesOptions: NavOption[] = [
+  {
+    title: 'Profile',
+    icon: <FaRegUser size={20} />,
+    link: '#'
+  },
+]
+
+function AppSidebar() {
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
+
+  return (
+
+    <>
+      <Sidebar collapsible="icon">
+        <SidebarContent className="bg-edge-green-secondary">
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Dashboard</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {DashboardOptions.map((item) => {
+                  // If this is our Users item, render the dropdown instead
+                  if (item.isDropdown) {
+                    return (
+                      <SidebarMenuItem key={item.title}>
+                        <Collapsible open={isUsersOpen} onOpenChange={setIsUsersOpen}>
+                          <CollapsibleTrigger asChild>
+                            <SidebarMenuButton className="flex items-center justify-between w-full">
+                              <div className="flex items-center gap-3">
+                                {item.icon}
+                                <span className="text-lg">{item.title}</span>
+                              </div>
+                              {isUsersOpen ? 
+                                <FiChevronDown className="ml-2" size={16} /> : 
+                                <FiChevronRight className="ml-2" size={16} />
+                              }
+                            </SidebarMenuButton>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent>
+                            <SidebarMenuSub>
+                              {UserOptions.map((subItem) => (
+                                <SidebarMenuSubItem key={subItem.title}>
+                                  <SidebarMenuSubButton asChild>
+                                    <Link href={subItem.link} className="flex items-center gap-3">
+                                      {subItem.icon}
+                                      <span>{subItem.title}</span>
+                                    </Link>
+                                  </SidebarMenuSubButton>
+                                </SidebarMenuSubItem>
+                              ))}
+                            </SidebarMenuSub>
+                          </CollapsibleContent>
+                        </Collapsible>
+                      </SidebarMenuItem>
+                    );
+                  }
+                  
+                  // Otherwise render a normal menu item
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
+                          {item.icon}
+                          <span className="text-lg">{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+          <SidebarGroup className="mt-3">
+            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Admin</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {PreferencesOptions.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
+                        {item.icon}
+                        <span className="text-lg">{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+    </>
+  );
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        {/* <TeamSwitcher teams={data.teams} /> */}
-      </SidebarHeader>
-      <SidebarContent>
-        {/* <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} /> */}
-      </SidebarContent>
-      <SidebarFooter>
-        {/* <NavUser user={data.user} /> */}
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
-  )
-}
+export default AppSidebar;

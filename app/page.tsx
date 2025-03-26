@@ -1,12 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import NavBar from "@/components/navBar";
 import ContactSection from "@/components/contactsection";
 
 export default function Home() {
   return (
     <>
-      <NavBar />
       <main className="flex flex-col min-h-screen">
         {/* Hero section */}
         <section className="relative h-screen bg-edge-green-primary bg-opacity-30">

@@ -1,12 +1,22 @@
 'use client';
 
-import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent, ChangeEvent } from 'react';
 import emailjs from '@emailjs/browser';
 
-// Initialize EmailJS
+// Initialize EmailJS with your public key
 emailjs.init("qS2YT04v2162dGLTr");
 
-// The component accepts a hideHeading prop
+// Extend the Window interface for reCAPTCHA v2
+declare global {
+  interface Window {
+    grecaptcha: {
+      render: (container: string | HTMLElement, options: { sitekey: string; callback: (token: string) => void }) => void;
+      reset: () => void;
+      getResponse: () => string;
+    };
+  }
+}
+
 const ContactSection = ({ hideHeading = false }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -15,87 +25,119 @@ const ContactSection = ({ hideHeading = false }) => {
     message: ''
   });
   const [status, setStatus] = useState('');
+  const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<HTMLDivElement>(null);
 
-  // Effect to clear status message after 6 seconds
+  useEffect(() => {
+    const loadRecaptcha = () => {
+      if (!recaptchaRef.current) return;
+
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
+      script.async = true;
+      script.defer = true;
+
+      script.onload = () => {
+        console.log('reCAPTCHA script loaded');
+        // Wait for grecaptcha to be available
+        const waitForRecaptcha = () => {
+          if (window.grecaptcha && window.grecaptcha.render) {
+            recaptchaRef.current!.innerHTML = '';
+            window.grecaptcha.render(recaptchaRef.current!, {
+              sitekey: '6LcdAQErAAAAADT35OtVCvTtV_e4aCuORgOJICM1',
+              callback: (token: string) => {
+                setRecaptchaToken(token);
+                console.log('reCAPTCHA token generated:', token);
+              },
+            });
+            setIsRecaptchaLoaded(true);
+            console.log('reCAPTCHA rendered successfully');
+          } else {
+            console.log('Waiting for grecaptcha...');
+            setTimeout(waitForRecaptcha, 100); // Retry every 100ms
+          }
+        };
+        waitForRecaptcha();
+      };
+
+      script.onerror = () => {
+        console.error('reCAPTCHA script failed to load');
+        setStatus('Failed to load reCAPTCHA');
+      };
+
+      document.body.appendChild(script);
+
+      return () => {
+        document.body.removeChild(script);
+        setIsRecaptchaLoaded(false);
+      };
+    };
+
+    loadRecaptcha();
+  }, []);
+
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
-    
     if (status === 'Message sent successfully!' || status === 'Failed to send message. Please try again.') {
-      timeoutId = setTimeout(() => {
-        setStatus('');
-      }, 6000);
+      timeoutId = setTimeout(() => setStatus(''), 6000);
     }
-
-    // Cleanup function to clear timeout
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, [status]);
 
-  // Handle input changes with explicit type
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-    
     setFormData(prevState => ({
       ...prevState,
       [id]: value
     }));
   };
 
-  // Handle form submission with explicit type
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('Sending...');
 
-    // Validate form data
     if (!formData.name || !formData.surname || !formData.email || !formData.message) {
       setStatus('Please fill in all fields');
       return;
     }
 
-    // Create template parameters
+    if (!recaptchaToken) {
+      setStatus('Please complete the reCAPTCHA challenge');
+      return;
+    }
+
     const templateParams = {
       from_name: `${formData.name} ${formData.surname}`,
       from_email: formData.email,
-      message: formData.message
+      message: formData.message,
+      'g-recaptcha-response': recaptchaToken,
     };
 
     emailjs
-    .send(
-      "service_k49108k", 
-      "template_epv6wj9", 
-      templateParams,
-      "qS2YT04v2162dGLTr" 
-    )
-    .then((response) => {
-      console.log('SUCCESS!', response.status, response.text);
-      setStatus('Message sent successfully!');
-      // Reset form
-      setFormData({
-        name: '',
-        surname: '',
-        email: '',
-        message: ''
+      .send("service_k49108k", "template_epv6wj9", templateParams, "qS2YT04v2162dGLTr")
+      .then((response: { status: number; text: string }) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setStatus('Message sent successfully!');
+        setFormData({ name: '', surname: '', email: '', message: '' });
+        setRecaptchaToken(null);
+        if (window.grecaptcha) window.grecaptcha.reset();
+      })
+      .catch((error: unknown) => {
+        console.error('FAILED...', error);
+        setStatus('Failed to send message. Please try again.');
       });
-    }, (error) => {
-      console.error('FAILED...', error);
-      setStatus('Failed to send message. Please try again.');
-    });
   };
 
   return (
     <>
-      {/* Only render the heading if hideHeading is false */}
       {!hideHeading && (
         <h2 className="heading-2 mb-6 text-[#123800]">Contact Us</h2>
       )}
       
-      <form 
-        onSubmit={handleSubmit} 
-        className="border border-[#123800] rounded-lg p-4 space-y-3"
-      >
+      <form onSubmit={handleSubmit} className="border border-[#123800] rounded-lg p-4 space-y-3">
         <div>
           <label htmlFor="name" className="block mb-1 font-medium text-[#123800]">Name</label>
           <input 
@@ -144,12 +186,12 @@ const ContactSection = ({ hideHeading = false }) => {
           ></textarea>
         </div>
 
+        <div ref={recaptchaRef} className="my-2"></div>
+
         {status && (
           <div className={`
             p-2 rounded-md text-center text-sm
-            ${status.includes('successfully') 
-              ? 'bg-green-100 text-green-800' 
-              : 'bg-red-100 text-red-800'}
+            ${status.includes('successfully') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}
           `}>
             {status}
           </div>
@@ -158,9 +200,12 @@ const ContactSection = ({ hideHeading = false }) => {
         <button 
           type="submit" 
           className="w-full py-2 bg-[#123800] text-white font-bold rounded-md hover:bg-opacity-90 transition-colors"
+          disabled={!isRecaptchaLoaded}
         >
           Submit
         </button>
+
+        <input type="hidden" name="g-recaptcha-response" value={recaptchaToken || ''} />
       </form>
     </>
   );

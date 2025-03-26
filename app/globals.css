@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* Font declarations */
 @font-face {
   font-family: 'Bakbak';
@@ -20,10 +19,34 @@
   font-display: swap;
 }
 
+/* Fix for mobile scrolling issues */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: auto;
+  position: relative;
+  /* Allow scrolling on touch devices */
+  touch-action: auto !important;
+}
 
+/* Remove any potential scroll blocking */
+* {
+  touch-action: auto;
+}
+
+/* Fix for iOS 100vh issue */
+.full-height {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
 
 body {
   font-family: 'Zain', Arial, Helvetica, sans-serif;
+  position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -95,7 +118,12 @@ body, p, .body-text {
   }
 }
 
-
+/* Ensure content is scrollable */
+#__next, main {
+  min-height: 100%;
+  width: 100%;
+  position: relative;
+}
 
 @layer base {
   :root {
@@ -169,8 +197,6 @@ body, p, .body-text {
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
@@ -179,5 +205,3 @@ body, p, .body-text {
     @apply bg-background text-foreground;
   }
 }
-
-

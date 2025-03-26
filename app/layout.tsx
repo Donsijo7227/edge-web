@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-// import LayoutWrapper from "@/components/LayoutWrapper";
 import { AuthProvider } from '../context/AuthContext';
 import ResponsiveNavbar from "@/components/navBar";
 import Footer from "@/components/footer";
-
-
+import Scroll from "@/components/scroll"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,16 +26,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
         <AuthProvider>
-        {/* <LayoutWrapper> */}
-        <ResponsiveNavbar/>
+          <ResponsiveNavbar />
           {children}
-          <Footer/>
-          {/* </LayoutWrapper> */}
-          </AuthProvider>
-
+          <Scroll /> 
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

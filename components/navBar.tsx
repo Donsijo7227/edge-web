@@ -17,7 +17,7 @@ export default function ResponsiveNavbar() {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0
   );
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLLIElement | null>(null);
 
   // Handle window resize
   useEffect(() => {
@@ -34,8 +34,8 @@ export default function ResponsiveNavbar() {
 
   // Handle outside clicks to close dropdown
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
@@ -52,8 +52,8 @@ export default function ResponsiveNavbar() {
     }
   };
 
-  // Toggle dropdown in mobile menu
-  const toggleDropdown = (e) => {
+  // Toggle dropdown in mobile and desktop
+  const toggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -74,10 +74,14 @@ export default function ResponsiveNavbar() {
     setIsLoginOpen(false);
   };
 
-  // Close dropdown when a dropdown link is clicked
+  // Handle dropdown link clicks differently for mobile vs desktop
   const handleDropdownLinkClick = () => {
-    setIsDropdownOpen(false);
-    setIsMenuOpen(false);
+    if (windowWidth <= 768) {
+      setIsMenuOpen(false);
+      setIsDropdownOpen(false);
+    } else {
+      setIsDropdownOpen(false);
+    }
   };
 
   return (
@@ -85,7 +89,7 @@ export default function ResponsiveNavbar() {
       <div className='global-nav'>
         <nav
           style={{ fontFamily: 'Bakbak' }}
-          className="absolute top-0 left-0 w-full text-white px-5 py-4 bg-transparent z-20 "
+          className="absolute top-0 left-0 w-full text-white px-5 py-4 bg-transparent z-20"
         >
           <div className="flex justify-between items-center w-full">
             {/* Logo (only shown on desktop) */}
@@ -106,16 +110,13 @@ export default function ResponsiveNavbar() {
               >
                 <div className={`hamburger-icon ${isMenuOpen ? 'open' : ''}`}>
                   <span
-                    className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''
-                      }`}
+                    className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''}`}
                   ></span>
                   <span
-                    className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''
-                      }`}
+                    className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}
                   ></span>
                   <span
-                    className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${isMenuOpen ? 'transform -rotate-45 -translate-y-2' : ''
-                      }`}
+                    className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${isMenuOpen ? 'transform -rotate-45 -translate-y-2' : ''}`}
                   ></span>
                 </div>
               </button>
@@ -246,8 +247,8 @@ export default function ResponsiveNavbar() {
                   </Link>
                 </li>
 
-                {/* Resources dropdown in mobile menu */}
-                <li className="text-center w-full">
+                {/* Resources Dropdown */}
+                <li className="text-center w-full" ref={dropdownRef}>
                   <button
                     className="flex items-center justify-center w-full py-2 hover:text-[#a8d080] transition-colors"
                     onClick={toggleDropdown}
@@ -256,12 +257,15 @@ export default function ResponsiveNavbar() {
                     <span className="ml-2">{isDropdownOpen ? '▴' : '▾'}</span>
                   </button>
                   {isDropdownOpen && (
-                    <ul className="mt-2 space-y-2 w-full">
+                    <ul className="mt-2 space-y-2 w-full text-white rounded">
                       <li className="text-center">
                         <Link
                           href="/recognition"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsDropdownOpen(false);
+                          }}
                         >
                           Recognition
                         </Link>
@@ -270,7 +274,10 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/projects"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsDropdownOpen(false);
+                          }}
                         >
                           Projects
                         </Link>
@@ -279,7 +286,10 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/gallery"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsDropdownOpen(false);
+                          }}
                         >
                           Gallery
                         </Link>
@@ -288,7 +298,10 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/garden-clubs"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsDropdownOpen(false);
+                          }}
                         >
                           Garden Clubs
                         </Link>
@@ -297,7 +310,10 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/member-hub"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleDropdownLinkClick}
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsDropdownOpen(false);
+                          }}
                         >
                           Member Hub
                         </Link>
@@ -324,7 +340,7 @@ export default function ResponsiveNavbar() {
                     CONTACT US
                   </Link>
                 </li>
-                
+
                 {/* Show account link for mobile when logged in */}
                 {!loading && user && (
                   <li className="text-center w-full">

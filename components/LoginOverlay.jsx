@@ -1,7 +1,13 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginOverlay({ isOpen, onClose }) {
+  const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const overlayRef = useRef(null);
 
   // Close overlay when clicking outside of it
@@ -34,6 +40,30 @@ export default function LoginOverlay({ isOpen, onClose }) {
     };
   }, [isOpen]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      const result = await login(email, password);
+      
+      if (!result.success) {
+        setError(result.message);
+      } else {
+        // Clear form and close overlay on successful login
+        setEmail('');
+        setPassword('');
+        onClose(); // Close the login overlay
+      }
+    } catch (err) {
+      setError('An unexpected error occurred');
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -57,14 +87,23 @@ export default function LoginOverlay({ isOpen, onClose }) {
         {/* Login form */}
         <h2 className="text-4xl font-bold text-center text-edge-green-dark mb-8 font-bakbak">Login</h2>
         
-        <form className="space-y-6">
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {error}
+          </div>
+        )}
+        
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-edge-green-dark text-xl font-semibold mb-2 font-bakbak">Email</label>
             <input 
               type="email" 
               id="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 border-2 border-edge-green-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-edge-green-primary font-zain"
               placeholder="Enter your email" 
+              required
             />
           </div>
           
@@ -73,16 +112,20 @@ export default function LoginOverlay({ isOpen, onClose }) {
             <input 
               type="password" 
               id="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 border-2 border-edge-green-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-edge-green-primary font-zain"
               placeholder="********" 
+              required
             />
           </div>
           
           <button 
             type="submit"
-            className="w-full bg-edge-green-dark text-white py-3 px-6 rounded-lg text-xl font-semibold hover:bg-opacity-90 transition-colors focus:outline-none focus:ring-2 focus:ring-edge-green-primary font-bakbak"
+            disabled={isLoading}
+            className="w-full bg-edge-green-dark text-white py-3 px-6 rounded-lg text-xl font-semibold hover:bg-opacity-90 transition-colors focus:outline-none focus:ring-2 focus:ring-edge-green-primary font-bakbak disabled:opacity-70"
           >
-            Log in
+            {isLoading ? 'Logging in...' : 'Log in'}
           </button>
         </form>
         

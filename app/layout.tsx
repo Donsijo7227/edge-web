@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+<<<<<<< Updated upstream
 import Navbar from "@/components/navBar";
 import Footer from "@/components/footer";
+=======
+import LayoutWrapper from "@/components/LayoutWrapper";
+import { AuthProvider } from '../context/AuthContext';
+
+>>>>>>> Stashed changes
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +32,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+<<<<<<< Updated upstream
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
         {children}
         <Footer/>
+=======
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <AuthProvider>
+        <LayoutWrapper>
+          {children}
+          </LayoutWrapper>
+          </AuthProvider>
+>>>>>>> Stashed changes
       </body>
     </html>
   );

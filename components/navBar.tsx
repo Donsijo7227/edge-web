@@ -3,15 +3,25 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { FaUserCircle } from 'react-icons/fa';
 import LoginOverlay from './LoginOverlay';
+<<<<<<< Updated upstream
  
+=======
+import Image from 'next/image';
+import { useAuth } from '@/context/AuthContext'; // Import the auth context
+import { useRouter } from 'next/navigation';
+
+>>>>>>> Stashed changes
 export default function ResponsiveNavbar() {
+  const { user, loading } = useAuth(); // Get auth state
+  const router = useRouter();
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0
   );
-  const dropdownRef = useRef(null); // Reference for dropdown menu for outside clicks
+  const dropdownRef = useRef(null);
 
   // Handle window resize
   useEffect(() => {
@@ -41,7 +51,6 @@ export default function ResponsiveNavbar() {
   // Toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    // Close dropdown when toggling menu
     if (!isMenuOpen) {
       setIsDropdownOpen(false);
     }
@@ -49,13 +58,19 @@ export default function ResponsiveNavbar() {
 
   // Toggle dropdown in mobile menu
   const toggleDropdown = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
+    e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // Toggle login overlay
-  const toggleLogin = () => {
-    setIsLoginOpen(!isLoginOpen);
+  // Handle profile icon click based on auth state
+  const handleProfileClick = () => {
+    if (user) {
+      // If user is logged in, redirect to account page
+      router.push('/account');
+    } else {
+      // If not logged in, show login overlay
+      setIsLoginOpen(true);
+    }
   };
 
   // Close login overlay
@@ -297,12 +312,176 @@ export default function ResponsiveNavbar() {
                 </Link>
               </li>
             </ul>
+<<<<<<< Updated upstream
+=======
+
+            {/* Profile Icon with conditional behavior */}
+            <div className="pr-4">
+              <button
+                onClick={handleProfileClick}
+                className="flex items-center focus:outline-none"
+                aria-label={user ? "Go to account" : "Open login"}
+              >
+                <FaUserCircle 
+                  className={`hover:text-[#a8d080] transition-colors cursor-pointer ${user ? 'text-[#a8d080]' : ''}`} 
+                  size={24} 
+                />
+                {!loading && user && (
+                  <span className="ml-2 hidden md:inline text-sm">
+                    {user.name.split(' ')[0]}
+                  </span>
+                )}
+              </button>
+            </div>
+>>>>>>> Stashed changes
           </div>
         )}
       </nav>
 
+<<<<<<< Updated upstream
       {/* Login Overlay */}
       <LoginOverlay isOpen={isLoginOpen} onClose={closeLogin} />
+=======
+          {/* Mobile Menu Sidebar */}
+          {isMenuOpen && (
+            <div className="fixed inset-0 bg-[#123800] flex flex-col items-center justify-start pt-24 px-6 z-20">
+              <ul className="flex flex-col items-center space-y-6 text-xl w-full">
+                <li className="text-center w-full">
+                  <Link
+                    href="/"
+                    className="block py-2 hover:text-[#a8d080] transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    HOME
+                  </Link>
+                </li>
+                <li className="text-center w-full">
+                  <Link
+                    href="/about"
+                    className="block py-2 hover:text-[#a8d080] transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    ABOUT US
+                  </Link>
+                </li>
+                <li className="text-center w-full">
+                  <Link
+                    href="/membership"
+                    className="block py-2 hover:text-[#a8d080] transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    MEMBERSHIP
+                  </Link>
+                </li>
+                <li className="text-center w-full">
+                  <Link
+                    href="/events"
+                    className="block py-2 hover:text-[#a8d080] transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    EVENTS
+                  </Link>
+                </li>
+
+                {/* Resources dropdown in mobile menu */}
+                <li className="text-center w-full">
+                  <button
+                    className="flex items-center justify-center w-full py-2 hover:text-[#a8d080] transition-colors"
+                    onClick={toggleDropdown}
+                  >
+                    RESOURCES
+                    <span className="ml-2">{isDropdownOpen ? '▴' : '▾'}</span>
+                  </button>
+                  {isDropdownOpen && (
+                    <ul className="mt-2 space-y-2 w-full">
+                      <li className="text-center">
+                        <Link
+                          href="/recognition"
+                          className="block py-2 hover:text-[#a8d080] transition-colors"
+                          onClick={handleDropdownLinkClick}
+                        >
+                          Recognition
+                        </Link>
+                      </li>
+                      <li className="text-center">
+                        <Link
+                          href="/projects"
+                          className="block py-2 hover:text-[#a8d080] transition-colors"
+                          onClick={handleDropdownLinkClick}
+                        >
+                          Projects
+                        </Link>
+                      </li>
+                      <li className="text-center">
+                        <Link
+                          href="/gallery"
+                          className="block py-2 hover:text-[#a8d080] transition-colors"
+                          onClick={handleDropdownLinkClick}
+                        >
+                          Gallery
+                        </Link>
+                      </li>
+                      <li className="text-center">
+                        <Link
+                          href="/garden-clubs"
+                          className="block py-2 hover:text-[#a8d080] transition-colors"
+                          onClick={handleDropdownLinkClick}
+                        >
+                          Garden Clubs
+                        </Link>
+                      </li>
+                      <li className="text-center">
+                        <Link
+                          href="/memberhub"
+                          className="block py-2 hover:text-[#a8d080] transition-colors"
+                          onClick={handleDropdownLinkClick}
+                        >
+                          Member Hub
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+
+                <li className="text-center w-full">
+                  <Link
+                    href="/bursary"
+                    className="block py-2 hover:text-[#a8d080] transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    BURSARY
+                  </Link>
+                </li>
+                <li className="text-center w-full">
+                  <Link
+                    href="/contact"
+                    className="block py-2 hover:text-[#a8d080] transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    CONTACT US
+                  </Link>
+                </li>
+                
+                {/* Show account link for mobile when logged in */}
+                {!loading && user && (
+                  <li className="text-center w-full">
+                    <Link
+                      href="/account"
+                      className="block py-2 text-[#a8d080] font-semibold transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      MY ACCOUNT
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+        </nav>
+
+        {/* Login Overlay - only shown when not logged in */}
+        {!user && <LoginOverlay isOpen={isLoginOpen} onClose={closeLogin} />}
+>>>>>>> Stashed changes
       </div>
     </>
   );

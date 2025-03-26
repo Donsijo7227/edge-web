@@ -84,6 +84,14 @@ export default function ResponsiveNavbar() {
     }
   };
 
+  // Close dropdown when any main nav link is clicked
+  const handleNavLinkClick = () => {
+    setIsDropdownOpen(false);
+    if (windowWidth <= 768) {
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
     <>
       <div className='global-nav'>
@@ -125,22 +133,22 @@ export default function ResponsiveNavbar() {
             {/* Desktop Navigation Links */}
             <ul className="hidden md:flex flex-grow justify-center items-center space-x-10">
               <li>
-                <Link href="/" className="hover:text-[#a8d080] transition-colors">
+                <Link href="/" className="hover:text-[#a8d080] transition-colors" onClick={handleNavLinkClick}>
                   HOME
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#a8d080] transition-colors">
+                <Link href="/about" className="hover:text-[#a8d080] transition-colors" onClick={handleNavLinkClick}>
                   ABOUT US
                 </Link>
               </li>
               <li>
-                <Link href="/membership" className="hover:text-[#a8d080] transition-colors">
+                <Link href="/membership" className="hover:text-[#a8d080] transition-colors" onClick={handleNavLinkClick}>
                   MEMBERSHIP
                 </Link>
               </li>
               <li>
-                <Link href="/events" className="hover:text-[#a8d080] transition-colors">
+                <Link href="/events" className="hover:text-[#a8d080] transition-colors" onClick={handleNavLinkClick}>
                   EVENTS
                 </Link>
               </li>
@@ -175,12 +183,12 @@ export default function ResponsiveNavbar() {
               </li>
 
               <li>
-                <Link href="/bursary" className="hover:text-[#a8d080] transition-colors">
+                <Link href="/bursary" className="hover:text-[#a8d080] transition-colors" onClick={handleNavLinkClick}>
                   BURSARY
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#a8d080] transition-colors">
+                <Link href="/contact" className="hover:text-[#a8d080] transition-colors" onClick={handleNavLinkClick}>
                   CONTACT US
                 </Link>
               </li>
@@ -214,7 +222,7 @@ export default function ResponsiveNavbar() {
                   <Link
                     href="/"
                     className="block py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavLinkClick}
                   >
                     HOME
                   </Link>
@@ -223,7 +231,7 @@ export default function ResponsiveNavbar() {
                   <Link
                     href="/about"
                     className="block py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavLinkClick}
                   >
                     ABOUT US
                   </Link>
@@ -232,7 +240,7 @@ export default function ResponsiveNavbar() {
                   <Link
                     href="/membership"
                     className="block py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavLinkClick}
                   >
                     MEMBERSHIP
                   </Link>
@@ -241,7 +249,7 @@ export default function ResponsiveNavbar() {
                   <Link
                     href="/events"
                     className="block py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavLinkClick}
                   >
                     EVENTS
                   </Link>
@@ -262,10 +270,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/recognition"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setIsDropdownOpen(false);
-                          }}
+                          onClick={handleDropdownLinkClick}
                         >
                           Recognition
                         </Link>
@@ -274,10 +279,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/projects"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setIsDropdownOpen(false);
-                          }}
+                          onClick={handleDropdownLinkClick}
                         >
                           Projects
                         </Link>
@@ -286,10 +288,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/gallery"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setIsDropdownOpen(false);
-                          }}
+                          onClick={handleDropdownLinkClick}
                         >
                           Gallery
                         </Link>
@@ -298,10 +297,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/garden-clubs"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setIsDropdownOpen(false);
-                          }}
+                          onClick={handleDropdownLinkClick}
                         >
                           Garden Clubs
                         </Link>
@@ -310,10 +306,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/member-hub"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setIsDropdownOpen(false);
-                          }}
+                          onClick={handleDropdownLinkClick}
                         >
                           Member Hub
                         </Link>
@@ -326,7 +319,7 @@ export default function ResponsiveNavbar() {
                   <Link
                     href="/bursary"
                     className="block py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavLinkClick}
                   >
                     BURSARY
                   </Link>
@@ -335,7 +328,7 @@ export default function ResponsiveNavbar() {
                   <Link
                     href="/contact"
                     className="block py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavLinkClick}
                   >
                     CONTACT US
                   </Link>
@@ -347,7 +340,7 @@ export default function ResponsiveNavbar() {
                     <Link
                       href="/account"
                       className="block py-2 text-[#a8d080] font-semibold transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={handleNavLinkClick}
                     >
                       MY ACCOUNT
                     </Link>

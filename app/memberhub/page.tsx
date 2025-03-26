@@ -1,3 +1,4 @@
+// app/member-hub/page.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -6,6 +7,8 @@ import Image from 'next/image';
 import { client } from '@/sanity/lib/client';
 import GalleryHero from '@/components/hero';
 import NextBreadcrumb from '@/components/NextBreadcrumb';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 // TypeScript interface for member resources
 interface MemberResource {
@@ -22,12 +25,21 @@ interface MemberResource {
 }
 
 export default function MemberHub() {
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
+  
   const [resources, setResources] = useState<MemberResource[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
+    // If auth is loaded and user is not logged in, redirect to home
+    if (!authLoading && !user) {
+      router.push('/');
+      return;
+    }
+
     const fetchResources = async () => {
       try {
         const query = groq`
@@ -55,8 +67,11 @@ export default function MemberHub() {
       }
     };
 
-    fetchResources();
-  }, []);
+    // Only fetch resources if the user is authenticated
+    if (user) {
+      fetchResources();
+    }
+  }, [user, authLoading, router]);
 
   // Explicitly preload the image using the global window.Image constructor
   useEffect(() => {
@@ -87,6 +102,30 @@ export default function MemberHub() {
     return resources.find(resource => resource.category === categoryId);
   };
 
+  // Show loading state while authentication is being checked
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-10 h-10 border-4 border-edge-green-dark rounded-full border-t-transparent animate-spin"></div>
+      </div>
+    );
+  }
+
+  // This check will happen after auth loading is complete
+  if (!user) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <p className="text-xl mb-4">Please log in to access the Member Hub.</p>
+        <button 
+          onClick={() => router.push('/')}
+          className="px-6 py-2 bg-edge-green-dark text-white rounded-md"
+        >
+          Return to Home
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       <GalleryHero title="Member Hub" backgroundImage="images/memberhub-herobanner.jpg" />
@@ -104,6 +143,19 @@ export default function MemberHub() {
       </div>
       
       <div className="container px-4 py-4 mx-auto">
+        {/* Account navigation */}
+        <div className="mb-6">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold text-edge-green-dark">Welcome, {user.name}!</h2>
+            <button
+              onClick={() => router.push('/account')}
+              className="px-4 py-2 bg-edge-green-dark text-white rounded-md hover:bg-opacity-90"
+            >
+              My Account
+            </button>
+          </div>
+        </div>
+
         {loading ? (
           <div className="flex items-center justify-center h-48">
             <div className="w-10 h-10 border-4 border-edge-green-dark rounded-full border-t-transparent animate-spin"></div>

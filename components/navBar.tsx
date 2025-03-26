@@ -4,16 +4,20 @@ import Link from 'next/link';
 import { FaUserCircle } from 'react-icons/fa';
 import LoginOverlay from './LoginOverlay';
 import Image from 'next/image';
+import { useAuth } from '@/context/AuthContext'; // Import the auth context
+import { useRouter } from 'next/navigation';
 
 export default function ResponsiveNavbar() {
+  const { user, loading } = useAuth(); // Get auth state
+  const router = useRouter();
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0
   );
-  const dropdownRef = useRef<HTMLLIElement | null>(null); // Added type to useRef
+  const dropdownRef = useRef(null);
 
   // Handle window resize
   useEffect(() => {
@@ -30,8 +34,8 @@ export default function ResponsiveNavbar() {
 
   // Handle outside clicks to close dropdown
   useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
     };
@@ -43,29 +47,26 @@ export default function ResponsiveNavbar() {
   // Toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    // Close dropdown when toggling menu
     if (!isMenuOpen) {
       setIsDropdownOpen(false);
-      setIsMobileDropdownOpen(false);
     }
   };
 
-  // Toggle dropdown in desktop menu
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent event bubbling
+  // Toggle dropdown in mobile menu
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // Toggle dropdown in mobile menu
-  const toggleMobileDropdown = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent event bubbling
-    e.preventDefault(); // Prevent default behavior
-    setIsMobileDropdownOpen(!isMobileDropdownOpen);
-  };
-
-  // Toggle login overlay
-  const toggleLogin = () => {
-    setIsLoginOpen(!isLoginOpen);
+  // Handle profile icon click based on auth state
+  const handleProfileClick = () => {
+    if (user) {
+      // If user is logged in, redirect to account page
+      router.push('/account');
+    } else {
+      // If not logged in, show login overlay
+      setIsLoginOpen(true);
+    }
   };
 
   // Close login overlay
@@ -76,12 +77,6 @@ export default function ResponsiveNavbar() {
   // Close dropdown when a dropdown link is clicked
   const handleDropdownLinkClick = () => {
     setIsDropdownOpen(false);
-    setIsMenuOpen(false);
-  };
-
-  // Close mobile dropdown when a link is clicked
-  const handleMobileDropdownLinkClick = () => {
-    setIsMobileDropdownOpen(false);
     setIsMenuOpen(false);
   };
 
@@ -190,14 +185,22 @@ export default function ResponsiveNavbar() {
               </li>
             </ul>
 
-            {/* Profile Icon (Right-aligned) - Updated to toggle login overlay */}
+            {/* Profile Icon with conditional behavior */}
             <div className="pr-4">
               <button
-                onClick={toggleLogin}
+                onClick={handleProfileClick}
                 className="flex items-center focus:outline-none"
-                aria-label="Open login"
+                aria-label={user ? "Go to account" : "Open login"}
               >
-                <FaUserCircle className="hover:text-[#a8d080] transition-colors cursor-pointer" size={24} />
+                <FaUserCircle 
+                  className={`hover:text-[#a8d080] transition-colors cursor-pointer ${user ? 'text-[#a8d080]' : ''}`} 
+                  size={24} 
+                />
+                {!loading && user && (
+                  <span className="ml-2 hidden md:inline text-sm">
+                    {user.name.split(' ')[0]}
+                  </span>
+                )}
               </button>
             </div>
           </div>
@@ -243,23 +246,22 @@ export default function ResponsiveNavbar() {
                   </Link>
                 </li>
 
-                {/* Resources dropdown in mobile menu - FIXED */}
+                {/* Resources dropdown in mobile menu */}
                 <li className="text-center w-full">
                   <button
                     className="flex items-center justify-center w-full py-2 hover:text-[#a8d080] transition-colors"
-                    onClick={toggleMobileDropdown}
-                    type="button"
+                    onClick={toggleDropdown}
                   >
                     RESOURCES
-                    <span className="ml-2">{isMobileDropdownOpen ? '▴' : '▾'}</span>
+                    <span className="ml-2">{isDropdownOpen ? '▴' : '▾'}</span>
                   </button>
-                  {isMobileDropdownOpen && (
+                  {isDropdownOpen && (
                     <ul className="mt-2 space-y-2 w-full">
                       <li className="text-center">
                         <Link
                           href="/recognition"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleMobileDropdownLinkClick}
+                          onClick={handleDropdownLinkClick}
                         >
                           Recognition
                         </Link>
@@ -268,7 +270,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/projects"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleMobileDropdownLinkClick}
+                          onClick={handleDropdownLinkClick}
                         >
                           Projects
                         </Link>
@@ -277,7 +279,7 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/gallery"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleMobileDropdownLinkClick}
+                          onClick={handleDropdownLinkClick}
                         >
                           Gallery
                         </Link>
@@ -286,16 +288,16 @@ export default function ResponsiveNavbar() {
                         <Link
                           href="/garden-clubs"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleMobileDropdownLinkClick}
+                          onClick={handleDropdownLinkClick}
                         >
                           Garden Clubs
                         </Link>
                       </li>
                       <li className="text-center">
                         <Link
-                          href="/memberhub"
+                          href="/member-hub"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
-                          onClick={handleMobileDropdownLinkClick}
+                          onClick={handleDropdownLinkClick}
                         >
                           Member Hub
                         </Link>
@@ -322,13 +324,26 @@ export default function ResponsiveNavbar() {
                     CONTACT US
                   </Link>
                 </li>
+                
+                {/* Show account link for mobile when logged in */}
+                {!loading && user && (
+                  <li className="text-center w-full">
+                    <Link
+                      href="/account"
+                      className="block py-2 text-[#a8d080] font-semibold transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      MY ACCOUNT
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           )}
         </nav>
 
-        {/* Login Overlay */}
-        <LoginOverlay isOpen={isLoginOpen} onClose={closeLogin} />
+        {/* Login Overlay - only shown when not logged in */}
+        {!user && <LoginOverlay isOpen={isLoginOpen} onClose={closeLogin} />}
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+
 import { FiHome, FiFile, FiChevronDown, FiChevronRight } from "react-icons/fi";
 import { LuUsers } from "react-icons/lu";
 import { BiCube } from "react-icons/bi";
@@ -5,6 +6,7 @@ import { CgFileDocument } from "react-icons/cg";
 import { FaRegUser } from "react-icons/fa";
 import Link from "next/link";
 import { useState } from "react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -85,6 +87,7 @@ function AppSidebar() {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
 
   return (
+
     <>
       <Sidebar collapsible="icon">
         <SidebarContent className="bg-edge-green-secondary">

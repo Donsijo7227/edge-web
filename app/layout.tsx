@@ -5,7 +5,8 @@ import "./globals.css";
 import { AuthProvider } from '../context/AuthContext';
 import ResponsiveNavbar from "@/components/navBar";
 import Footer from "@/components/footer";
-import Scroll from "@/components/scroll"; 
+import Scroll from "@/components/scroll";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
         <AuthProvider>
-          <ResponsiveNavbar />
-          {children}
-          <Scroll /> 
-          <Footer />
+          <LayoutWrapper>
+            {children}
+            <Scroll />
+          </LayoutWrapper>
         </AuthProvider>
       </body>
     </html>

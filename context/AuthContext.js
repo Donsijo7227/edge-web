@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
         // Redirect based on role
         if (data.user.role === 'admin') {
-          router.push('/admin/dashboard');
+          router.push('/dashboard');
         } else {
           router.push('/account');
         }

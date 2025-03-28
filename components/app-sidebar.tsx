@@ -58,12 +58,7 @@ const DashboardOptions: NavOption[] = [
   {
     title: "Documentations",
     icon: <CgFileDocument size={20} />,
-    link: "#",
-  },
-  {
-    title: "Profile",
-    icon: <FaRegUser size={20} />,
-    link: "#",
+    link: '#'
   },
 ];
 

@@ -22,6 +22,24 @@ export default function Page() {
 
   return (
     <div className="h-screen overflow-hidden flex">
+      {/* styling to hide the nav & footer */}
+      <style jsx global>{`
+        header,
+        nav,
+        footer {
+          display: none !important;
+        }
+
+        .navbar,
+        .site-footer {
+          display: none !important;
+        }
+
+        .studio-container {
+          width: 100%;
+          height: 100%;
+        }
+      `}</style>
       {/* Sidebar section */}
       <div className="flex-shrink-0">
         <SidebarProvider>
@@ -34,12 +52,12 @@ export default function Page() {
 
       {/* Text content next to sidebar */}
       <div className="flex-grow p-4">
-        <h1 className="heading-1 text-edge-green dark mb-4">Documentations</h1>
+        <h1 className="heading-1 text-edge-green-dark mb-4">Documentations</h1>
 
         {/* Dropdown Section 1 */}
         <div className="mb-4">
           <h2
-            className="heading-2 text-edge-green dark mb-4 mt-10 cursor-pointer flex items-center"
+            className="heading-2 text-edge-green-dark mb-4 mt-10 cursor-pointer flex items-center"
             onClick={toggleEventPage} // Use the toggleEventPage function to handle the click
           >
             How to update Event page
@@ -62,7 +80,7 @@ export default function Page() {
         {/* Dropdown Section 2 */}
         <div className="pt-4 mb-4">
           <h2
-            className="heading-2 text-edge-green dark mb-4 cursor-pointer flex items-center"
+            className="heading-2 text-edge-green-dark mb-4 cursor-pointer flex items-center"
             onClick={toggleRecognitionPage} // Use the toggleRecognitionPage function to handle the click
           >
             How to update Recognition page
@@ -85,6 +103,7 @@ export default function Page() {
     </div>
   );
 }
+
 
 
 

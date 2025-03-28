@@ -35,32 +35,32 @@ type NavOption = {
 
 const DashboardOptions: NavOption[] = [
   {
-    title: 'Live site',
+    title: "Live site",
     icon: <FiHome size={20} />,
-    link: '/'
+    link: "/",
   },
   {
-    title: 'Users',
+    title: "Users",
     icon: <LuUsers size={20} />,
-    link: '#',
-    isDropdown: true
+    link: "#",
+    isDropdown: true,
   },
   {
-    title: 'Bursary',
+    title: "Bursary",
     icon: <FiFile size={20} />,
+    link: "#",
+  },
+  {
+    title: "Content Management System",
+    icon: <BiCube size={20} />,
+    link: "/studio",
+  },
+  {
+    title: "Documentations",
+    icon: <CgFileDocument size={20} />,
     link: '#'
   },
-  {
-    title: 'Content Management System',
-    icon: <BiCube size={20} />,
-    link: '/studio'
-  },
-  {
-    title: 'Documentations',
-    icon: <CgFileDocument size={20} />,
-    link: '/documentation'
-  },
-]
+];
 
 const UserOptions: NavOption[] = [
   {
@@ -90,27 +90,34 @@ function AppSidebar() {
 
     <>
       <Sidebar collapsible="icon">
-        <SidebarContent className="bg-edge-green-secondary">
+        <SidebarContent className="bg-edge-green-dark">
           <SidebarGroup>
-            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Dashboard</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-xl font-bold text-edge-bg mb-2">Dashboard</SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu>
+              <SidebarMenu className="text-edge-bg">
                 {DashboardOptions.map((item) => {
                   // If this is our Users item, render the dropdown instead
                   if (item.isDropdown) {
                     return (
-                      <SidebarMenuItem key={item.title}>
-                        <Collapsible open={isUsersOpen} onOpenChange={setIsUsersOpen}>
+                      <SidebarMenuItem
+                        key={item.title}
+                        className="text-edge-bg"
+                      >
+                        <Collapsible
+                          open={isUsersOpen}
+                          onOpenChange={setIsUsersOpen}
+                        >
                           <CollapsibleTrigger asChild>
                             <SidebarMenuButton className="flex items-center justify-between w-full">
                               <div className="flex items-center gap-3">
                                 {item.icon}
                                 <span className="text-lg">{item.title}</span>
                               </div>
-                              {isUsersOpen ? 
-                                <FiChevronDown className="ml-2" size={16} /> : 
+                              {isUsersOpen ? (
+                                <FiChevronDown className="ml-2" size={16} />
+                              ) : (
                                 <FiChevronRight className="ml-2" size={16} />
-                              }
+                              )}
                             </SidebarMenuButton>
                           </CollapsibleTrigger>
                           <CollapsibleContent>
@@ -118,7 +125,10 @@ function AppSidebar() {
                               {UserOptions.map((subItem) => (
                                 <SidebarMenuSubItem key={subItem.title}>
                                   <SidebarMenuSubButton asChild>
-                                    <Link href={subItem.link} className="flex items-center gap-3">
+                                    <Link
+                                      href={subItem.link}
+                                      className="flex items-center gap-3"
+                                    >
                                       {subItem.icon}
                                       <span>{subItem.title}</span>
                                     </Link>
@@ -147,7 +157,7 @@ function AppSidebar() {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
-          <SidebarGroup className="mt-3">
+          {/* <SidebarGroup className="text-edge-bg">
             <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Admin</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
@@ -163,11 +173,13 @@ function AppSidebar() {
                 ))}
               </SidebarMenu>
             </SidebarGroupContent>
-          </SidebarGroup>
+          </SidebarGroup> */}
         </SidebarContent>
       </Sidebar>
     </>
   );
 }
+
+
 
 export default AppSidebar;

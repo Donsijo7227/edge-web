@@ -208,12 +208,21 @@ export default function AccountPage() {
     </div>
     
     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-      <Link 
-        href="/memberhub" 
-        className="px-6 py-3 bg-edge-green-primary text-white rounded-md hover:bg-opacity-90 text-center"
-      >
-        Go to Member Hub
-      </Link>
+      {user.role === 'admin' ? (
+        <Link 
+          href="/dashboard" 
+          className="px-6 py-3 bg-edge-green-primary text-white rounded-md hover:bg-opacity-90 text-center"
+        >
+          Go to Dashboard
+        </Link>
+      ) : (
+        <Link 
+          href="/memberhub" 
+          className="px-6 py-3 bg-edge-green-primary text-white rounded-md hover:bg-opacity-90 text-center"
+        >
+          Go to Member Hub
+        </Link>
+      )}
       
       <button
         onClick={logout}
@@ -221,7 +230,7 @@ export default function AccountPage() {
       >
         Logout
       </button>
-    </div>
+  </div>
   </div>
 </div>
   );

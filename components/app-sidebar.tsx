@@ -58,7 +58,7 @@ const DashboardOptions: NavOption[] = [
   {
     title: "Documentations",
     icon: <CgFileDocument size={20} />,
-    link: '#'
+    link: '/documentation',
   },
 ];
 

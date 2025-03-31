@@ -87,14 +87,15 @@ function AppSidebar() {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
 
   return (
-
     <>
       <Sidebar collapsible="icon">
         <SidebarContent className="bg-edge-green-dark">
           <SidebarGroup>
-            <SidebarGroupLabel className="text-xl font-bold text-edge-bg mb-2">Dashboard</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-[30px] font-bold text-edge-bg mt-4 mb-4">
+              Dashboard
+            </SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu className="text-edge-bg">
+              <SidebarMenu className="text-edge-bg ]">
                 {DashboardOptions.map((item) => {
                   // If this is our Users item, render the dropdown instead
                   if (item.isDropdown) {
@@ -141,14 +142,17 @@ function AppSidebar() {
                       </SidebarMenuItem>
                     );
                   }
-                  
+
                   // Otherwise render a normal menu item
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
-                        <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
+                        <Link
+                          href={item.link}
+                          className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary"
+                        >
                           {item.icon}
-                          <span className="text-lg">{item.title}</span>
+                          <span className="text-[20px]">{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -179,6 +183,9 @@ function AppSidebar() {
     </>
   );
 }
+
+
+
 
 
 

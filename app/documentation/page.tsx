@@ -11,7 +11,7 @@ export default function Page() {
   const [isOverviewPageOpen, setIsOverviewPageOpen] = useState(false);
   const [isGalleryPageOpen, setIsGalleryPageOpen] = useState(false);
   const [isEventPageOpen, setIsEventPageOpen] = useState(false);
-  
+  const [isProjectPageOpen, setIsProjectPageOpen] = useState(false);
   const [isRecognitionPageOpen, setIsRecognitionPageOpen] = useState(false);
 
   // Toggle function for Preliminary dropdown
@@ -35,7 +35,9 @@ export default function Page() {
   };
 
   // Toggle function for the Project page dropdown
-
+  const toggleProjectPage = () => {
+    setIsProjectPageOpen(!isProjectPageOpen);
+  }
 
   // Toggle function for the Recognition page dropdown
   const toggleRecognitionPage = () => {
@@ -302,8 +304,28 @@ export default function Page() {
 
         {/* --------------------------------------------------------------------------------------------------------- */}
         {/* Dropdown Project */}
-        
+        <div className="mb-4">
+          <h2
+            className="heading-2 text-edge-green-dark mb-4 mt-10 cursor-pointer flex items-center"
+            onClick={toggleProjectPage}
+          >
+            How to update Project page
+            <span className="ml-2">
+              {isGalleryPageOpen ? (
+                <FiChevronDown className="ml-2" size={30} />
+              ) : (
+                <FiChevronRight className="ml-2" size={30} />
+              )}
+            </span>
+          </h2>
+          {isProjectPageOpen && (
+            <div>
+              <p className="body-text text-black mb-4">
 
+              </p>
+            </div>
+          )}
+        </div>
         {/* end of dropdown Project */}
         {/* --------------------------------------------------------------------------------------------------------- */}
 
@@ -335,6 +357,8 @@ export default function Page() {
     </div>
   );
 }
+
+
 
 
 

@@ -9,6 +9,7 @@ export default function Page() {
   // State to handle the visibility of the dropdowns
   const [isPreliminaryPageOpen, setIsPreliminaryPageOpen] = useState(false);
   const [isOverviewPageOpen, setIsOverviewPageOpen] = useState(false);
+  const [isGalleryPageOpen, setIsGalleryPageOpen] = useState(false);
   const [isEventPageOpen, setIsEventPageOpen] = useState(false);
   const [isRecognitionPageOpen, setIsRecognitionPageOpen] = useState(false);
 
@@ -20,6 +21,11 @@ export default function Page() {
   // Toggle function for Overview dropdown
   const toggleOverviewPage = () => {
     setIsOverviewPageOpen(!isOverviewPageOpen);
+  };
+
+  // Toggle function for the Gallery page dropdown
+  const toggleGalleryPage = () => {
+    setIsGalleryPageOpen(!isGalleryPageOpen);
   };
 
   // Toggle function for the Event page dropdown
@@ -115,7 +121,7 @@ export default function Page() {
                 Below is the overview of the admin panel and the different
                 sections:
               </p>
-              <div className="flex justify-center">
+              <div className="flex justify-align-left">
                 <img
                   src="/documentation/dashboard-demo.png"
                   alt="dashboard-demo"
@@ -155,8 +161,58 @@ export default function Page() {
         {/* end of dropdown Overview*/}
         {/* --------------------------------------------------------------------------------------------------------- */}
 
+
         {/* --------------------------------------------------------------------------------------------------------- */}
-        {/* Dropdown Section 1 */}
+        {/* Dropdown Gallery Page */}
+        <div className="mb-4">
+          <h2
+            className="heading-2 text-edge-green-dark mb-4 mt-10 cursor-pointer flex items-center"
+            onClick={toggleGalleryPage} // Use the toggleEventPage function to handle the click
+          >
+            How to update Gallery page
+            <span className="ml-2">
+              {isGalleryPageOpen ? (
+                <FiChevronDown className="ml-2" size={30} />
+              ) : (
+                <FiChevronRight className="ml-2" size={30} />
+              )}
+            </span>
+          </h2>
+          {isGalleryPageOpen && (
+            <div>
+              <p className="body-text text-black mb-4">
+                There are 2 parts when creating a new gallery page: 
+                <br />
+                1. Create a new gallery category
+                <br />
+                2. Create a new gallery photo
+                <br />
+                The gallery category MUST be created before adding new photos.
+              </p>
+              <div className="flex justify-align-left">
+                <img
+                  src="/documentation/studio-demo.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+              <div className="body-text text-black mb-4 pt-desktop-block">
+                <p>
+                  {" "}
+                  
+                </p>
+              </div>
+            </div>
+            
+          )}
+        </div>
+      
+        {/* End of dropdown Gallery Page */}
+        {/* --------------------------------------------------------------------------------------------------------- */}
+
+
+        {/* --------------------------------------------------------------------------------------------------------- */}
+        {/* Dropdown Event*/}
         <div className="mb-4">
           <h2
             className="heading-2 text-edge-green-dark mb-4 mt-10 cursor-pointer flex items-center"
@@ -172,14 +228,57 @@ export default function Page() {
             </span>
           </h2>
           {isEventPageOpen && (
-            <p className="body-text text-black mb-4">
-              Documentation text for Event page.
-            </p>
+            <div>
+              <p className="body-text text-black mb-4">
+                In order to edit the Event page, you need to navigate to CMS
+                from the left-hand sidebar.
+              </p>
+              <div className="flex justify-align-left">
+                <img
+                  src="/documentation/studio-demo.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+              <div className="body-text text-black mb-4 pt-desktop-block">
+                <p>
+                  {" "}
+                  Navigate to the Event folder on the left-hand side in the
+                  studio.
+                  <br />
+                  To add new event, click (+) sign to add and publish when
+                  ready.
+                </p>
+              </div>
+              <div className="flex justify-align-left">
+                <img
+                  src="/documentation/event-demo.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+              <div className="body-text text-black mb-4 pt-desktop-block">
+                <p>
+                  To edit a current event, click the event that needs updating,
+                  make changes on the page and publish when ready.
+                </p>
+              </div>
+              <div className="flex justify-align-left">
+                <img
+                  src="/documentation/event-demo-1.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+            </div>
           )}
         </div>
-        {/* end of dropdown section 1 */}
+        {/* end of dropdown Event*/}
         {/* --------------------------------------------------------------------------------------------------------- */}
+          
 
+
+        {/* --------------------------------------------------------------------------------------------------------- */}
         {/* Dropdown Section 2 */}
         <div className="pt-4 mb-4">
           <h2
@@ -202,8 +301,17 @@ export default function Page() {
           )}
         </div>
         {/* end of dropdown section 2 */}
-      </div>
+        {/* --------------------------------------------------------------------------------------------------------- */}
+        
+
+
+
+
     </div>
+  
+  </div>
   );
 }
+
+
 

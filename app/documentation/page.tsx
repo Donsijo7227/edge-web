@@ -11,6 +11,7 @@ export default function Page() {
   const [isOverviewPageOpen, setIsOverviewPageOpen] = useState(false);
   const [isGalleryPageOpen, setIsGalleryPageOpen] = useState(false);
   const [isEventPageOpen, setIsEventPageOpen] = useState(false);
+  
   const [isRecognitionPageOpen, setIsRecognitionPageOpen] = useState(false);
 
   // Toggle function for Preliminary dropdown
@@ -32,6 +33,9 @@ export default function Page() {
   const toggleEventPage = () => {
     setIsEventPageOpen(!isEventPageOpen);
   };
+
+  // Toggle function for the Project page dropdown
+
 
   // Toggle function for the Recognition page dropdown
   const toggleRecognitionPage = () => {
@@ -193,7 +197,7 @@ export default function Page() {
                 <br />
                 <em>
                   {" "}
-                  Note: to automatically create the slug, click "Genereta" in
+                  Note: to automatically create the slug, click "Generate" in
                   the Slug field.
                 </em>
               </p>
@@ -209,11 +213,13 @@ export default function Page() {
                   2. After creating the Gallery Category, navigate to "Gallery
                   Photo" from the left-hand sidebar.
                   <br />
-                  Click (+) sign to add a new Gallery photo, add in the information, you will find all of the categories available in the dropdown menu below the title. Choose one category.
+                  Click (+) sign to add a new Gallery photo, add in the
+                  information, you will find all of the categories available in
+                  the dropdown menu below the title. Choose one category.
                   <br />
                   Add images and publish when ready.
                 </p>
-                
+
                 <div className="flex justify-align-left">
                   <img
                     src="/documentation/gallery-demo-1.png"
@@ -295,7 +301,14 @@ export default function Page() {
         {/* --------------------------------------------------------------------------------------------------------- */}
 
         {/* --------------------------------------------------------------------------------------------------------- */}
-        {/* Dropdown Section 2 */}
+        {/* Dropdown Project */}
+        
+
+        {/* end of dropdown Project */}
+        {/* --------------------------------------------------------------------------------------------------------- */}
+
+        {/* --------------------------------------------------------------------------------------------------------- */}
+        {/* Dropdown Recognition */}
         <div className="pt-4 mb-4">
           <h2
             className="heading-2 text-edge-green-dark mb-4 cursor-pointer flex items-center"
@@ -316,12 +329,14 @@ export default function Page() {
             </p>
           )}
         </div>
-        {/* end of dropdown section 2 */}
+        {/* end of dropdown Recognition*/}
         {/* --------------------------------------------------------------------------------------------------------- */}
       </div>
     </div>
   );
 }
+
+
 
 
 

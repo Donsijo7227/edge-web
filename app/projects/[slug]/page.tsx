@@ -15,7 +15,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
   return (
     <>
-      <GalleryHero title="Projects" backgroundImage="/projects-banner.jpg" />
+      <GalleryHero title="Projects" backgroundImage="/images/project-banner.jpg" />
 
       {/* Breadcrumbs */}
       <div className="w-full px-5 pt-4">

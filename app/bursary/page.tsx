@@ -187,20 +187,10 @@ export default function Bursary() {
                 offering this scholarship as a testament to our commitment to
                 education, innovation, and personal growth. We believe that
                 every student deserves the opportunity to pursue their dreams
-                without financial barriers holding them back. This scholarship
-                is more than just financial aid; it is a symbol of
-                encouragement, recognizing the dedication, hard work, and
-                resilience that students demonstrate in their studies. At EDGE,
-                we understand the challenges that come with academic pursuits,
-                and we want to empower students by easing their burdens so they
-                can focus on learning, exploring new ideas, and achieving their
-                goals. By investing in students today, we are helping to shape
-                the leaders, innovators, and change-makers of tomorrow. We hope
+                without financial barriers holding them back. We hope
                 that this scholarship not only provides financial relief but
                 also serves as motivation, reminding students that their efforts
-                are seen, valued, and supported. Education is a powerful tool
-                that can transform lives, and we are honored to play a role in
-                this journey. EDGE remains committed to fostering a culture of
+                are seen, valued, and supported. EDGE remains committed to fostering a culture of
                 learning and excellence, and we look forward to seeing how our
                 scholarship recipients make a lasting impact in their fields and
                 communities.

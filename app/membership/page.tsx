@@ -81,9 +81,9 @@ export default function Membership() {
             {/* Introduction paragraphs */}
             <div className="container mx-auto px-4 py-6">
                 <div className="max-w-12xl">
-                    <p className="body-desktop body-mobile mb-4">
+                    {/* <p className="body-desktop body-mobile mb-4">
                         Be part of a passionate network of gardeners, nature lovers, and environmental advocates dedicated to making our world greener. As a member, you'll have the chance to expand your horticultural knowledge, get involved in hands-on gardening projects, and support initiatives that enhance our local landscapes.
-                    </p>
+                    </p> */}
                     <p className="body-desktop body-mobile">
                         Membership gives you access to exclusive workshops, expert-led talks, and special events centered around sustainable gardening, conservation, and community beautification. Whether you're looking to refine your gardening skills, connect with like-minded individuals, or contribute to environmental stewardship, our club provides the perfect space to learn and grow.
 
@@ -124,7 +124,7 @@ export default function Membership() {
                                     <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Learn & Grow</h3>
                                 </div>
                                 <p className=" body-desktop body-mobile">
-                                    Gain expert knowledge through workshops, lectures, and hands-on gardening experiences. Whether you're a beginner or seasoned gardener, there's always something new to explore.
+                                    Gain expert knowledge through workshops, lectures, and hands-on experiences. 
                                 </p>
                             </div>
                             
@@ -141,7 +141,7 @@ export default function Membership() {
                                     <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Build Connections</h3>
                                 </div>
                                 <p className="body-desktop body-mobile">
-                                    Join a supportive community of plant lovers, exchange ideas, and make lasting friendships through events and volunteer projects.
+                                    Join a supportive community of plant lovers, exchange ideas, and make lasting friendships.
                                 </p>
                             </div>
                             
@@ -158,7 +158,7 @@ export default function Membership() {
                                     <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Boost Well-Being</h3>
                                 </div>
                                 <p className="body-desktop body-mobile">
-                                    Gardening promotes relaxation, reduces stress, and connects you with nature, enhancing both mental and physical health.
+                                    Gardening promotes relaxation, reduces stress, and connects you with nature.
                                 </p>
                             </div>
                             
@@ -175,7 +175,7 @@ export default function Membership() {
                                     <h3 className="h2-desktop h2-mobile font-heading text-[#123800]">Inspiration</h3>
                                 </div>
                                 <p className="body-desktop body-mobile">
-                                    Be a role model by educating youth and the community on the importance of plants, biodiversity, and environmental care.
+                                    Be a role model by educating youth and the community on the importance of plants.
                                 </p>
                             </div>
                         </div>

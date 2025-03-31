@@ -6,7 +6,7 @@ import RecognitionGrid from '@/app/recognition/RecognitionGrid';
 export default function RecognitionPage() {
   return (
     <>
-      <GalleryHero title="Recognition" backgroundImage="/recognition-banner.jpg" />
+      <GalleryHero title="Recognition" backgroundImage="/images/recognition-banner.jpg" />
 
       <div className="container mx-auto px-4 py-4">
                 <NextBreadcrumb 

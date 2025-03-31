@@ -78,7 +78,7 @@ export default function Page() {
             className="heading-2 text-red-600 mb-4 mt-10 cursor-pointer flex items-center"
             onClick={togglePreliminaryPage} // Use the toggleEventPage function to handle the click
           >
-            Preliminary - Start here
+            Start here
             <span className="ml-2">
               {isPreliminaryPageOpen ? (
                 <FiChevronDown className="ml-2" size={30} />
@@ -92,8 +92,8 @@ export default function Page() {
               All admin users need to make sure you are using logging in with
               your admin account to be able to see the admin panel.
               <br />
-              If you are not able to see the admin panel, please contact your IT
-              team for more details at [Point of Contact].
+              If you are not able to see the admin panel, please contact your
+              website team for more information at CodeBrew@.....
             </p>
           )}
         </div>
@@ -161,7 +161,6 @@ export default function Page() {
         {/* end of dropdown Overview*/}
         {/* --------------------------------------------------------------------------------------------------------- */}
 
-
         {/* --------------------------------------------------------------------------------------------------------- */}
         {/* Dropdown Gallery Page */}
         <div className="mb-4">
@@ -181,35 +180,54 @@ export default function Page() {
           {isGalleryPageOpen && (
             <div>
               <p className="body-text text-black mb-4">
-                There are 2 parts when creating a new gallery page: 
-                <br />
-                1. Create a new gallery category
-                <br />
-                2. Create a new gallery photo
+                There are 2 parts when creating a new gallery page: Gallery
+                Category and Gallery Photo.
                 <br />
                 The gallery category MUST be created before adding new photos.
+                <br />
+                1. To create a new Galley Category, navigate to CMS from the
+                left-hand sidebar and choose "Gallery Category".
+                <br />
+                Click (+) sign to add a new category, add in the information,
+                thumbnail photo, and publish when ready.
+                <br />
+                <em>
+                  {" "}
+                  Note: to automatically create the slug, click "Genereta" in
+                  the Slug field.
+                </em>
               </p>
               <div className="flex justify-align-left">
                 <img
-                  src="/documentation/studio-demo.png"
+                  src="/documentation/gallery-demo.png"
                   alt="dashboard-demo"
                   className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
                 />
               </div>
               <div className="body-text text-black mb-4 pt-desktop-block">
                 <p>
-                  {" "}
-                  
+                  2. After creating the Gallery Category, navigate to "Gallery
+                  Photo" from the left-hand sidebar.
+                  <br />
+                  Click (+) sign to add a new Gallery photo, add in the information, you will find all of the categories available in the dropdown menu below the title. Choose one category.
+                  <br />
+                  Add images and publish when ready.
                 </p>
+                
+                <div className="flex justify-align-left">
+                  <img
+                    src="/documentation/gallery-demo-1.png"
+                    alt="dashboard-demo"
+                    className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                  />
+                </div>
               </div>
             </div>
-            
           )}
         </div>
-      
+
         {/* End of dropdown Gallery Page */}
         {/* --------------------------------------------------------------------------------------------------------- */}
-
 
         {/* --------------------------------------------------------------------------------------------------------- */}
         {/* Dropdown Event*/}
@@ -275,8 +293,6 @@ export default function Page() {
         </div>
         {/* end of dropdown Event*/}
         {/* --------------------------------------------------------------------------------------------------------- */}
-          
-
 
         {/* --------------------------------------------------------------------------------------------------------- */}
         {/* Dropdown Section 2 */}
@@ -302,16 +318,11 @@ export default function Page() {
         </div>
         {/* end of dropdown section 2 */}
         {/* --------------------------------------------------------------------------------------------------------- */}
-        
-
-
-
-
+      </div>
     </div>
-  
-  </div>
   );
 }
+
 
 
 

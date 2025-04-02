@@ -16,7 +16,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <GalleryHero title="Gallery" backgroundImage="/gallery-banner.jpg" />
+      <GalleryHero title="Gallery" backgroundImage="/images/gallery-banner.jpg" />
 
       {/* Breadcrumbs */}
       <div className="w-full px-5 pt-4">

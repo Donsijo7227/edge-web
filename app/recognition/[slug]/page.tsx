@@ -115,7 +115,7 @@ export default function RecognitionDetailPage({ params }: RecognitionDetailProps
 
   return (
     <>
-      <GalleryHero title="Recognition" backgroundImage="/recognition-banner.jpg" />
+      <GalleryHero title="Recognition" backgroundImage="/images/recognition-banner.jpg" />
 
       {/* Breadcrumbs */}
       <div className="w-full px-5 pt-4">

@@ -161,23 +161,6 @@ function AppSidebar() {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
-          {/* <SidebarGroup className="text-edge-bg">
-            <SidebarGroupLabel className="text-xl font-bold text-edge-text mb-2">Admin</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {PreferencesOptions.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link href={item.link} className="flex items-center gap-3 p-2 rounded-md hover:bg-edge-green-secondary">
-                        {item.icon}
-                        <span className="text-lg">{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup> */}
         </SidebarContent>
       </Sidebar>
     </>

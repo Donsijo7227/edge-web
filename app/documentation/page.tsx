@@ -45,25 +45,8 @@ export default function Page() {
   };
 
   return (
-    <div className="h-screen flex">
-      {/* styling to hide the nav & footer */}
-      <style jsx global>{`
-        header,
-        nav,
-        footer {
-          display: none !important;
-        }
+    <div className="h-screen overflow-hidden flex">
 
-        .navbar,
-        .site-footer {
-          display: none !important;
-        }
-
-        .studio-container {
-          width: 100%;
-          height: 100%;
-        }
-      `}</style>
       {/* Sidebar section */}
       <div className="flex-shrink-0">
         <SidebarProvider>

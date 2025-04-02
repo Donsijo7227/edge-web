@@ -51,7 +51,7 @@ const DashboardOptions: NavOption[] = [
     link: "#",
   },
   {
-    title: "Content Management System",
+    title: "Content Management",
     icon: <BiCube size={20} />,
     link: "/studio",
   },

@@ -3,19 +3,102 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Photo } from '@/types/gallery';
+import { client, urlFor } from '@/sanity/lib/client';
+import { useParams } from 'next/navigation';
+import LoadingSpinner from '../LoadingSpinner';
 
-const photos: Photo[] = [
-  { id: 1, url: "/individual-image-2.jpg", title: "Sample Photo 1" },
-  { id: 2, url: "/individual-image-3.jpg", title: "Sample Photo 2" },
-  { id: 3, url: "/api/placeholder/800/600", title: "Sample Photo 3" },
-  { id: 4, url: "/api/placeholder/800/600", title: "Sample Photo 4" },
-  { id: 5, url: "/api/placeholder/800/600", title: "Sample Photo 5" },
-  { id: 6, url: "/api/placeholder/800/600", title: "Sample Photo 6" }
-];
+interface CategoryGridProps {
+  slug?: string;
+}
 
-const CategoryGrid: React.FC = () => {
+const CategoryGrid: React.FC<CategoryGridProps> = ({ slug: propSlug }) => {
+  const params = useParams();
+  const slug = propSlug || (params?.slug as string);
+  
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [categoryTitle, setCategoryTitle] = useState<string>('');
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  useEffect(() => {
+    async function fetchPhotos() {
+      if (!slug) {
+        setError('No category specified');
+        setLoading(false);
+        return;
+      }
+    
+      try {
+        // First, fetch the category to get its title
+        const categoryData = await client.fetch(`
+          *[_type == "category" && slug.current == $slug][0] {
+            _id,
+            title
+          }
+        `, { slug });
+    
+        if (!categoryData) {
+          setError(`Category "${slug}" not found`);
+          setLoading(false);
+          return;
+        }
+    
+        setCategoryTitle(categoryData.title);
+        
+        // Then fetch all photos for this category
+        const photoData = await client.fetch(`
+          *[_type == "photo" && category._ref == $categoryId] {
+            _id,
+            category->{title},
+            images
+          }
+        `, { categoryId: categoryData._id });
+        
+        // Explicitly type the array to match the Photo interface
+        const formattedPhotos: Photo[] = [];
+        
+        photoData.forEach((item: any) => {
+          if (item.images && Array.isArray(item.images)) {
+            // Process each image in the array
+            item.images.forEach((img: any, index: number) => {
+              formattedPhotos.push({
+                id: `${item._id}-${index}`, // Create unique ID for each image
+                title: `${categoryData.title} Photo`,
+                url: urlFor(img).url()
+              });
+            });
+          } else if (item.image && Array.isArray(item.image)) {
+            // Support legacy field name if needed
+            item.image.forEach((img: any, index: number) => {
+              formattedPhotos.push({
+                id: `${item._id}-${index}`,
+                title: `${categoryData.title} Photo`,
+                url: urlFor(img).url()
+              });
+            });
+          } else if (item.image) {
+            // Single image case
+            formattedPhotos.push({
+              id: item._id,
+              title: `${categoryData.title} Photo`,
+              url: urlFor(item.image).url()
+            });
+          }
+        });
+        
+        setPhotos(formattedPhotos);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+        setError('Failed to load photos. Please try again later.');
+        setLoading(false);
+      }
+    }
+    
+    fetchPhotos();
+  }, [slug]);
 
   const handlePhotoClick = (photo: Photo) => {
     setSelectedPhoto(photo);
@@ -50,19 +133,45 @@ const CategoryGrid: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentIndex, selectedPhoto]);
 
+  if (loading) {
+    return (
+      <LoadingSpinner contentType="photos"/>      
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full px-5 py-8">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
+  if (photos.length === 0) {
+    return (
+      <div className="w-full px-5 py-8">
+        <h1 className="text-3xl font-bold mb-4">{categoryTitle || 'Category'}</h1>
+        <p>No photos found in this category. Please add some photos in the Sanity Studio.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div className="w-full px-5 py-8">
+      {categoryTitle && (
+        <h1 className="text-3xl font-bold mb-8">{categoryTitle}</h1>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {photos.map((photo) => (
           <div
             key={photo.id}
-            className="cursor-pointer hover:opacity-90 transition-opacity rounded-xl overflow-hidden"
+            className="cursor-pointer hover:opacity-90 transition-opacity rounded-lg overflow-hidden h-80"
             onClick={() => handlePhotoClick(photo)}
           >
             <img
               src={photo.url}
               alt={photo.title}
-              className="w-full h-64 object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
         ))}

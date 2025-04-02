@@ -73,7 +73,7 @@ const GalleryGrid: React.FC = () => {
 
   return (
     <div className="w-full px-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
         {categories.map((category) => (
           <div 
             key={category.id}
@@ -90,10 +90,10 @@ const GalleryGrid: React.FC = () => {
               />
               
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#a8d080] to-transparent opacity-90"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#123800] to-transparent opacity-90"></div>
               
               {/* Text Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-black">
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h2 className="text-2xl font-bold mb-2">{category.title}</h2>
                 <p className="text-sm">{category.description}</p>
               </div>

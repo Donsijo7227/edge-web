@@ -20,9 +20,7 @@ const Footer = () => {
                 height={199}
               />
             </div>
-            <p className="text-lg font-heading font-bold">
-              Elmvale and District Garden Enthusiast's
-            </p>
+            <p className="text-lg font-heading font-bold">Elmvale and District Garden Enthusiast's</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">

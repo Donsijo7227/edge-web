@@ -45,7 +45,7 @@ export default function Page() {
   };
 
   return (
-    <div className="h-screen overflow-hidden flex">
+    <div className="h-screen flex">
 
       {/* Sidebar section */}
       <div className="flex-shrink-0">

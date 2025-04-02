@@ -92,7 +92,7 @@ const ProjectGrid: React.FC = () => {
               />
               
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#a8d080] to-transparent opacity-90"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#123800] to-transparent opacity-90"></div>
               
               {/* Status Badge */}
               {project.status && (
@@ -102,7 +102,7 @@ const ProjectGrid: React.FC = () => {
               )}
               
               {/* Text Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-black">
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
                 <p className="text-sm">{project.summary || 'Click to learn more about this project'}</p>
               </div>

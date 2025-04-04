@@ -1,30 +1,47 @@
-// pages/api/users/index.js
-import { getAllUsers, createUser } from '../../../backend/controllers/userController';
-import { isAuthenticated, isAdmin } from '../../../backend/middleware/auth';
-import dbConnect from '../../../backend/config/db';
+// Update all your API route files to use this approach
 
-// Helper function to run middleware
-const runMiddleware = (req, res, fn) => {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-};
+// pages/api/users/index.js
+import { getAllUsers, createUser } from '@/backend/controllers/userController';
+import dbConnect from '@/backend/config/db';
+import { verifyToken } from '@/backend/utils/jwt';
 
 export default async function handler(req, res) {
   await dbConnect();
   
+  // Authentication check
+  const token = req.cookies?.auth_token;
+  if (!token) {
+    return res.status(401).json({ 
+      success: false, 
+      message: 'Not authenticated' 
+    });
+  }
+  
+  // Verify token
+  const decoded = verifyToken(token);
+  if (!decoded) {
+    return res.status(401).json({ 
+      success: false, 
+      message: 'Invalid token' 
+    });
+  }
+  
+  // Check if user is admin
+  if (decoded.role !== 'admin') {
+    return res.status(403).json({ 
+      success: false, 
+      message: 'Access denied. Admin role required.' 
+    });
+  }
+  
+  // Add user info to request
+  req.user = {
+    userId: decoded.userId,
+    role: decoded.role
+  };
+  
+  // Handle API routes
   try {
-    // Run authentication middleware
-    await runMiddleware(req, res, isAuthenticated);
-    
-    // For GET and POST, require admin role
-    await runMiddleware(req, res, isAdmin);
-    
     if (req.method === 'GET') {
       return getAllUsers(req, res);
     } else if (req.method === 'POST') {
@@ -36,9 +53,10 @@ export default async function handler(req, res) {
       message: 'Method not allowed' 
     });
   } catch (error) {
-    return res.status(401).json({
+    console.error('API route error:', error);
+    return res.status(500).json({
       success: false,
-      message: 'Authentication failed'
+      message: 'Server Error: ' + error.message
     });
   }
 }

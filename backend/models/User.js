@@ -37,6 +37,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  membershipExpires: {
+    type: Date,
+    default: () => {
+      // Default to one year from now
+      const date = new Date();
+      date.setFullYear(date.getFullYear() + 1);
+      return date;
+    }
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -64,5 +73,14 @@ UserSchema.pre('save', async function (next) {
 UserSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
+// Virtual property to determine if membership is active
+UserSchema.virtual('isActive').get(function() {
+  return new Date() < this.membershipExpires;
+});
+
+// Ensure virtuals are included when converting to JSON
+UserSchema.set('toJSON', { virtuals: true });
+UserSchema.set('toObject', { virtuals: true });
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

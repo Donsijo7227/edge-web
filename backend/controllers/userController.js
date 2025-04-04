@@ -14,20 +14,35 @@ const sendCredentialEmail = async (email, password, name) => {
       }
     });
 
-    // Email options
+    // Email options with improved template
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"EDGE Gardening Club" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Your E.D.G.E Membership Account',
+      subject: 'Your EDGE Membership Information',
       html: `
-        <h2>Welcome to Elmvale District Garden Enthusiasts (E.D.G.E)!</h2>
-        <p>Hello ${name},</p>
-        <p>Your membership account has been created. Here are your login credentials:</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Password:</strong> ${password}</p>
-        <p>Please login to access member resources at our website.</p>
-        <p>We recommend changing your password after your first login.</p>
-        <p>Thank you for joining E.D.G.E!</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 5px;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="color: #2e7d32;">Welcome to Elmvale District Garden Enthusiasts!</h2>
+          </div>
+          
+          <p>Hello ${name},</p>
+          
+          <p>Thank you for joining the Elmvale District Garden Enthusiasts (EDGE) community. Your membership has been processed, and we're excited to have you with us!</p>
+          
+          <p>You can now access member resources on our website using the following information:</p>
+          
+          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 4px; margin: 15px 0;">
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Temporary Password:</strong> ${password}</p>
+          </div>
+          
+          <p>For security reasons, we recommend changing your password after your first login.</p>
+          
+          <p>If you have any questions or need assistance, please don't hesitate to contact us.</p>
+          
+          <p>Happy gardening!</p>
+          <p>The EDGE Team</p>
+        </div>
       `
     };
 
@@ -63,7 +78,7 @@ export const getAllUsers = async (req, res) => {
 // Create new user (admin only)
 export const createUser = async (req, res) => {
   try {
-    const { name, email, password, role, phoneNumber, address } = req.body;
+    const { name, email, password, role, phoneNumber, address, membershipExpires } = req.body;
 
     // Check if user already exists
     const userExists = await User.findOne({ email });
@@ -82,7 +97,8 @@ export const createUser = async (req, res) => {
       password, // Will be hashed by the pre-save middleware
       role: role || 'member',
       phoneNumber,
-      address
+      address,
+      membershipExpires: membershipExpires || undefined // Use default if not provided
     });
 
     // Send credentials email to the new user
@@ -96,7 +112,9 @@ export const createUser = async (req, res) => {
         email: user.email,
         role: user.role,
         phoneNumber: user.phoneNumber,
-        address: user.address
+        address: user.address,
+        membershipExpires: user.membershipExpires,
+        isActive: user.isActive
       },
       emailSent
     });
@@ -112,7 +130,18 @@ export const createUser = async (req, res) => {
 // Get user by ID
 export const getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.query.id).select('-password');
+    // Debug info
+    console.log('getUserById - req.query:', req.query);
+    
+    const userId = req.query.id;
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: 'User ID is required'
+      });
+    }
+    
+    const user = await User.findById(userId).select('-password');
     
     if (!user) {
       return res.status(404).json({
@@ -137,7 +166,7 @@ export const getUserById = async (req, res) => {
 // Update user
 export const updateUser = async (req, res) => {
   try {
-    const { name, email, role, phoneNumber, address } = req.body;
+    const { name, email, role, phoneNumber, address, membershipExpires } = req.body;
     const userId = req.query.id;
 
     // Find user and update
@@ -149,6 +178,7 @@ export const updateUser = async (req, res) => {
         role,
         phoneNumber,
         address,
+        membershipExpires,
         updatedAt: Date.now()
       },
       { new: true, runValidators: true }

@@ -2,10 +2,9 @@
 import NextBreadcrumb from '@/components/NextBreadcrumb'
 import Hero from '@/components/hero'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function About() {
-
   return (
     <>
       {/* Hero Component */}
@@ -49,14 +48,16 @@ export default function About() {
       <div className="container mx-auto px-4 py-6">
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Mission Statement</h1>
         <div className='flex flex-col gap-4 md:flex-row items-center md:gap-8'>
-          <Image
-            src="/images/mission-statement-image.jpg"
-            alt="Plant in pot"
-            width={500}
-            height={500}
-            className="rounded-3xl mx-auto sm:mx-0 md:flex-1 h-full w-full md:m-auto"
-          />
-          <p className="body-desktop git body-mobile mb-4 md:flex-1">
+          <div className="w-full md:w-1/2">
+            <Image
+              src="/images/mission-statement-image.jpg"
+              alt="Plant in pot"
+              width={500}
+              height={500}
+              className="rounded-3xl mx-auto w-full h-auto object-contain"
+            />
+          </div>
+          <p className="body-desktop body-mobile mb-4 md:w-1/2">
             We are a non-profit organization that educates and promotes all branches of horticulture. Encourage planting trees, shrubs and flowers in our communities. Promote protection of the environment through practice, lectures and public education. 
           </p>
         </div>
@@ -71,14 +72,29 @@ type CardProps = {
 }
 
 const GreenCard = ({ desc, year }: CardProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Set initial state
+    setIsMobile(window.innerWidth < 450);
+    
+    // Update state on window resize
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 450);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="text-lg mb-4 border-2 border-[#123800] md:flex md:gap-4 p-4 rounded-xl">
       <div className='flex items-center gap-4'>
         <Image
           src="/images/little-tree-gree.png"
           alt="Plant in pot"
-          width={window.outerWidth < 450 ? 60 : 100}
-          height={160}
+          width={isMobile ? 60 : 100}
+          height={isMobile ? 100 : 160}
           className="rounded-lg mx-auto sm:mx-0 md:m-auto"
         />
         <h1 className='md:hidden block flex-1 text-[#123800]'>{year}</h1>
@@ -94,14 +110,29 @@ const GreenCard = ({ desc, year }: CardProps) => {
 }
 
 const WhiteCard = ({ desc, year }: CardProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Set initial state
+    setIsMobile(window.innerWidth < 450);
+    
+    // Update state on window resize
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 450);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="text-lg mb-4 bg-[#123800] md:flex md:gap-4 p-4 rounded-xl">
       <div className='flex items-center gap-4'>
         <Image
           src="/images/little-tree-white.png"
           alt="Plant in pot"
-          width={window.outerWidth < 450 ? 60 : 100}
-          height={160}
+          width={isMobile ? 60 : 100}
+          height={isMobile ? 100 : 160}
           className="rounded-lg mx-auto sm:mx-0 md:m-auto"
         />
         <h1 className='md:hidden block flex-1 text-white'>{year}</h1>

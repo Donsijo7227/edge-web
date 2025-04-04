@@ -32,28 +32,35 @@ export default defineType({
       },
       validation: Rule => Rule.required()
     }),
+
     defineField({
-      name: 'recognizedFor',
-      title: 'Recognized For',
-      type: 'string',
-      validation: Rule => Rule.required()
+      name: 'memberSince',
+      title: 'Member Since',
+      type: 'date',
+      description: 'When they joined the club',
     }),
     defineField({
-      name: 'awardDate',
-      title: 'Award Date',
-      type: 'date',
+      name: 'term',
+      title: 'Term of Service',
+      type: 'string',
+      description: 'e.g., "2023-2025" or "Current"',
     }),
     defineField({
       name: 'category',
-      title: 'Award Category',
+      title: 'Role/Position',
       type: 'string',
       options: {
         list: [
-          {title: 'Community Service', value: 'community'},
-          {title: 'Gardening Excellence', value: 'gardening'},
-          {title: 'Environmental Stewardship', value: 'environmental'},
-          {title: 'Innovation', value: 'innovation'},
-          {title: 'Lifetime Achievement', value: 'lifetime'}
+          {title: 'President', value: 'president'},
+          {title: 'Vice President', value: 'vice-president'},
+          {title: 'Secretary', value: 'secretary'},
+          {title: 'Treasurer', value: 'treasurer'},
+          {title: 'Events Coordinator', value: 'events-coordinator'},
+          {title: 'Membership Chair', value: 'membership-chair'},
+          {title: 'Education Director', value: 'education-director'},
+          {title: 'Garden Manager', value: 'garden-manager'},
+          {title: 'Plant Exchange Coordinator', value: 'plant-exchange'},
+          {title: 'Newsletter Editor', value: 'newsletter-editor'}
         ]
       }
     }),
@@ -93,17 +100,18 @@ export default defineType({
   preview: {
     select: {
       title: 'name',
-      subtitle: 'recognizedFor',
       media: 'mainImage',
-      date: 'awardDate'
+      role: 'category',
+      term: 'term'
     },
     prepare(selection) {
-      const { title, subtitle, media, date } = selection
-      const formattedDate = date ? new Date(date).toLocaleDateString() : 'No date'
+      const { title, media, role, term } = selection
+      const displayTerm = term || ''
+      const displayRole = role || 'Member'
       
       return {
         title,
-        subtitle: `${subtitle} (${formattedDate})`,
+        subtitle: `${displayRole} ${displayTerm ? `(${displayTerm})` : ''}`,
         media
       }
     }

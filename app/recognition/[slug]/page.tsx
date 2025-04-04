@@ -8,6 +8,8 @@ import { groq } from 'next-sanity';
 import GalleryHero from '@/components/hero';
 import NextBreadcrumb from '@/components/NextBreadcrumb';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { use } from 'react';
 
 interface RecognitionDetailProps {
   params: {
@@ -18,11 +20,11 @@ interface RecognitionDetailProps {
 interface RecipientDetail {
   _id: string;
   name: string;
-  recognizedFor: string;
   mainImage: any;
   description: string;
   details: any;
-  awardDate: string;
+  memberSince: string;
+  term: string;
   category: string;
   testimonials: Array<{
     quote: string;
@@ -59,7 +61,10 @@ export default function RecognitionDetailPage({ params }: RecognitionDetailProps
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   
-  const { slug } = params;
+  // Use pathname to get the slug from the URL instead of params
+  const pathname = usePathname();
+  const slug = pathname ? pathname.split('/').pop() : '';
+  
 
   useEffect(() => {
     const fetchRecipient = async () => {
@@ -68,11 +73,11 @@ export default function RecognitionDetailPage({ params }: RecognitionDetailProps
           *[_type == "recognition" && slug.current == $slug][0] {
             _id,
             name,
-            recognizedFor,
             mainImage,
             description,
             details,
-            awardDate,
+            memberSince,
+            term,
             category,
             testimonials
           }
@@ -164,12 +169,14 @@ export default function RecognitionDetailPage({ params }: RecognitionDetailProps
                 <span className="inline-block px-3 py-1 mb-4 text-white rounded-md bg-edge-green-dark font-zain">
                   {recipient.category || "Recognition"}
                 </span>
-                <p className="font-zain text-edge-text">
-                  <strong>Recognized For:</strong> {recipient.recognizedFor}
-                </p>
-                {recipient.awardDate && (
+                {recipient.term && (
                   <p className="font-zain text-edge-text">
-                    <strong>Date:</strong> {formatDate(recipient.awardDate)}
+                    <strong>Term of Service:</strong> {recipient.term}
+                  </p>
+                )}
+                {recipient.memberSince && (
+                  <p className="font-zain text-edge-text">
+                    <strong>Member Since:</strong> {formatDate(recipient.memberSince)}
                   </p>
                 )}
               </div>

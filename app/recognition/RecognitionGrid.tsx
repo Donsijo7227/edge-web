@@ -11,8 +11,8 @@ import { client, urlFor } from '@/sanity/lib/client';
 interface RecognitionRecipient {
   _id: string;
   name: string;
-  recognizedFor: string;
   mainImage: any;
+  category: string;
   slug: {
     current: string;
   };
@@ -42,7 +42,7 @@ const RecognitionCard = ({ recipient }: { recipient: RecognitionRecipient }) => 
             )}
             <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
               <h3 className="font-bakbak text-h3-mobile md:text-h3 text-white">{recipient.name}</h3>
-              <p className="font-zain text-white">Recognized for {recipient.recognizedFor}</p>
+              <p className="font-zain text-white">{recipient.category || 'Member'}</p>
             </div>
           </div>
         </Link>
@@ -110,7 +110,7 @@ export default function RecognitionGrid() {
           *[_type == "recognition"] | order(name asc) {
             _id,
             name,
-            recognizedFor,
+            category,
             mainImage,
             slug
           }

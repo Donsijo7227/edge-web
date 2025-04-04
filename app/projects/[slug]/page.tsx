@@ -20,14 +20,14 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
       {/* Breadcrumbs */}
       <div className="w-full px-5 pt-4">
         <div className="flex items-center text-gray-600 flex-wrap">
-          <NextBreadcrumb
-            homeElement={<span className="text-green-700 hover:underline">Home</span>}
-            separator={<span className="mx-1 text-gray-500"> &gt; </span>}
-            activeClasses="text-gray-800"
+        <NextBreadcrumb
+            homeElement={<span className="text-edge-green-dark hover:underline">Home</span>}
+            separator={<span className="mx-1 text-edge-text"> &gt; </span>}
+            activeClasses="text-edge-text"
             containerClasses="flex items-center flex-wrap"
-            listClasses="text-green-700 hover:underline"
+            listClasses="text-edge-green-dark hover:underline font-zain"
             capitalizeLinks
-          />
+        />
         </div>
       </div>
       

@@ -92,7 +92,7 @@ export default function Scroll() {
         </svg>
         
         {/* Button content */}
-        <div className="absolute inset-0 flex items-center justify-center rounded-full bg-edge-green-dark text-white hover:bg-edge-green-primary hover:text-edge-green-dark transition-all duration-300" style={{ width: 'calc(100% - 6px)', height: 'calc(100% - 6px)', margin: '3px' }}>
+        <div className="absolute inset-0 flex items-center justify-center rounded-full bg-edge-green-primary text-edge-green-dark hover:bg-edge-green-dark hover:text-white transition-all duration-300" style={{ width: 'calc(100% - 6px)', height: 'calc(100% - 6px)', margin: '3px' }}>
           <ArrowUp size={20} />
         </div>
       </div>

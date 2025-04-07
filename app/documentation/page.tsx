@@ -46,7 +46,6 @@ export default function Page() {
 
   return (
     <div className="h-screen flex">
-
       {/* Sidebar section */}
       <div className="flex-shrink-0">
         <SidebarProvider>
@@ -294,7 +293,7 @@ export default function Page() {
           >
             How to update Project page
             <span className="ml-2">
-              {isGalleryPageOpen ? (
+              {isProjectPageOpen ? (
                 <FiChevronDown className="ml-2" size={30} />
               ) : (
                 <FiChevronRight className="ml-2" size={30} />
@@ -304,8 +303,16 @@ export default function Page() {
           {isProjectPageOpen && (
             <div>
               <p className="body-text text-black mb-4">
-
+                In order to edit the Project page, navigate to CMS
+                from the left-hand sidebar. Then, click "Project" from the studio.
               </p>
+              <div className="flex justify-align-left">
+                <img
+                  src="/documentation/project-demo.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
             </div>
           )}
         </div>
@@ -340,6 +347,7 @@ export default function Page() {
     </div>
   );
 }
+
 
 
 

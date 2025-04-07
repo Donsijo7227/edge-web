@@ -34,44 +34,41 @@ export default function MemberHub() {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    // If auth is loaded and user is not logged in, redirect to home
-    if (!authLoading && !user) {
-      router.push('/');
-      return;
-    }
-
-    const fetchResources = async () => {
-      try {
-        const query = groq`
-          *[_type == "memberResource"] | order(orderRank asc) {
-            _id,
-            title,
-            resourceFile {
-              asset-> {
-                _ref,
-                url
-              }
-            },
-            category,
-            orderRank
-          }
-        `;
-        
-        const data = await client.fetch(query);
-        setResources(data);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch member resources");
-        setLoading(false);
-        console.error("Error fetching data from Sanity:", err);
-      }
-    };
-
     // Only fetch resources if the user is authenticated
     if (user) {
+      const fetchResources = async () => {
+        try {
+          const query = groq`
+            *[_type == "memberResource"] | order(orderRank asc) {
+              _id,
+              title,
+              resourceFile {
+                asset-> {
+                  _ref,
+                  url
+                }
+              },
+              category,
+              orderRank
+            }
+          `;
+          
+          const data = await client.fetch(query);
+          setResources(data);
+          setLoading(false);
+        } catch (err) {
+          setError("Failed to fetch member resources");
+          setLoading(false);
+          console.error("Error fetching data from Sanity:", err);
+        }
+      };
+
       fetchResources();
+    } else if (!authLoading) {
+      // Set loading to false if not authenticated
+      setLoading(false);
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading]);
 
   // Explicitly preload the image using the global window.Image constructor
   useEffect(() => {
@@ -111,18 +108,49 @@ export default function MemberHub() {
     );
   }
 
-  // This check will happen after auth loading is complete
+  // If user is not logged in, show login required page instead of redirecting
   if (!user) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <p className="text-xl mb-4">Please log in to access the Member Hub.</p>
-        <button 
-          onClick={() => router.push('/')}
-          className="px-6 py-2 bg-edge-green-dark text-white rounded-md"
-        >
-          Return to Home
-        </button>
-      </div>
+      <>
+        <GalleryHero title="Member Hub" backgroundImage="images/memberhub-herobanner.jpg" />
+        
+        {/* Breadcrumb Navigation */}
+        <div className="container mx-auto px-4 py-2">
+          <NextBreadcrumb
+            homeElement={<span>Home</span>}
+            separator={<span className="mx-2">&gt;</span>}
+            containerClasses="flex items-center text-[#123800]"
+            listClasses="hover:underline"
+            activeClasses="font-semibold no-underline"
+            capitalizeLinks={true}
+          />
+        </div>
+        
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-2xl mx-auto bg-edge-green-secondary rounded-lg shadow-lg overflow-hidden">
+            <div className="p-8 flex flex-col items-center text-center">
+              <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-full bg-edge-green-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-edge-green-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m0 0v2m0-2h2m-2 0H9m3-4a3 3 0 100-6 3 3 0 000 6zm-2 6h4a4 4 0 014 4v1H6v-1a4 4 0 014-4z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-edge-green-dark mb-4">Member Access Required</h2>
+              <p className="text-lg text-edge-green-dark mb-8">
+                Oops! You need to be logged in to access the Member Hub resources. Please sign in with your member account to continue.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button 
+                  onClick={() => router.push('/')}
+                  className="px-6 py-3 bg-white border border-edge-green-dark text-edge-green-dark rounded-md hover:bg-edge-green-secondary transition-all"
+                >
+                  Return to Home
+                </button>
+              </div>
+            </div>
+            <div className="bg-edge-green-primary h-2" />
+          </div>
+        </div>
+      </>
     );
   }
 

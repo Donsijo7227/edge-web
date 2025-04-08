@@ -13,6 +13,7 @@ export default function Page() {
   const [isEventPageOpen, setIsEventPageOpen] = useState(false);
   const [isProjectPageOpen, setIsProjectPageOpen] = useState(false);
   const [isRecognitionPageOpen, setIsRecognitionPageOpen] = useState(false);
+  const [isBursaryPageOpen, setIsBursaryPageOpen] = useState(false);
 
   // Toggle function for Preliminary dropdown
   const togglePreliminaryPage = () => {
@@ -37,11 +38,16 @@ export default function Page() {
   // Toggle function for the Project page dropdown
   const toggleProjectPage = () => {
     setIsProjectPageOpen(!isProjectPageOpen);
-  }
+  };
 
   // Toggle function for the Recognition page dropdown
   const toggleRecognitionPage = () => {
     setIsRecognitionPageOpen(!isRecognitionPageOpen);
+  };
+
+  // Toggle function for the Bursary page dropdown
+  const toggleBursaryPage = () => {
+    setIsBursaryPageOpen(!isBursaryPageOpen);
   };
 
   return (
@@ -303,8 +309,8 @@ export default function Page() {
           {isProjectPageOpen && (
             <div>
               <p className="body-text text-black mb-4">
-                In order to edit the Project page, navigate to CMS
-                from the left-hand sidebar. Then, click "Project" from the studio.
+                In order to edit the Project page, navigate to CMS from the
+                left-hand sidebar. Then, click "Project" from the studio.
               </p>
               <div className="flex justify-align-left">
                 <img
@@ -336,17 +342,122 @@ export default function Page() {
             </span>
           </h2>
           {isRecognitionPageOpen && (
-            <p className="body-text text-black mb-4">
-              Documentation text for Recognition page.
-            </p>
+            <div>
+              <p className="body-text text-black mb-4">
+                Navigate to the CMS from the left-hand sidebar. Then, click
+                "Recognition" from the studio.
+                <br />
+                To create add a new individual, click (+) sign.
+                <br />
+                Enter the information and upload a photo. Then "Publish" when
+                ready.
+                <br />
+                <em className="text-red-600">
+                  {" "}
+                  After uploading photo, use the crop tool on the top right of
+                  the picture to resize or crop{" "}
+                </em>
+              </p>
+              <div className="flex justify-align-left">
+                <img
+                  src="/documentation/recognition-demo.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+            </div>
           )}
         </div>
         {/* end of dropdown Recognition*/}
+        {/* --------------------------------------------------------------------------------------------------------- */}
+
+        {/* --------------------------------------------------------------------------------------------------------- */}
+        {/* Dropdown of Bursary */}
+        <div className="pt-4 mb-4">
+          <h2
+            className="heading-2 text-edge-green-dark mb-4 cursor-pointer flex items-center"
+            onClick={toggleBursaryPage}
+          >
+            How to update Bursary page
+            <span className="ml-2">
+              {isBursaryPageOpen ? (
+                <FiChevronDown className="ml-2" size={30} />
+              ) : (
+                <FiChevronRight className="ml-2" size={30} />
+              )}
+            </span>
+          </h2>
+          {isBursaryPageOpen && (
+            <div>
+              <p className="body-text text-black mb-4">
+                Bursary page includes 3 main parts: Bursaries, How to Apply, and
+                Important dates.
+                <br />
+                These 3 parts can be all edited in Content Management.
+                <br />
+                To edit the Bursary page, navigate to CMS from the left-hand
+                sidebar.
+              </p>
+              {/* PART 1 */}
+              <h3 className="heading-3 text-edge-green-dark mb-4">
+                Part 1: Edit information in "Bursaries"
+              </h3>
+              <p className="body-text text-black mb-4">Text</p>
+              <div className="flex justify-align-left mb-4">
+                <img
+                  src="/documentation/bursary-demo.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+              {/* END OF PART 1 */}
+
+              {/* ------------------ */}
+
+              {/* PART 2 */}
+              <h3 className="heading-3 text-edge-green-dark mb-4">
+                Part 2: Edit information in "How to Apply"
+              </h3>
+              <p className="body-text text-black mb-4">Text</p>
+              <div className="flex justify-align-left mb-4">
+                <img
+                  src="/documentation/bursary-demo-1.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+              {/* END OF PART 2 */}
+
+              {/* ------------------ */}
+
+              {/* PART 3 */}
+              <h3 className="heading-3 text-edge-green-dark mb-4">
+                Part 3: Edit information in "Important Dates"
+              </h3>
+              <p className="body-text text-black mb-4">Text</p>
+              <div className="flex justify-align-left">
+                <img
+                  src="/documentation/bursary-demo-2.png"
+                  alt="dashboard-demo"
+                  className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
+                />
+              </div>
+              {/* END OF PART 3 */}
+              {/* ------------------ */}
+            </div>
+          )}
+        </div>
+
+        {/* end of dropdown Bursary */}
         {/* --------------------------------------------------------------------------------------------------------- */}
       </div>
     </div>
   );
 }
+
+
+
+
 
 
 

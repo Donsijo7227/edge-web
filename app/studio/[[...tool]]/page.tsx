@@ -55,7 +55,7 @@ export default function StudioPage() {
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#a8d080] border-t-[#123800] rounded-full mx-auto mb-4 animate-spin"></div>
-          <p className="text-[#123800] font-semibold">Loading Sanity Studio...</p>
+          <p className="text-[#123800] font-semibold">Loading Studio...</p>
         </div>
       </div>
     )

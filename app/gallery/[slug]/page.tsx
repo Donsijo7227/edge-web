@@ -8,6 +8,7 @@ interface CategoryPageProps {
   params: {
     slug: string;
   };
+  searchParams?: Record<string, string | string[]>;
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {

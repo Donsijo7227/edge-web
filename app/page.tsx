@@ -61,14 +61,14 @@ export default function Home() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <img 
-                  src="/images/column-image-2.jpg" 
+                  src="/images/column-image-3-new.jpg" 
                   alt="Garden image" 
                   className="w-full h-auto max-h-[342px] object-cover rounded-lg"
                 />
               </div>
               <div className="rounded-lg overflow-hidden">
                 <img 
-                  src="/images/column-image-3.jpg" 
+                  src="/images/column-image-2.jpg" 
                   alt="Garden image" 
                   className="w-full h-auto max-h-[342px] object-cover rounded-lg"
                 />

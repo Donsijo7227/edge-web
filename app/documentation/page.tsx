@@ -378,7 +378,7 @@ export default function Page() {
             className="heading-2 text-edge-green-dark mb-4 cursor-pointer flex items-center"
             onClick={toggleBursaryPage}
           >
-            How to update Bursary page
+            How to update Bursary pageTESTTESTTEST
             <span className="ml-2">
               {isBursaryPageOpen ? (
                 <FiChevronDown className="ml-2" size={30} />

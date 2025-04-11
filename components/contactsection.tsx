@@ -139,7 +139,7 @@ const ContactSection = ({ hideHeading = false }) => {
       
       <form onSubmit={handleSubmit} className="border border-[#123800] rounded-lg p-4 space-y-3">
         <div>
-          <label htmlFor="name" className="block mb-1 font-medium text-[#123800]">Name</label>
+          <label htmlFor="name" className="block mb-1 font-medium text-[#123800]">First Name</label>
           <input 
             type="text" 
             id="name" 
@@ -151,7 +151,7 @@ const ContactSection = ({ hideHeading = false }) => {
         </div>
         
         <div>
-          <label htmlFor="surname" className="block mb-1 font-medium text-[#123800]">Surname</label>
+          <label htmlFor="surname" className="block mb-1 font-medium text-[#123800]">Last Name</label>
           <input 
             type="text" 
             id="surname" 

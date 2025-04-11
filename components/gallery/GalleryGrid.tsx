@@ -95,7 +95,7 @@ const GalleryGrid: React.FC = () => {
               {/* Text Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h2 className="text-2xl font-bold mb-2">{category.title}</h2>
-                <p className="text-sm">{category.description}</p>
+                <p className="text-body-desktop text-body-mobile">{category.description}</p>
               </div>
             </div>
           </div>

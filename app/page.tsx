@@ -61,7 +61,7 @@ export default function Home() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <img 
-                  src="/images/column-image-3-new.jpg" 
+                  src="/images/column-image-4.jpg" 
                   alt="Garden image" 
                   className="w-full h-auto max-h-[342px] object-cover rounded-lg"
                 />

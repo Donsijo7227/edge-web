@@ -378,7 +378,7 @@ export default function Page() {
             className="heading-2 text-edge-green-dark mb-4 cursor-pointer flex items-center"
             onClick={toggleBursaryPage}
           >
-            How to update Bursary pageTESTTESTTEST
+            How to update Bursary page
             <span className="ml-2">
               {isBursaryPageOpen ? (
                 <FiChevronDown className="ml-2" size={30} />
@@ -402,7 +402,10 @@ export default function Page() {
               <h3 className="heading-3 text-edge-green-dark mb-4">
                 Part 1: Edit information in "Bursaries"
               </h3>
-              <p className="body-text text-black mb-4">Text</p>
+              <p className="body-text text-black mb-4">To edit the Bursary information, navigate to the left side panel, choose "Bursary".
+                <br />
+                Click any of the 2 bursaries to edit, make changes in the available fields and publish when ready.
+              </p>
               <div className="flex justify-align-left mb-4">
                 <img
                   src="/documentation/bursary-demo.png"
@@ -418,10 +421,10 @@ export default function Page() {
               <h3 className="heading-3 text-edge-green-dark mb-4">
                 Part 2: Edit information in "How to Apply"
               </h3>
-              <p className="body-text text-black mb-4">Text</p>
+              <p className="body-text text-black mb-4">Similar steps to Part 1 applies in editing application steps. See the screenshot below for demonstration.</p>
               <div className="flex justify-align-left mb-4">
                 <img
-                  src="/documentation/bursary-demo-1.png"
+                  src="/documentation/application-demo.png"
                   alt="dashboard-demo"
                   className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
                 />
@@ -434,10 +437,15 @@ export default function Page() {
               <h3 className="heading-3 text-edge-green-dark mb-4">
                 Part 3: Edit information in "Important Dates"
               </h3>
-              <p className="body-text text-black mb-4">Text</p>
+              <p className="body-text text-black mb-4">Navigate to the left panel, click "Important Dates".
+                <br />
+                Click (+) sign to add a new important date, enter the information and publish when ready.
+                <br />
+                To edit the current important date, click the date that needs updating, make changes and publish when ready.
+              </p>
               <div className="flex justify-align-left">
                 <img
-                  src="/documentation/bursary-demo-2.png"
+                  src="/documentation/important-date-demo.png"
                   alt="dashboard-demo"
                   className="max-w-[700px] rounded-[10px] border border-edge-green-dark"
                 />

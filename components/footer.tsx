@@ -86,14 +86,16 @@ const Footer = () => {
         <div className="hidden md:grid md:grid-cols-3 gap-8 mb-6">
           <div className="flex flex-col items-center text-center">
             <div className="flex justify-center mb-3">
-              <Image 
-                src="/images/edgelogo.png" 
-                alt="EDGE Logo" 
-                width={199} 
+              <Image
+                src="/images/edgelogo.png"
+                alt="EDGE Logo"
+                width={199}
                 height={199}
               />
             </div>
-            <p className="text-lg font-heading font-bold">Elmvale and District Garden Enthusiast&apos;s</p>
+            <p className="text-lg font-heading font-bold">
+              Elmvale and District Garden Enthusiast&apos;s
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -150,7 +152,8 @@ const Footer = () => {
                 Recognition
               </Link>
               <Link
-                href="/sitemap"
+                href="https://www.xml-sitemaps.com/download/edge-web-green.vercel.app-743754738/sitemap.xml?view=1"
+                target="_blank"
                 className="block font-medium mb-2 hover:text-edge-green-primary transition-colors"
               >
                 Sitemap
@@ -183,7 +186,9 @@ const Footer = () => {
                   </button>
                 </div>
                 {subscribedStatus && (
-                  <div className={`mt-2 text-lg ${subscribedStatus.includes("Awesome") ? "text-[#a8d080] font-medium" : "text-yellow-300"}`}>
+                  <div
+                    className={`mt-2 text-lg ${subscribedStatus.includes("Awesome") ? "text-[#a8d080] font-medium" : "text-yellow-300"}`}
+                  >
                     {subscribedStatus}
                   </div>
                 )}
@@ -257,7 +262,9 @@ const Footer = () => {
                 </button>
               </div>
               {subscribedStatus && (
-                <div className={`mt-2 text-lg text-center ${subscribedStatus.includes("Awesome") ? "text-[#a8d080] font-medium" : "text-yellow-300"}`}>
+                <div
+                  className={`mt-2 text-lg text-center ${subscribedStatus.includes("Awesome") ? "text-[#a8d080] font-medium" : "text-yellow-300"}`}
+                >
                   {subscribedStatus}
                 </div>
               )}
@@ -323,5 +330,6 @@ const Footer = () => {
     </footer>
   );
 };
+
 
 export default Footer;

@@ -9,13 +9,14 @@ import { myStructure } from './sanity/deskStructure'
 
 import { apiVersion, dataset, projectId } from './sanity/env'
 import { schemaTypes } from './sanity/schemaTypes'
+import type { SchemaTypeDefinition } from 'sanity'
 
 export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
   schema: {
-    types: schemaTypes,
+    types: schemaTypes as SchemaTypeDefinition[], 
   },
   plugins: [
     structureTool({

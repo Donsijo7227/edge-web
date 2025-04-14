@@ -1,12 +1,11 @@
 // app/bursary/admin/[id]/page.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AdminPageLayout from '@/components/AdminPageLayout';
 import { FiChevronLeft, FiDownload, FiCheck, FiX, FiTrash2 } from 'react-icons/fi';
-import { use } from 'react';
 
 interface BursaryApplication {
   _id: string;
@@ -38,9 +37,9 @@ interface BursaryApplication {
   createdAt: string;
 }
 
-export default function BursaryApplicationDetail({ params }) {
-  const unwrappedParams = use(params);
-  const applicationId = unwrappedParams.id;
+// Content component that contains all the logic
+function BursaryApplicationContent({ params }: { params: { id: string } }) {
+  const applicationId = params.id;
   
   const router = useRouter();
   const [application, setApplication] = useState<BursaryApplication | null>(null);
@@ -365,78 +364,78 @@ export default function BursaryApplicationDetail({ params }) {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Supporting Documents */}
-<div className="bg-white rounded-lg shadow p-6">
-  <h2 className="text-xl font-semibold mb-4 text-[#123800]">Supporting Documents</h2>
-  
-  {documents.length === 0 ? (
-    <p className="text-sm text-gray-500 italic">No documents available</p>
-  ) : (
-    <ul className="space-y-6">
-      {documents.map((doc) => {
-        console.log("Rendering document:", doc); // Add this debug line
-        
-        // If URL is a local path or invalid, show error
-        if (!doc.url || doc.url.includes(':\\') || doc.url.includes('/tmp/')) {
-          return (
-            <li key={doc.id} className="space-y-2">
-              <p className="font-medium text-gray-700">{doc.title}</p>
-              <div className="border border-gray-200 rounded p-4 bg-red-50">
-                <p className="text-sm text-red-600">
-                  This file cannot be displayed. It may not have been properly uploaded.
-                </p>
-              </div>
-            </li>
-          );
-        }
-        
-        const isPDF = doc.url.toLowerCase().endsWith('.pdf');
-        const isImage = /\.(jpg|jpeg|png|gif)$/i.test(doc.url);
-        
-        return (
-          <li key={doc.id} className="space-y-2">
-            <p className="font-medium text-gray-700">{doc.title}</p>
-            <p className="text-xs text-gray-500">{doc.url}</p> {/* Display URL for debugging */}
-            
-            {/* Preview area */}
-            <div className="border border-gray-200 rounded overflow-hidden">
-              {isPDF ? (
-                <object
-                  data={doc.url}
-                  type="application/pdf"
-                  className="w-full h-96"
-                >
-                  <p className="p-4">
-                    PDF cannot be displayed. <a href={doc.url} target="_blank" rel="noopener noreferrer">Download instead</a>
-                  </p>
-                </object>
-              ) : isImage ? (
-                <img
-                  src={doc.url}
-                  alt={doc.title}
-                  className="w-full max-h-[500px] object-contain"
-                />
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4 text-[#123800]">Supporting Documents</h2>
+              
+              {documents.length === 0 ? (
+                <p className="text-sm text-gray-500 italic">No documents available</p>
               ) : (
-                <p className="text-sm text-gray-500 italic p-4">
-                  Preview not supported for this file type.
-                </p>
+                <ul className="space-y-6">
+                  {documents.map((doc) => {
+                    console.log("Rendering document:", doc); // Add this debug line
+                    
+                    // If URL is a local path or invalid, show error
+                    if (!doc.url || doc.url.includes(':\\') || doc.url.includes('/tmp/')) {
+                      return (
+                        <li key={doc.id} className="space-y-2">
+                          <p className="font-medium text-gray-700">{doc.title}</p>
+                          <div className="border border-gray-200 rounded p-4 bg-red-50">
+                            <p className="text-sm text-red-600">
+                              This file cannot be displayed. It may not have been properly uploaded.
+                            </p>
+                          </div>
+                        </li>
+                      );
+                    }
+                    
+                    const isPDF = doc.url.toLowerCase().endsWith('.pdf');
+                    const isImage = /\.(jpg|jpeg|png|gif)$/i.test(doc.url);
+                    
+                    return (
+                      <li key={doc.id} className="space-y-2">
+                        <p className="font-medium text-gray-700">{doc.title}</p>
+                        <p className="text-xs text-gray-500">{doc.url}</p> {/* Display URL for debugging */}
+                        
+                        {/* Preview area */}
+                        <div className="border border-gray-200 rounded overflow-hidden">
+                          {isPDF ? (
+                            <object
+                              data={doc.url}
+                              type="application/pdf"
+                              className="w-full h-96"
+                            >
+                              <p className="p-4">
+                                PDF cannot be displayed. <a href={doc.url} target="_blank" rel="noopener noreferrer">Download instead</a>
+                              </p>
+                            </object>
+                          ) : isImage ? (
+                            <img
+                              src={doc.url}
+                              alt={doc.title}
+                              className="w-full max-h-[500px] object-contain"
+                            />
+                          ) : (
+                            <p className="text-sm text-gray-500 italic p-4">
+                              Preview not supported for this file type.
+                            </p>
+                          )}
+                        </div>
+                        
+                        {/* View/Download fallback */}
+                        <a
+                          href={doc.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-sm text-[#123800] hover:underline"
+                        >
+                          <FiDownload className="mr-2" /> Open in new tab
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
               )}
             </div>
-            
-            {/* View/Download fallback */}
-            <a
-              href={doc.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-sm text-[#123800] hover:underline"
-            >
-              <FiDownload className="mr-2" /> Open in new tab
-            </a>
-          </li>
-        );
-      })}
-    </ul>
-  )}
-</div>
             
             {/* Review Notes */}
             <div className="bg-white rounded-lg shadow p-6">
@@ -489,5 +488,20 @@ export default function BursaryApplicationDetail({ params }) {
         </div>
       </div>
     </AdminPageLayout>
+  );
+}
+
+// Main component with Suspense
+export default function BursaryApplicationDetail({ params }: { params: { id: string } }) {
+  return (
+    <Suspense fallback={
+      <AdminPageLayout>
+        <div className="flex justify-center items-center h-64">
+          <div className="w-12 h-12 border-4 border-[#a8d080] border-t-[#123800] rounded-full animate-spin"></div>
+        </div>
+      </AdminPageLayout>
+    }>
+      <BursaryApplicationContent params={params} />
+    </Suspense>
   );
 }

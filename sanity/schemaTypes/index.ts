@@ -8,6 +8,11 @@ import memberResource from './memberResource'
 import bursary from './bursary'
 import applicationSteps from './applicationSteps'
 import importantDate from './importantDate'
+import bursaryDocument from './bursaryDocument'
+import seo from './objects/seo'
+import textSection from './objects/textSection'
+import imageGallerySection from './objects/imageGallerySection'
+import page from './documents/page'
 
 export const schemaTypes = [
   category, 
@@ -19,4 +24,9 @@ export const schemaTypes = [
   bursary,
   applicationSteps,
   importantDate,
+  bursaryDocument,
+  page,
+  seo,
+  textSection,
+  imageGallerySection,
 ]

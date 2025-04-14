@@ -274,7 +274,7 @@ export default function EditUserPage({ params }: { params: { id: string } }) {
 
           <div className="mt-8 flex justify-end">
             <Link
-              href="/admin/users"
+              href="/users"
               className="bg-gray-200 text-gray-700 px-6 py-2 rounded-md mr-4 hover:bg-gray-300 transition-colors"
             >
               Cancel

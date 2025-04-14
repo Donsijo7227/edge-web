@@ -42,7 +42,7 @@ const DashboardOptions: NavOption[] = [
   {
     title: "Bursary",
     icon: <FiFile size={20} />,
-    link: "#",
+    link: "bursary-admin",
   },
   {
     title: "Content Management",

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FiUsers, FiFileText, FiDatabase, FiExternalLink } from 'react-icons/fi';
 import AdminPageLayout from '@/components/AdminPageLayout';
+import AnalyticsDashboard from '@/components/AnalyticsDashboard';
 
 interface Stats {
   totalUsers: number;
@@ -18,6 +19,11 @@ export default function DashboardPage() {
     activeMembers: 0,
     adminUsers: 0
   });
+  const [bursaryStats, setBursaryStats] = useState({
+    totalApplications: 0,
+    pendingApplications: 0,
+  });  
+  
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -48,7 +54,29 @@ export default function DashboardPage() {
 
     fetchStats();
   }, []);
-
+  
+  useEffect(() => {
+    const fetchBursaryStats = async () => {
+      try {
+        const res = await fetch('/api/bursary');
+        if (res.ok) {
+          const { applications } = await res.json();
+  
+          setBursaryStats({
+            totalApplications: applications.length,
+            pendingApplications: applications.filter(
+              (app: any) => app.status === 'pending'
+            ).length,
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching bursary stats:', error);
+      }
+    };
+  
+    fetchBursaryStats();
+  }, []);
+  
   return (
     <AdminPageLayout>
       <h1 className="text-3xl font-bold text-[#123800] mb-8">Dashboard</h1>
@@ -65,7 +93,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Link 
                 href="/"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -78,7 +106,7 @@ export default function DashboardPage() {
               
               <Link 
                 href="/users"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
               >
                 <FiUsers size={24} className="text-[#123800] mr-3" />
                 <div>
@@ -89,7 +117,7 @@ export default function DashboardPage() {
               
               <Link 
                 href="/studio"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
               >
                 <FiDatabase size={24} className="text-[#123800] mr-3" />
                 <div>
@@ -100,7 +128,7 @@ export default function DashboardPage() {
               
               <Link 
                 href="/documentation"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
               >
                 <FiFileText size={24} className="text-[#123800] mr-3" />
                 <div>
@@ -113,6 +141,7 @@ export default function DashboardPage() {
 
           {/* Stats Summary */}
           <div>
+            {/* website user stats summary */}
             <h2 className="text-xl font-semibold text-[#123800] mb-4">Users Overview</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-6 bg-white rounded-lg shadow-md">
@@ -130,13 +159,27 @@ export default function DashboardPage() {
                 <p className="text-4xl font-bold text-purple-600">{stats.adminUsers}</p>
               </div>
             </div>
+            {/* bursary application status */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+              <div className="p-6 bg-white rounded-lg shadow-md">
+                <h3 className="text-lg font-medium text-gray-700 mb-2">Bursary Applications</h3>
+                <p className="text-4xl font-bold text-[#123800]">{bursaryStats.totalApplications}</p>
+              </div>
+              <div className="p-6 bg-white rounded-lg shadow-md">
+                <h3 className="text-lg font-medium text-gray-700 mb-2">Pending Applications</h3>
+                <p className="text-4xl font-bold text-orange-600">{bursaryStats.pendingApplications}</p>
+              </div>
+            </div>
           </div>
           
-          {/* Recent Activity */}
+          {/* Analytics Dashboard Component */}
+          <AnalyticsDashboard />
+          
+          {/* Recent Activity - Placeholder for future charts */}
           <div className="mt-8">
             <h2 className="text-xl font-semibold text-[#123800] mb-4">Recent Activity</h2>
             <div className="bg-white shadow rounded-lg p-6">
-              <p className="text-gray-500 italic">google charts.</p>
+              <p className="text-gray-500 italic">Analytics chart will go here.</p>
             </div>
           </div>
         </>

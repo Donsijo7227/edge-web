@@ -1,25 +1,33 @@
-// components/GoogleAnalytics.tsx
-'use client';
+'use client'
 
-import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { initGA, logPageView } from '@/lib/analytics';
+import React from 'react'; 
+import { useEffect } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { initGA, logPageView } from '@/lib/analytics'
+import { Suspense } from 'react'
 
-export default function GoogleAnalytics(): null {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    // Initialize GA only once
-    initGA();
-  }, []);
+// Separated logic that uses useSearchParams
+function GAHandler() {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    // Track page views when pathname or search params change
+    initGA()
+  }, [])
+
+  useEffect(() => {
     if (pathname) {
-      logPageView();
+      logPageView()
     }
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams])
 
-  return null; // This component doesn't render anything
+  return null
+}
+
+export default function GoogleAnalytics(): React.ReactElement  {
+  return (
+    <Suspense fallback={null}>
+      <GAHandler />
+    </Suspense>
+  )
 }

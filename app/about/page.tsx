@@ -40,7 +40,7 @@ export default function About() {
         <WhiteCard desc='The Elmvale and District Horticultural Society was started in 1979 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1979'} />
         <GreenCard desc='Since 1979, E.D.G.E has created and supported horticultural, garden-related, floral artistry, environmental and educational projects.' year={'1979 - 2018'} />
         <WhiteCard year='2018' desc='We recognized the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
-        <GreenCard year="2019" desc="The Elmvale and District Horticultural Society changed its name in 2019 to Elmvale District Garden Enthusiast's or E.D.G.E."/>
+        <GreenCard year="2019" desc="The Elmvale and District Horticultural Society changed its name in 2019 to Elmvale and District Garden Enthusiast's or E.D.G.E."/>
         <WhiteCard year='2025' desc='E.D.G.E masks an achievement of 50 members.' />
       </div>
 

@@ -136,7 +136,7 @@ export default function RecognitionDetailPage({ params }: RecognitionDetailProps
         </div>
       </div>
 
-      <div className="container px-4 py-8 mx-auto content-block">
+      <div className="container px-4 mx-auto content-block">
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <div className="w-12 h-12 border-4 border-edge-green-dark rounded-full border-t-transparent animate-spin"></div>

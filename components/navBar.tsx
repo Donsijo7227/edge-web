@@ -304,7 +304,7 @@ export default function ResponsiveNavbar() {
                       </li>
                       <li className="text-center">
                         <Link
-                          href="/member-hub"
+                          href="/memberhub"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
                           onClick={handleDropdownLinkClick}
                         >

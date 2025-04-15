@@ -2,8 +2,83 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useRef } from "react";
 
 const Footer = () => {
+  const [subscribedStatus, setSubscribedStatus] = useState("");
+  const [email, setEmail] = useState("");
+  const mailchimpFormRef = useRef<HTMLFormElement | null>(null);
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      setSubscribedStatus("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      // Create a hidden form with Mailchimp data
+      if (!mailchimpFormRef.current) {
+        const form = document.createElement('form');
+        form.style.display = 'none';
+        form.action = "https://gmail.us13.list-manage.com/subscribe/post?u=1354bbcece38effb3c6bbedb7&amp;id=8a05a8fc74&amp;f_id=0002c0e2f0";
+        form.method = "post";
+        form.target = "mailchimp-response-frame";
+
+        const emailInput = document.createElement('input');
+        emailInput.type = "email";
+        emailInput.name = "EMAIL";
+        emailInput.value = email;
+
+        const hiddenField = document.createElement('input');
+        hiddenField.type = "text";
+        hiddenField.name = "b_1354bbcece38effb3c6bbedb7_8a05a8fc74";
+        hiddenField.value = "";
+        hiddenField.style.display = "none";
+
+        form.appendChild(emailInput);
+        form.appendChild(hiddenField);
+
+        // Create hidden iframe to receive response
+        const iframe = document.createElement('iframe');
+        iframe.name = "mailchimp-response-frame";
+        iframe.style.display = "none";
+        
+        document.body.appendChild(iframe);
+        document.body.appendChild(form);
+        mailchimpFormRef.current = form;
+      } else {
+        // Update email in existing form
+        const emailInput = mailchimpFormRef.current.querySelector('input[name="EMAIL"]');
+        if (emailInput instanceof HTMLInputElement) {
+          emailInput.value = email;
+        }
+      }
+
+      // Submit the form
+      if (mailchimpFormRef.current) {
+        mailchimpFormRef.current.submit();
+      }
+      
+      // Show success message & clear input
+      setSubscribedStatus("Awesome! You made our day 😍");
+      setEmail("");
+      
+      // Reset message after 5 seconds
+      setTimeout(() => {
+        setSubscribedStatus("");
+      }, 5000);
+    } catch (error) {
+      setSubscribedStatus("Something went wrong. Please try again.");
+      console.error("Subscription error:", error);
+    }
+  };
+
   return (
     <footer className="bg-edge-green-dark text-white py-8 px-4">
       <div className="container mx-auto">
@@ -11,16 +86,16 @@ const Footer = () => {
         <div className="hidden md:grid md:grid-cols-3 gap-8 mb-6">
           <div className="flex flex-col items-center text-center">
             <div className="flex justify-center mb-3">
-
-              <Image 
-                src="/images/edgelogo.png" 
-                alt="EDGE Logo" 
-                width={199} 
-
+              <Image
+                src="/images/edgelogo.png"
+                alt="EDGE Logo"
+                width={199}
                 height={199}
               />
             </div>
-            <p className="text-lg font-heading font-bold">Elmvale and District Garden Enthusiast's</p>
+            <p className="text-lg font-heading font-bold">
+              Elmvale and District Garden Enthusiast&apos;s
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -77,7 +152,8 @@ const Footer = () => {
                 News
               </Link>
               <Link
-                href="/sitemap"
+                href="https://www.xml-sitemaps.com/download/edge-web-green.vercel.app-743754738/sitemap.xml?view=1"
+                target="_blank"
                 className="block font-medium mb-2 hover:text-edge-green-primary transition-colors"
               >
                 Sitemap
@@ -92,19 +168,32 @@ const Footer = () => {
           </div>
 
           <div>
-            <div className="flex mb-3">
-              <input
-                type="email"
-                placeholder="Email"
-                className="px-3 py-2 border border-gray-300 rounded-l-md  w-full text-gray-800"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-[#EDF2E9] text-edge-green-dark font-heading font-bold rounded-r-md rounded-l-md border border-[#123800] hover:bg-edge-green-primary hover:text-edge-green-dark transition-colors"
-              >
-                Subscribe
-              </button>
-            </div>
+            <form onSubmit={handleSubscribe} className="mb-3">
+              <div className="flex flex-col">
+                <div className="flex">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="px-3 py-2 border border-gray-300 rounded-l-md w-full text-gray-800"
+                    value={email}
+                    onChange={handleEmailChange}
+                  />
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-[#EDF2E9] text-edge-green-dark font-heading font-bold rounded-r-md border border-[#123800] hover:bg-edge-green-primary hover:text-edge-green-dark transition-colors"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+                {subscribedStatus && (
+                  <div
+                    className={`mt-2 text-lg ${subscribedStatus.includes("Awesome") ? "text-[#a8d080] font-medium" : "text-yellow-300"}`}
+                  >
+                    {subscribedStatus}
+                  </div>
+                )}
+              </div>
+            </form>
 
             <p className="mb-1">E.D.G.E</p>
             <p className="mb-3">edgeelmvale@gmail.com</p>
@@ -155,19 +244,32 @@ const Footer = () => {
           </div>
           <p className="text-lg font-medium text-center mb-4"></p>
 
-          <div className="flex justify-center mb-4">
-            <input
-              type="email"
-              placeholder="Email"
-              className="px-3 py-2 border border-gray-300 rounded-l-md w-60 text-gray-800"
-            />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-[#EDF2E9] text-edge-green-dark font-heading font-bold rounded-r-md rounded-l-md border border-[#123800] hover:bg-edge-green-primary hover:text-edge-green-dark transition-colors"
-            >
-              Subscribe
-            </button>
-          </div>
+          <form onSubmit={handleSubscribe} className="mb-4 w-full max-w-xs">
+            <div className="flex flex-col">
+              <div className="flex w-full">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="px-3 py-2 border border-gray-300 rounded-l-md flex-grow text-gray-800"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#EDF2E9] text-edge-green-dark font-heading font-bold rounded-r-md border border-[#123800] hover:bg-edge-green-primary hover:text-edge-green-dark transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
+              {subscribedStatus && (
+                <div
+                  className={`mt-2 text-lg text-center ${subscribedStatus.includes("Awesome") ? "text-[#a8d080] font-medium" : "text-yellow-300"}`}
+                >
+                  {subscribedStatus}
+                </div>
+              )}
+            </div>
+          </form>
 
           <div className="flex space-x-6 mb-4">
             <Link
@@ -228,5 +330,6 @@ const Footer = () => {
     </footer>
   );
 };
+
 
 export default Footer;

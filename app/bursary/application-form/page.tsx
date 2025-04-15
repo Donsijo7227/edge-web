@@ -189,25 +189,25 @@ const fillTestData = () => {
   return (
     <>
       {/* Hero Component */}
-      <Hero 
-        title="Local High School Annual Bursary Application" 
+      <Hero
+        title="Local High School Annual Bursary Application"
         backgroundImage="/images/bursary-hero-banner.jpg"
       />
-      {process.env.NODE_ENV === 'development' && (
-  <div className="mb-6">
-    <button
-      type="button"
-      onClick={fillTestData}
-      className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md"
-    >
-      Fill Test Data (Dev Only)
-    </button>
-  </div>
-)}
+      {process.env.NODE_ENV === "development" && (
+        <div className="mb-6">
+          <button
+            type="button"
+            onClick={fillTestData}
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md"
+          >
+            Fill Test Data (Dev Only)
+          </button>
+        </div>
+      )}
 
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-4">
-        <NextBreadcrumb 
+        <NextBreadcrumb
           homeElement={<span>Home</span>}
           separator={<span className="mx-2">/</span>}
           containerClasses="flex items-center text-edge-green-dark"
@@ -216,38 +216,55 @@ const fillTestData = () => {
           capitalizeLinks={true}
         />
       </div>
-      
+
       {/* Application Form Section */}
       <div className="container mx-auto px-4 py-6 content-block">
         {success ? (
           <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-6 mb-8">
-            <h2 className="text-2xl font-bold mb-4">Application Submitted Successfully!</h2>
-            <p className="mb-4">Thank you for submitting your bursary application. We have received your information and will review it shortly.</p>
-            <p className="mb-4">You will be notified via email once a decision has been made regarding your application.</p>
-            <Link href="/" className="inline-block bg-[#123800] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-colors">
+            <h2 className="text-2xl font-bold mb-4">
+              Application Submitted Successfully!
+            </h2>
+            <p className="mb-4">
+              Thank you for submitting your bursary application. We have
+              received your information and will review it shortly.
+            </p>
+            <p className="mb-4">
+              You will be notified via email once a decision has been made
+              regarding your application.
+            </p>
+            <Link
+              href="/"
+              className="inline-block bg-[#123800] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-colors"
+            >
               Return to Homepage
             </Link>
           </div>
         ) : (
           <>
             <h2 className="heading-2 text-edge-green-dark mb-6">
-              Fill in the information below then submit to complete your bursary application.
+              Fill in the information below then submit to complete your bursary
+              application.
             </h2>
-            
+
             {error && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
                 <p>{error}</p>
               </div>
             )}
-            
+
             <form onSubmit={handleSubmit} className="space-y-10">
               {/* Personal Information Section */}
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="heading-3 text-edge-green-dark mb-6">Personal Information</h3>
-                
+              <div className="bg-white pt-mobile-block md:pt-6 rounded-lg">
+                <h3 className="heading-3 text-edge-green-dark mb-6">
+                  Personal Information
+                </h3>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="firstName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="firstName"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       First Name
                     </label>
                     <input
@@ -260,9 +277,12 @@ const fillTestData = () => {
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="lastName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="lastName"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Last Name
                     </label>
                     <input
@@ -276,10 +296,13 @@ const fillTestData = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="phoneNumber" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="phoneNumber"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Phone Number
                     </label>
                     <input
@@ -292,9 +315,12 @@ const fillTestData = () => {
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="email" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="email"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Email
                     </label>
                     <input
@@ -308,9 +334,12 @@ const fillTestData = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="mb-4">
-                  <label htmlFor="address" className="block text-base font-medium text-edge-green-dark mb-1">
+                  <label
+                    htmlFor="address"
+                    className="block text-body font-medium text-edge-green-dark mb-1"
+                  >
                     Address
                   </label>
                   <input
@@ -323,10 +352,13 @@ const fillTestData = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="parentFirstName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="parentFirstName"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Parent/Guardian First Name
                     </label>
                     <input
@@ -339,9 +371,12 @@ const fillTestData = () => {
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="parentLastName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="parentLastName"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Parent/Guardian Last Name
                     </label>
                     <input
@@ -355,10 +390,13 @@ const fillTestData = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="parentPhoneNumber" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="parentPhoneNumber"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Parent/Guardian Phone Number
                     </label>
                     <input
@@ -371,9 +409,12 @@ const fillTestData = () => {
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="parentEmail" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="parentEmail"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Parent/Guardian Email
                     </label>
                     <input
@@ -388,14 +429,19 @@ const fillTestData = () => {
                   </div>
                 </div>
               </div>
-              
+
               {/* Educational Information Section */}
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="heading-3 text-edge-green-dark mb-6">Educational Information</h3>
-                
+              <div className="bg-white pt-mobile-block md:pt-6 rounded-lg">
+                <h3 className="heading-3 text-edge-green-dark mb-6">
+                  Educational Information
+                </h3>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="currentSchool" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="currentSchool"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Current High School
                     </label>
                     <input
@@ -408,9 +454,12 @@ const fillTestData = () => {
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="schoolAddress" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="schoolAddress"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Address
                     </label>
                     <input
@@ -424,10 +473,13 @@ const fillTestData = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div>
-                    <label htmlFor="currentGrade" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="currentGrade"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Current Grade
                     </label>
                     <input
@@ -440,9 +492,12 @@ const fillTestData = () => {
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="expectedGraduation" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="expectedGraduation"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       Expected Graduation Date
                     </label>
                     <input
@@ -455,9 +510,12 @@ const fillTestData = () => {
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="gpa" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label
+                      htmlFor="gpa"
+                      className="block text-body font-medium text-edge-green-dark mb-1"
+                    >
                       GPA
                     </label>
                     <input
@@ -471,10 +529,14 @@ const fillTestData = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="mb-4">
-                  <label htmlFor="extracurricular" className="block text-base font-medium text-edge-green-dark mb-1">
-                    List all of the Extracurricular Activities that you have participated:
+                  <label
+                    htmlFor="extracurricular"
+                    className="block text-body font-medium text-edge-green-dark mb-1"
+                  >
+                    List all of the Extracurricular Activities that you have
+                    participated:
                   </label>
                   <textarea
                     id="extracurricular"
@@ -487,14 +549,20 @@ const fillTestData = () => {
                   />
                 </div>
               </div>
-              
+
               {/* Personal Statement Section */}
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="heading-3 text-edge-green-dark mb-6">Personal Statement</h3>
-                
+              <div className="bg-white pt-mobile-block md:pt-6 rounded-lg">
+                <h3 className="heading-3 text-edge-green-dark mb-6">
+                  Personal Statement
+                </h3>
+
                 <div className="mb-6">
-                  <label htmlFor="whyNeedBursary" className="block text-base font-medium text-edge-green-dark mb-1">
-                    Why do you need this bursary, and how will it help you? (250-500 words)
+                  <label
+                    htmlFor="whyNeedBursary"
+                    className="block text-body font-medium text-edge-green-dark mb-1"
+                  >
+                    Why do you need this bursary, and how will it help you?
+                    (250-500 words)
                   </label>
                   <textarea
                     id="whyNeedBursary"
@@ -506,9 +574,12 @@ const fillTestData = () => {
                     required
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="futureGoals" className="block text-base font-medium text-edge-green-dark mb-1">
+                  <label
+                    htmlFor="futureGoals"
+                    className="block text-body font-medium text-edge-green-dark mb-1"
+                  >
                     What are your future education and career goals?
                   </label>
                   <textarea
@@ -522,21 +593,24 @@ const fillTestData = () => {
                   />
                 </div>
               </div>
-              
+
               {/* Supporting Documents Section - Updated with Dropbox */}
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="heading-3 text-edge-green-dark mb-6">Supporting Documents</h3>
-                
+              <div className="bg-white pt-mobile-block md:pt-6 rounded-lg">
+                <h3 className="heading-3 text-edge-green-dark mb-6">
+                  Supporting Documents
+                </h3>
+
                 <div className="mb-2">
-                  <p className="text-base text-edge-green-dark font-medium mb-1">
-                    Upload your Letter of Recommendation and Academic Transcript 
+                  <p className="text-body text-edge-green-dark font-medium mb-1">
+                    Upload your Letter of Recommendation and Academic Transcript
                     <span className="text-red-500">*</span>
                   </p>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Please upload both your Letter of Recommendation and Academic Transcript (maximum 2 files).
+                  <p className="text- text-gray-600 mb-4">
+                    Please upload both your Letter of Recommendation and
+                    Academic Transcript (maximum 2 files).
                   </p>
                 </div>
-                
+
                 <div className="border-2 border-dashed border-[#123800] rounded-lg p-8 text-center hover:bg-gray-50 transition-colors">
                   <input
                     type="file"
@@ -548,19 +622,32 @@ const fillTestData = () => {
                         e.target.value = "";
                         return;
                       }
-                      setFormData(prev => ({
+                      setFormData((prev) => ({
                         ...prev,
-                        documents: e.target.files ? Array.from(e.target.files) : []
+                        documents: e.target.files
+                          ? Array.from(e.target.files)
+                          : [],
                       }));
                     }}
                     multiple
                     accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                   />
-                  
+
                   <label htmlFor="documents" className="cursor-pointer">
                     <div className="flex flex-col items-center">
-                      <svg className="w-12 h-12 text-[#123800] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                      <svg
+                        className="w-12 h-12 text-[#123800] mb-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        ></path>
                       </svg>
                       <span className="text-edge-green-dark font-medium">
                         Drag and drop files here, or click to browse
@@ -570,29 +657,58 @@ const fillTestData = () => {
                       </span>
                     </div>
                   </label>
-                  
+
                   {formData.documents && formData.documents.length > 0 && (
                     <div className="mt-4">
-                      <p className="font-medium text-edge-green-dark">Files selected:</p>
+                      <p className="font-medium text-edge-green-dark">
+                        Files selected:
+                      </p>
                       <ul className="mt-2 space-y-1">
                         {formData.documents.map((file, index) => (
-                          <li key={index} className="flex items-center text-sm text-gray-700">
-                            <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                          <li
+                            key={index}
+                            className="flex items-center text-sm text-gray-700"
+                          >
+                            <svg
+                              className="w-5 h-5 text-green-500 mr-2"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M5 13l4 4L19 7"
+                              ></path>
                             </svg>
                             {file.name}
-                            <button 
+                            <button
                               type="button"
                               className="ml-2 text-red-500 hover:text-red-700"
                               onClick={() => {
-                                setFormData(prev => ({
+                                setFormData((prev) => ({
                                   ...prev,
-                                  documents: prev.documents.filter((_, i) => i !== index)
+                                  documents: prev.documents.filter(
+                                    (_, i) => i !== index
+                                  ),
                                 }));
                               }}
                             >
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M6 18L18 6M6 6l12 12"
+                                ></path>
                               </svg>
                             </button>
                           </li>
@@ -602,13 +718,15 @@ const fillTestData = () => {
                   )}
                 </div>
               </div>
-              
+
               {/* Consent and Declaration Section */}
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="heading-3 text-edge-green-dark mb-6">Consent and Declaration</h3>
-                
+              <div className="bg-white pt-mobile-block md:pt-6 rounded-lg">
+                <h3 className="heading-3 text-edge-green-dark mb-6">
+                  Consent and Declaration
+                </h3>
+
                 <div className="mb-6">
-                  <div className="flex items-start mb-2">
+                  <div className="flex items-center mb-2">
                     <div className="flex items-center h-5">
                       <input
                         type="checkbox"
@@ -617,11 +735,15 @@ const fillTestData = () => {
                         required
                       />
                     </div>
-                    <label htmlFor="consent" className="ml-3 text-base font-medium text-edge-green-dark">
-                      I certify that all information provided is true and accurate.
+                    <label
+                      htmlFor="consent"
+                      className="ml-3 text-body font-medium text-edge-green-dark"
+                    >
+                      I certify that all information provided is true and
+                      accurate.
                     </label>
                   </div>
-                  
+
                   <input
                     type="text"
                     id="fullName"
@@ -633,9 +755,12 @@ const fillTestData = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="mb-8">
-                  <label htmlFor="parentSignature" className="block text-base font-medium text-edge-green-dark mb-1">
+                  <label
+                    htmlFor="parentSignature"
+                    className="block text-body font-medium text-edge-green-dark mb-1"
+                  >
                     Parent/Guardian Signature
                   </label>
                   <input
@@ -650,7 +775,7 @@ const fillTestData = () => {
                   />
                 </div>
               </div>
-              
+
               {/* Submit Button */}
               <div className="flex justify-center">
                 <button
@@ -658,7 +783,7 @@ const fillTestData = () => {
                   disabled={isSubmitting}
                   className="px-8 py-3 bg-edge-green-dark text-white font-medium rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-edge-green-dark focus:ring-offset-2 disabled:opacity-70"
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
                 </button>
               </div>
             </form>
@@ -700,4 +825,8 @@ const fillTestData = () => {
       </div>
     </>
   );
+
+
+
+
 }

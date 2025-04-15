@@ -46,6 +46,8 @@
     "recharts": "^2.15.2",
     "sanity": "^3.78.0",
     "styled-components": "^6.1.15",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "tailwind-merge": "^3.1.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -54,6 +56,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",

@@ -8,6 +8,13 @@ const sanityClient = createClient({
   apiVersion: '2022-11-15',
   useCdn: false,
 });
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '5mb', 
+    },
+  },
+};
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

@@ -1,4 +1,26 @@
 // pages/api/auth/login.js
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Logs a user in
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Invalid credentials
+ */
 import User from '../../../backend/models/User';
 import { generateToken } from '../../../backend/utils/jwt';
 import dbConnect from '../../../backend/config/db';

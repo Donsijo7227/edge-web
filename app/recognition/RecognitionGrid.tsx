@@ -141,7 +141,7 @@ export default function RecognitionGrid() {
   };
 
   return (
-    <div className="container px-4 py-8 mx-auto content-block">
+    <div className="container px-4 mx-auto content-block">
       <h1 className="heading-1 mb-8 text-edge-green-dark">Recognition</h1>
 
       {loading ? (

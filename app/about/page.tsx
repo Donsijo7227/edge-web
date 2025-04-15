@@ -30,7 +30,7 @@ export default function About() {
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Land Acknowledgement</h1>
 
         <p className="body-desktop body-mobile mb-4">
-          EDGE respectfully acknowledges that we gather, learn, and cultivate on the traditional territories of Indigenous peoples who have stewarded this land for generations. As a community dedicated to horticulture and conservation, we commit to learning from Indigenous practices, respecting the land, and promoting sustainability in all that we do. We strive to foster a deeper understanding of our shared responsibility to care for the environment and support reconciliation efforts through education and action.
+          E.D.G.E respectfully acknowledges that we gather, learn, and cultivate on the traditional territories of Indigenous peoples who have stewarded this land for generations. As a community dedicated to horticulture and conservation, we commit to learning from Indigenous practices, respecting the land, and promoting sustainability in all that we do. We strive to foster a deeper understanding of our shared responsibility to care for the environment and support reconciliation efforts through education and action.
         </p>
       </div>
 
@@ -38,9 +38,9 @@ export default function About() {
       <div className="container mx-auto px-4 py-6">
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">History</h1>
         <WhiteCard desc='The Elmvale and District Horticultural Society was started in 1979 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1979'} />
-        <GreenCard desc='Since 1979, EDGE has created and supported horticultural, garden-related, floral artistry, environmental and educational projects.' year={'1979 - 2018'} />
+        <GreenCard desc='Since 1979, E.D.G.E has created and supported horticultural, garden-related, floral artistry, environmental and educational projects.' year={'1979 - 2018'} />
         <WhiteCard year='2018' desc='We recognized the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
-        <GreenCard year='2019' desc='The Elmvale and District Horticultural Society changed its name in 2019 to "Elmvale District Garden Enthusiasts" or E.D.G.E.' />
+        <GreenCard year="2019" desc="The Elmvale and District Horticultural Society changed its name in 2019 to Elmvale District Garden Enthusiast's or E.D.G.E."/>
         <WhiteCard year='2025' desc='E.D.G.E masks an achievement of 50 members.' />
       </div>
 

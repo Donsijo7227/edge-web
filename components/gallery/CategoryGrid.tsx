@@ -157,7 +157,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ slug: propSlug }) => {
   }
 
   return (
-    <div className="w-full px-5 py-8">
+    <div className="w-full px-5 pt-mobile-block pb-mobile-block md:pt-desktop-block md:pb-desktop-block">
       {categoryTitle && (
         <h1 className="text-3xl font-bold mb-8">{categoryTitle}</h1>
       )}
@@ -180,7 +180,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ slug: propSlug }) => {
       {selectedPhoto && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
           <button
-            onClick={() => navigatePhotos('prev')}
+            onClick={() => navigatePhotos("prev")}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 text-white"
           >
             <ChevronLeft size={24} />
@@ -196,7 +196,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ slug: propSlug }) => {
             </div>
           </div>
           <button
-            onClick={() => navigatePhotos('next')}
+            onClick={() => navigatePhotos("next")}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 text-white"
           >
             <ChevronRight size={24} />
@@ -212,5 +212,6 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ slug: propSlug }) => {
     </div>
   );
 };
+
 
 export default CategoryGrid;

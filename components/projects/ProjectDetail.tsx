@@ -120,7 +120,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ slug }) => {
   }
 
   return (
-    <div className="w-full px-5 py-8">
+    <div className="w-full px-5 pt-mobile-block pb-mobile-block md:pt-desktop-block md:pb-desktop-block">
       <article className="max-w-4xl mx-auto">
         {/* Hero Image */}
         <div className="mb-8 relative rounded-lg overflow-hidden h-96">
@@ -136,17 +136,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ slug }) => {
             </div>
           )}
         </div>
-        
+
         {/* Title and Status */}
         <div className="mb-6">
           <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
           <div className="flex flex-wrap gap-4">
             {project.status && (
               <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                {project.status.charAt(0).toUpperCase() +
+                  project.status.slice(1)}
               </span>
             )}
-            
+
             {(project.startDate || project.endDate) && (
               <div className="flex items-center text-gray-600 text-sm">
                 <Calendar className="w-4 h-4 mr-1" />
@@ -160,17 +161,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ slug }) => {
             )}
           </div>
         </div>
-        
+
         {/* Project Content */}
         <div className="prose max-w-none">
-          <PortableText 
-            value={project.content}
-            components={componentMap}
-          />
+          <PortableText value={project.content} components={componentMap} />
         </div>
       </article>
     </div>
   );
 };
+
 
 export default ProjectDetail;

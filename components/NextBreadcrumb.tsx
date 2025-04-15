@@ -46,14 +46,22 @@ const NextBreadcrumb = ({homeElement, separator, containerClasses, listClasses, 
                     let href = `/${pathNames.slice(0, index + 1).join('/')}`
                     
                     // If we're on a detail page and this is the section item,
-                    // make it active since we're hiding the actual active item (the slug)
+                    // make it active since we're hiding the actual active item
                     const isActive = isDetailPage 
                         ? (link === 'recognition' || link === 'projects' || link === 'gallery')
                         : paths === href
                     
                     let itemClasses = isActive ? `${listClasses} ${activeClasses}` : listClasses
-                    let itemLink = capitalizeLinks ? link[0].toUpperCase() + link.slice(1, link.length) : link
-                    
+                    // let itemLink = capitalizeLinks ? link[0].toUpperCase() + link.slice(1, link.length) : link
+                     // 👇 Clean up slug and capitalize if needed
+                    let itemLink = link.replace(/-/g, ' ');
+                    if (capitalizeLinks) {
+                    itemLink = itemLink
+                        .split(' ')
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(' ');
+                    }
+                                    
                     return (
                         <React.Fragment key={index}>
                             <li className={itemClasses} >

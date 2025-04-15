@@ -175,7 +175,7 @@ export default function Bursary() {
         </div>
 
         {/* Introduction Section */}
-        <div className="container mx-auto px-4 py-6 content-block">
+        <div className="container mx-auto px-4  content-block">
           <h2 className="heading-2 text-edge-green-dark mb-4">Introduction</h2>
           <div>
             {pageData?.pageData?.introduction ? (
@@ -200,7 +200,7 @@ export default function Bursary() {
         </div>
 
         {/* Bursaries Section */}
-        <div className="container mx-auto px-4 py-6 content-block">
+        <div className="container mx-auto px-4 content-block">
           <h2 className="heading-2 text-edge-green-dark mb-6">Bursaries</h2>
 
           {isMobile ? (
@@ -314,7 +314,7 @@ export default function Bursary() {
         </div>
 
         {/* How to Apply Section */}
-        <div className="container mx-auto px-4 py-6 content-block">
+        <div className="container mx-auto px-4 content-block">
           <h2 className="heading-2 text-edge-green-dark mb-6">How to Apply</h2>
 
           {isMobile ? (
@@ -436,7 +436,7 @@ export default function Bursary() {
         </div>
 
         {/* Important Dates Section */}
-        <div className="container mx-auto px-4 py-6 content-block">
+        <div className="container mx-auto px-4 content-block">
           <h2 className="heading-2 text-edge-green-dark mb-6">
             Important Dates
           </h2>
@@ -448,10 +448,10 @@ export default function Bursary() {
                 className="grid grid-cols-[96px_1fr] bg-edge-green-secondary rounded-md overflow-hidden"
               >
                 <div className="bg-edge-green-primary flex flex-col items-center justify-center py-4">
-                  <div className="text-xs uppercase tracking-wider text-edge-green-dark">
+                  <div className="text-s uppercase tracking-wider text-edge-green-dark">
                     {date.month}
                   </div>
-                  <div className="text-3xl font-bold text-edge-green-dark">
+                  <div className="text-body font-bold text-edge-green-dark">
                     {date.day}
                   </div>
                 </div>

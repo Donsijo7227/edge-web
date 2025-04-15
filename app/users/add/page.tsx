@@ -1,4 +1,3 @@
-// app/users/add/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -6,9 +5,21 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AdminPageLayout from '@/components/AdminPageLayout';
 
+// Define the structure of the form data
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: string;
+  phoneNumber: string;
+  address: string;
+  membershipExpires: string;
+}
+
 export default function AddUserPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     password: '',
@@ -19,42 +30,38 @@ export default function AddUserPage() {
     membershipExpires: ''
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Function to generate a random password
   const generateRandomPassword = () => {
-    // Generate a random string with letters, numbers, and special characters
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
     let password = '';
-    
-    // Generate a password 10-12 characters long
-    const length = Math.floor(Math.random() * 3) + 10; // 10-12 characters
-    
+    const length = Math.floor(Math.random() * 3) + 10;
+
     for (let i = 0; i < length; i++) {
       password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    
-    // Update both password and confirm password fields
-    setFormData(prev => ({
+
+    setFormData((prev) => ({
       ...prev,
       password,
-      confirmPassword: password
+      confirmPassword: password,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     setSuccess(null);
 
-    // Simple validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
@@ -83,7 +90,6 @@ export default function AddUserPage() {
 
       if (response.ok) {
         setSuccess("User created successfully!");
-        // Reset form
         setFormData({
           name: '',
           email: '',
@@ -94,8 +100,7 @@ export default function AddUserPage() {
           address: '',
           membershipExpires: ''
         });
-        
-        // Redirect after 2 seconds
+
         setTimeout(() => {
           router.push('/users');
         }, 2000);
@@ -110,11 +115,10 @@ export default function AddUserPage() {
     }
   };
 
-  // Calculate default expiration date (1 year from today)
   const getDefaultExpirationDate = () => {
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
-    return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    return date.toISOString().split('T')[0];
   };
 
   return (
@@ -182,7 +186,7 @@ export default function AddUserPage() {
                 </button>
               </label>
               <input
-                type="text" // Changed to text so admin can see the generated password
+                type="text"
                 id="password"
                 name="password"
                 value={formData.password}
@@ -197,7 +201,7 @@ export default function AddUserPage() {
             <div>
               <label htmlFor="confirmPassword" className="block text-gray-700 font-semibold mb-2">Confirm Password *</label>
               <input
-                type="text" // Changed to text to match the password field
+                type="text"
                 id="confirmPassword"
                 name="confirmPassword"
                 value={formData.confirmPassword}
@@ -281,3 +285,4 @@ export default function AddUserPage() {
     </AdminPageLayout>
   );
 }
+

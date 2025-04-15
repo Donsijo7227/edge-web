@@ -72,7 +72,7 @@ const ProjectGrid: React.FC = () => {
   }
 
   return (
-    <div className="w-full px-5 py-8">
+    <div className="w-full px-5 pt-mobile-block pb-mobile-block md:pt-desktop-block md:pb-desktop-block">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
           <div 

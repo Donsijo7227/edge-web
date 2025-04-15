@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-
 const nextConfig: NextConfig = {
   reactStrictMode: false, // Changed to false to prevent double-mounting
   images: {
@@ -33,10 +32,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true, // Skip TypeScript type checking
   },
-  swcMinify: true, // Use SWC minifier which is more forgiving
+  // Remove this line:
+  // swcMinify: true, // Use SWC minifier which is more forgiving
   output: 'standalone', // More stable output format
   poweredByHeader: false, // Remove X-Powered-By header
   productionBrowserSourceMaps: false, // Disable source maps in production
 };
-
 export default nextConfig;

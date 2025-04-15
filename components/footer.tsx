@@ -149,7 +149,7 @@ const Footer = () => {
                 href="/recognition"
                 className="block font-medium mb-2 hover:text-edge-green-primary transition-colors"
               >
-                News
+                Recognition
               </Link>
               <Link
                 href="https://www.xml-sitemaps.com/download/edge-web-green.vercel.app-743754738/sitemap.xml?view=1"
@@ -173,7 +173,7 @@ const Footer = () => {
                 <div className="flex">
                   <input
                     type="email"
-                    placeholder="Email"
+                    placeholder="Email for newsletter"
                     className="px-3 py-2 border border-gray-300 rounded-l-md w-full text-gray-800"
                     value={email}
                     onChange={handleEmailChange}
@@ -249,7 +249,7 @@ const Footer = () => {
               <div className="flex w-full">
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="Email for newsletter"
                   className="px-3 py-2 border border-gray-300 rounded-l-md flex-grow text-gray-800"
                   value={email}
                   onChange={handleEmailChange}

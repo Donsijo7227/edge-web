@@ -72,30 +72,32 @@ const GalleryGrid: React.FC = () => {
   }
 
   return (
-    <div className="w-full px-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
+    <div className="w-full px-5 pt-mobile-block pb-mobile-block md:pt-desktop-block md:pb-desktop-block">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {categories.map((category) => (
-          <div 
+          <div
             key={category.id}
             className="relative cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden rounded-lg"
             onClick={() => handleCategoryClick(category.slug)}
           >
             {/* Image */}
             <div className="relative h-80 w-full">
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${category.thumbnail})`,
                 }}
               />
-              
+
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#123800] to-transparent opacity-90"></div>
-              
+
               {/* Text Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h2 className="text-2xl font-bold mb-2">{category.title}</h2>
-                <p className="text-body-desktop text-body-mobile">{category.description}</p>
+                <p className="text-body-desktop text-body-mobile">
+                  {category.description}
+                </p>
               </div>
             </div>
           </div>
@@ -104,5 +106,6 @@ const GalleryGrid: React.FC = () => {
     </div>
   );
 };
+
 
 export default GalleryGrid;

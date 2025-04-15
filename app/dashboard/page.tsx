@@ -93,7 +93,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Link 
                 href="/"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-edge-green-dark"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -106,7 +106,7 @@ export default function DashboardPage() {
               
               <Link 
                 href="/users"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-edge-green-dark"
               >
                 <FiUsers size={24} className="text-[#123800] mr-3" />
                 <div>
@@ -117,7 +117,8 @@ export default function DashboardPage() {
               
               <Link 
                 href="/studio"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
+                target="_blank"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-edge-green-dark"
               >
                 <FiDatabase size={24} className="text-[#123800] mr-3" />
                 <div>
@@ -128,7 +129,7 @@ export default function DashboardPage() {
               
               <Link 
                 href="/documentation"
-                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-[#d3e8c2]"
+                className="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-edge-green-dark"
               >
                 <FiFileText size={24} className="text-[#123800] mr-3" />
                 <div>
@@ -175,13 +176,7 @@ export default function DashboardPage() {
           {/* Analytics Dashboard Component */}
           <AnalyticsDashboard />
           
-          {/* Recent Activity - Placeholder for future charts */}
-          <div className="mt-8">
-            <h2 className="text-xl font-semibold text-[#123800] mb-4">Recent Activity</h2>
-            <div className="bg-white shadow rounded-lg p-6">
-              <p className="text-gray-500 italic">Analytics chart will go here.</p>
-            </div>
-          </div>
+         
         </>
       )}
     </AdminPageLayout>

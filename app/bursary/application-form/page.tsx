@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Hero from "@/components/hero";
 import NextBreadcrumb from "@/components/NextBreadcrumb";
@@ -33,6 +33,8 @@ export default function BursaryApplication() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
 
   // Check if we're on mobile view
   useEffect(() => {
@@ -52,6 +54,57 @@ export default function BursaryApplication() {
     };
   }, []);
 
+  // Drag and Drop functionality
+  useEffect(() => {
+    const dropZone = dropZoneRef.current;
+    if (!dropZone) return;
+
+    const preventDefaults = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const highlight = () => {
+      dropZone.classList.add('border-green-500');
+    };
+
+    const unhighlight = () => {
+      dropZone.classList.remove('border-green-500');
+    };
+
+    const handleDrop = (e: DragEvent) => {
+      preventDefaults(e);
+      unhighlight();
+      
+      const dt = e.dataTransfer;
+      const files = dt?.files;
+      
+      if (files) {
+        handleFileUpload(Array.from(files));
+      }
+    };
+
+    const events = ['dragenter', 'dragover', 'dragleave', 'drop'];
+    events.forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    dropZone.addEventListener('dragenter', highlight, false);
+    dropZone.addEventListener('dragover', highlight, false);
+    dropZone.addEventListener('dragleave', unhighlight, false);
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    return () => {
+      events.forEach(eventName => {
+        dropZone.removeEventListener(eventName, preventDefaults, false);
+      });
+      dropZone.removeEventListener('dragenter', highlight, false);
+      dropZone.removeEventListener('dragover', highlight, false);
+      dropZone.removeEventListener('dragleave', unhighlight, false);
+      dropZone.removeEventListener('drop', handleDrop, false);
+    };
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -60,132 +113,172 @@ export default function BursaryApplication() {
     }));
   };
 
-  // Simplified approach in your BursaryApplication component
-// Simplified approach in your BursaryApplication component
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
-  setError('');
-  
-  try {
-    const documentIds = [];
-    
-    // Convert files to base64
-    if (formData.documents && formData.documents.length > 0) {
-      for (const file of formData.documents) {
-        // Create a FileReader to convert file to base64
-        const base64File = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result as string);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-        
-        // Send the base64 file to your API
-        const uploadResponse = await fetch('/api/upload-base64-to-sanity', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            filename: file.name,
-            mimeType: file.type,
-            base64: base64File
-          }),
-        });
-        
-        if (!uploadResponse.ok) {
-          throw new Error('Failed to upload documents');
-        }
-        
-        const uploadResult = await uploadResponse.json();
-        documentIds.push(uploadResult.documentId);
+  const handleFileUpload = (newFiles: File[]) => {
+    setFormData(prev => {
+      // Combine existing and new files, ensuring no more than 2 total
+      const combinedFiles = [...prev.documents, ...newFiles];
+      
+      // If more than 2 files, take the first 2
+      const filteredFiles = combinedFiles.slice(0, 2);
+      
+      // Check file sizes
+      const oversized = filteredFiles.some(file => file.size > 5 * 1024 * 1024); // 5MB
+      if (oversized) {
+        alert("Each file must be under 5MB.");
+        return prev;
       }
-    }
-    
-    // Continue with form submission
-    const response = await fetch('/api/bursary', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...formData,
-        documents: documentIds
-      }),
+      
+      return {
+        ...prev,
+        documents: filteredFiles
+      };
     });
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
     
-    // Handle the response
-    if (response.ok) {
-      // Clear form data
-      setFormData({
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        email: "",
-        address: "",
-        parentFirstName: "",
-        parentLastName: "",
-        parentPhoneNumber: "",
-        parentEmail: "",
-        currentSchool: "",
-        schoolAddress: "",
-        currentGrade: "",
-        expectedGraduation: "",
-        gpa: "",
-        extracurricular: "",
-        whyNeedBursary: "",
-        futureGoals: "",
-        fullName: "",
-        parentSignature: "",
-        documents: []
+    handleFileUpload(Array.from(files));
+    
+    // Reset the file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const removeFile = (indexToRemove: number) => {
+    setFormData(prev => ({
+      ...prev,
+      documents: prev.documents.filter((_, index) => index !== indexToRemove)
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+    
+    try {
+      const documentIds = [];
+      
+      // Convert files to base64
+      if (formData.documents && formData.documents.length > 0) {
+        for (const file of formData.documents) {
+          // Create a FileReader to convert file to base64
+          const base64File = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+          
+          // Send the base64 file to API
+          const uploadResponse = await fetch('/api/upload-base64-to-sanity', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              filename: file.name,
+              mimeType: file.type,
+              base64: base64File
+            }),
+          });
+          
+          if (!uploadResponse.ok) {
+            throw new Error('Failed to upload documents');
+          }
+          
+          const uploadResult = await uploadResponse.json();
+          documentIds.push(uploadResult.documentId);
+        }
+      }
+      
+      // Continue with form submission
+      const response = await fetch('/api/bursary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          documents: documentIds
+        }),
       });
       
-      // Set success state to show success message
-      setSuccess(true);
-      
-      // Scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      const errorData = await response.json();
-      setError(errorData.message || 'Failed to submit application');
+      // Handle the response
+      if (response.ok) {
+        // Clear form data
+        setFormData({
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          email: "",
+          address: "",
+          parentFirstName: "",
+          parentLastName: "",
+          parentPhoneNumber: "",
+          parentEmail: "",
+          currentSchool: "",
+          schoolAddress: "",
+          currentGrade: "",
+          expectedGraduation: "",
+          gpa: "",
+          extracurricular: "",
+          whyNeedBursary: "",
+          futureGoals: "",
+          fullName: "",
+          parentSignature: "",
+          documents: []
+        });
+        
+        // Set success state to show success message
+        setSuccess(true);
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Failed to submit application');
+      }
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      setError('An unexpected error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    console.error('Error submitting application:', error);
-    setError('An unexpected error occurred. Please try again later.');
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
    
   // Function to fill form with test data (for development only)
-const fillTestData = () => {
-  // Create a test file (this will only work in development)
-  const testFile = new File(['test content'], 'test-document.pdf', { type: 'application/pdf' });
-  
-  setFormData({
-    firstName: "John",
-    lastName: "Smith",
-    phoneNumber: "555-123-4567",
-    email: "john.smith@example.com",
-    address: "123 Main Street, Elmvale, ON",
-    parentFirstName: "Mary",
-    parentLastName: "Smith",
-    parentPhoneNumber: "555-987-6543",
-    parentEmail: "mary.smith@example.com",
-    currentSchool: "Elmvale District High School",
-    schoolAddress: "456 School Road, Elmvale, ON",
-    currentGrade: "12",
-    expectedGraduation: "June 2025",
-    gpa: "3.8",
-    extracurricular: "- Student Council President\n- Varsity Basketball Team\n- Environmental Club\n- Volunteer at Local Food Bank",
-    whyNeedBursary: "As the eldest of three siblings in a single-parent household, the financial burden of post-secondary education is significant for my family. While I have maintained part-time employment throughout high school to save for college, these funds alone are insufficient to cover tuition and living expenses.\n\nThis bursary would help alleviate the financial strain of my education and allow me to focus more on my studies rather than working excessive hours during the school year. It would be instrumental in helping me achieve my educational goals without accumulating overwhelming student debt.",
-    futureGoals: "I plan to pursue a degree in Environmental Science at the University of Guelph, with the goal of specializing in sustainable agriculture. Growing up in a rural community has inspired me to find innovative solutions to environmental challenges facing modern farming.\n\nAfter completing my undergraduate degree, I hope to either pursue graduate studies or work directly with agricultural organizations to implement sustainable practices. My ultimate career goal is to develop and promote environmentally responsible farming methods that can be implemented in communities like Elmvale.",
-    fullName: "John Smith",
-    parentSignature: "Mary Smith",
-    documents: [testFile]
-  });
-};
+  const fillTestData = () => {
+    // Create a test file (this will only work in development)
+    const testFile = new File(['test content'], 'test-document.pdf', { type: 'application/pdf' });
+    
+    setFormData({
+      firstName: "John",
+      lastName: "Smith",
+      phoneNumber: "555-123-4567",
+      email: "john.smith@example.com",
+      address: "123 Main Street, Elmvale, ON",
+      parentFirstName: "Mary",
+      parentLastName: "Smith",
+      parentPhoneNumber: "555-987-6543",
+      parentEmail: "mary.smith@example.com",
+      currentSchool: "Elmvale District High School",
+      schoolAddress: "456 School Road, Elmvale, ON",
+      currentGrade: "12",
+      expectedGraduation: "June 2025",
+      gpa: "3.8",
+      extracurricular: "- Student Council President\n- Varsity Basketball Team\n- Environmental Club\n- Volunteer at Local Food Bank",
+      whyNeedBursary: "As the eldest of three siblings in a single-parent household, the financial burden of post-secondary education is significant for my family. While I have maintained part-time employment throughout high school to save for college, these funds alone are insufficient to cover tuition and living expenses.\n\nThis bursary would help alleviate the financial strain of my education and allow me to focus more on my studies rather than working excessive hours during the school year. It would be instrumental in helping me achieve my educational goals without accumulating overwhelming student debt.",
+      futureGoals: "I plan to pursue a degree in Environmental Science at the University of Guelph, with the goal of specializing in sustainable agriculture. Growing up in a rural community has inspired me to find innovative solutions to environmental challenges facing modern farming.\n\nAfter completing my undergraduate degree, I hope to either pursue graduate studies or work directly with agricultural organizations to implement sustainable practices. My ultimate career goal is to develop and promote environmentally responsible farming methods that can be implemented in communities like Elmvale.",
+      fullName: "John Smith",
+      parentSignature: "Mary Smith",
+      documents: [testFile]
+    });
+  };
+
   return (
     <>
       {/* Hero Component */}
@@ -194,16 +287,16 @@ const fillTestData = () => {
         backgroundImage="/images/bursary-hero-banner.jpg"
       />
       {process.env.NODE_ENV === 'development' && (
-  <div className="mb-6">
-    <button
-      type="button"
-      onClick={fillTestData}
-      className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md"
-    >
-      Fill Test Data (Dev Only)
-    </button>
-  </div>
-)}
+        <div className="mb-6">
+          <button
+            type="button"
+            onClick={fillTestData}
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md"
+          >
+            Fill Test Data (Dev Only)
+          </button>
+        </div>
+      )}
 
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-4">
@@ -523,7 +616,7 @@ const fillTestData = () => {
                 </div>
               </div>
               
-              {/* Supporting Documents Section - Updated with Dropbox */}
+              {/* Supporting Documents Section */}
               <div className="bg-white p-6 rounded-lg">
                 <h3 className="heading-3 text-edge-green-dark mb-6">Supporting Documents</h3>
                 
@@ -537,22 +630,16 @@ const fillTestData = () => {
                   </p>
                 </div>
                 
-                <div className="border-2 border-dashed border-[#123800] rounded-lg p-8 text-center hover:bg-gray-50 transition-colors">
+                <div 
+                  ref={dropZoneRef}
+                  className="border-2 border-dashed border-[#123800] rounded-lg p-8 text-center hover:bg-gray-50 transition-colors"
+                >
                   <input
                     type="file"
                     id="documents"
+                    ref={fileInputRef}
                     className="hidden"
-                    onChange={(e) => {
-                      if (e.target.files && e.target.files.length > 2) {
-                        alert("You can only upload a maximum of 2 files");
-                        e.target.value = "";
-                        return;
-                      }
-                      setFormData(prev => ({
-                        ...prev,
-                        documents: e.target.files ? Array.from(e.target.files) : []
-                      }));
-                    }}
+                    onChange={handleFileInputChange}
                     multiple
                     accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                   />
@@ -571,33 +658,54 @@ const fillTestData = () => {
                     </div>
                   </label>
                   
-                  {formData.documents && formData.documents.length > 0 && (
-                    <div className="mt-4">
-                      <p className="font-medium text-edge-green-dark">Files selected:</p>
-                      <ul className="mt-2 space-y-1">
-                        {formData.documents.map((file, index) => (
-                          <li key={index} className="flex items-center text-sm text-gray-700">
-                            <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            {file.name}
-                            <button 
-                              type="button"
-                              className="ml-2 text-red-500 hover:text-red-700"
-                              onClick={() => {
-                                setFormData(prev => ({
-                                  ...prev,
-                                  documents: prev.documents.filter((_, i) => i !== index)
-                                }));
-                              }}
+                  {formData.documents.length > 0 && (
+                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {formData.documents.map((file, index) => (
+                        <div 
+                          key={index} 
+                          className="bg-gray-100 rounded-lg p-3 flex items-center justify-between"
+                        >
+                          <div className="flex items-center">
+                            <svg 
+                              className="w-6 h-6 text-green-500 mr-2" 
+                              fill="none" 
+                              stroke="currentColor" 
+                              viewBox="0 0 24 24" 
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                              </svg>
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+                              <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                strokeWidth="2" 
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" 
+                              />
+                            </svg>
+                            <span className="text-sm text-gray-700 truncate max-w-[200px]">
+                              {file.name}
+                            </span>
+                          </div>
+                          <button 
+                            type="button"
+                            className="text-red-500 hover:text-red-700 ml-2"
+                            onClick={() => removeFile(index)}
+                          >
+                            <svg 
+                              className="w-5 h-5" 
+                              fill="none" 
+                              stroke="currentColor" 
+                              viewBox="0 0 24 24" 
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                strokeWidth="2" 
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>

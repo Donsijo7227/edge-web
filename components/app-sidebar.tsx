@@ -21,6 +21,7 @@ type NavOption = {
   title: string;
   icon: React.ReactNode;
   link: string;
+  external?: boolean;
 }
 
 const DashboardOptions: NavOption[] = [
@@ -33,6 +34,7 @@ const DashboardOptions: NavOption[] = [
     title: "Live site",
     icon: <FiExternalLink size={20} />,
     link: "/",
+    external: true,
   },
   {
     title: "Users",
@@ -42,12 +44,13 @@ const DashboardOptions: NavOption[] = [
   {
     title: "Bursary",
     icon: <FiFile size={20} />,
-    link: "bursary-admin",
+    link: "/bursary-admin",
   },
   {
     title: "Content Management",
     icon: <BiCube size={20} />,
     link: "/studio",
+    external: true,
   },
   {
     title: "Documentations",
@@ -74,17 +77,26 @@ function AppSidebar() {
                   
                   return (
                     <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton 
-                        asChild 
-                        isActive={isActive}
-                      >
-                        <Link
-                          href={item.link}
-                          className="flex items-center gap-3 p-2 rounded-md"
-                        >
-                          {item.icon}
-                          <span className="text-[20px]">{item.title}</span>
-                        </Link>
+                      <SidebarMenuButton asChild isActive={isActive}>
+                        {item.external ? (
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-3 p-2 rounded-md"
+                          >
+                            {item.icon}
+                            <span className="text-[20px]">{item.title}</span>
+                          </a>
+                        ) : (
+                          <Link
+                            href={item.link}
+                            className="flex items-center gap-3 p-2 rounded-md"
+                          >
+                            {item.icon}
+                            <span className="text-[20px]">{item.title}</span>
+                          </Link>
+                        )}
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   );

@@ -106,7 +106,7 @@ const EventGrid: React.FC = () => {
   }
 
   return (
-    <div className="w-full px-5 py-8">
+    <div className="w-full px-5 content-block pt-mobile-block md:pt-desktop-block">
       <div className="space-y-8">
         {events.map((event) => {
           // Handle both title and name

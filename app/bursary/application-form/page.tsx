@@ -286,7 +286,7 @@ export default function BursaryApplication() {
         title="Local High School Annual Bursary Application" 
         backgroundImage="/images/bursary-hero-banner.jpg"
       />
-      {process.env.NODE_ENV === 'development' && (
+      {/* {process.env.NODE_ENV === 'development' && ( */}
         <div className="mb-6">
           <button
             type="button"
@@ -296,7 +296,7 @@ export default function BursaryApplication() {
             Fill Test Data (Dev Only)
           </button>
         </div>
-      )}
+      
 
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-4">

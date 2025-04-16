@@ -10,7 +10,7 @@ export default function EventsPage() {
       <GalleryHero title="Events" backgroundImage="/images/events-hero-banner.jpg" />
 
       {/* Breadcrumb Navigation */}
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 pt-4">
                 <NextBreadcrumb 
                     homeElement={<span>Home</span>}
                     separator={<span className="mx-2">&gt;</span>}

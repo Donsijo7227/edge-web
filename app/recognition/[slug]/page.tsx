@@ -128,7 +128,7 @@ export default function RecognitionDetailPage({ params }: RecognitionDetailProps
           <NextBreadcrumb
             homeElement={<span className="text-edge-green-dark hover:underline">Home</span>}
             separator={<span className="mx-1 text-edge-text"> &gt; </span>}
-            activeClasses="text-edge-text"
+            activeClasses="text-edge-text font-bold" 
             containerClasses="flex items-center flex-wrap"
             listClasses="text-edge-green-dark hover:underline font-zain"
             capitalizeLinks

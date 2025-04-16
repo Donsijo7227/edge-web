@@ -39,12 +39,12 @@ export default function About() {
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">History</h1>
         <WhiteCard desc='The Elmvale and District Horticultural Society was started in 1979 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1979'} />
         <GreenCard desc='Since 1979, E.D.G.E has created and supported horticultural, garden-related, floral artistry, environmental and educational projects.' year={'1979 - 2018'} />
-        <WhiteCard year='2018' desc='We recognized the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
-        <GreenCard year="2019" desc="The Elmvale and District Horticultural Society changed its name in 2019 to Elmvale and District Garden Enthusiast's or E.D.G.E."/>
-        <WhiteCard year='2025' desc='E.D.G.E masks an achievement of 50 members.' />
+        <WhiteCard desc='We began focusing more on education, teaching sustainable gardening methods and environmental practices to our community through accessible workshops.' year={'2018'} />
+        <GreenCard desc="The Elmvale and District Horticultural Society changed its name in 2019 to Elmvale and District Garden Enthusiast's or E.D.G.E."year={'2019'}/>
+        <WhiteCard desc='E.D.G.E masks an achievement of 50 members.'year={'2025'} />
       </div>
 
-      {/* Mission Statement */}
+      {/* Mission Statement */} 
       <div className="container mx-auto px-4 content-block">
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Mission Statement</h1>
         <div className='flex flex-col gap-4 md:flex-row items-center md:gap-8'>

@@ -170,7 +170,7 @@ export default function MemberHub() {
         />
       </div>
       
-      <div className="container px-4 py-4 mx-auto">
+      <div className="container px-4 content-block mx-auto">
         {/* Account navigation */}
         <div className="mb-6">
           <div className="flex justify-between items-center">
@@ -215,9 +215,15 @@ export default function MemberHub() {
               </div>
             </div>
             
+<<<<<<< HEAD:app/member-hub/page.tsx
             {/* Right column with resource links - Updated hover animation to match Garden Club page */}
             <div className="md:w-1/2 md:pl-8 flex flex-col h-full">
               <div className="w-full h-full flex flex-col justify-center">
+=======
+            {/* Right column with resource links */}
+            <div className="md:w-1/2 md:pl-8 flex flex-col justify-between h-[350px] md:h-full py-6">
+              <div className="w-full">
+>>>>>>> 8a329c87498905b530a96a9673386812e9303fa0:app/memberhub/page.tsx
                 {resourceItems.map((item) => {
                   const resource = getResourceByCategory(item.id);
                   

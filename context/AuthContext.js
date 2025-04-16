@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': token ? `Bearer ${token}` : '', // Send token in the header
+            'Authorization': token ? `Bearer ${token}` : '', // Send token in the header for debugging
           },
           credentials: 'include', // Still include cookies as backup
         });
@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }) => {
         credentials: 'include',
       });
 
-      // Always clear localStorage
+      // clear localStorage
       localStorage.removeItem('auth_token');
       setUser(null);
 

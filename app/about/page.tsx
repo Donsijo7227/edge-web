@@ -26,7 +26,7 @@ export default function About() {
       </div>
 
       {/* Land Acknowledgement section */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 content-block">
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Land Acknowledgement</h1>
 
         <p className="body-desktop body-mobile mb-4">
@@ -35,17 +35,17 @@ export default function About() {
       </div>
 
       {/* History section */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 content-block">
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">History</h1>
         <WhiteCard desc='The Elmvale and District Horticultural Society was started in 1979 in the village of Elmvale and surrounding municipalities of Flos, Medonte now within the Township of Springwater.' year={'1979'} />
         <GreenCard desc='Since 1979, E.D.G.E has created and supported horticultural, garden-related, floral artistry, environmental and educational projects.' year={'1979 - 2018'} />
         <WhiteCard year='2018' desc='We recognized the change in roles of the horticultural society to be a garden and environmental educator of the public.' />
-        <GreenCard year="2019" desc="The Elmvale and District Horticultural Society changed its name in 2019 to Elmvale District Garden Enthusiast's or E.D.G.E."/>
+        <GreenCard year="2019" desc="The Elmvale and District Horticultural Society changed its name in 2019 to Elmvale and District Garden Enthusiast's or E.D.G.E."/>
         <WhiteCard year='2025' desc='E.D.G.E masks an achievement of 50 members.' />
       </div>
 
       {/* Mission Statement */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 content-block">
         <h1 className="h1-desktop h1-mobile font-heading text-[#123800] mb-6">Mission Statement</h1>
         <div className='flex flex-col gap-4 md:flex-row items-center md:gap-8'>
           <div className="w-full md:w-1/2">

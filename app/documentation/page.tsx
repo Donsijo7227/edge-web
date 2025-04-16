@@ -87,7 +87,13 @@ export default function Page() {
               your admin account to be able to see the admin panel.
               <br />
               If you are not able to see the admin panel, please contact your
-              website team for more information at CodeBrew@.....
+              website team for more information at{" "}
+              <a
+                href="mailto:codebrew.work@gmail.com"
+                style={{ textDecoration: "underline" }}
+              >
+                codebrew.work@gmail.com{" "}
+              </a>
             </p>
           )}
         </div>
@@ -142,7 +148,7 @@ export default function Page() {
                   </li>
                   <li>
                     {" "}
-                    <strong>Content Management System or CMS: </strong> Access
+                    <strong>Content Management: </strong> Access
                     to the studio where admin can create, edit, remove content
                     on Gallery, Recognition, Events, Projects, Resources, and
                     Bursary.
@@ -402,9 +408,12 @@ export default function Page() {
               <h3 className="heading-3 text-edge-green-dark mb-4">
                 Part 1: Edit information in "Bursaries"
               </h3>
-              <p className="body-text text-black mb-4">To edit the Bursary information, navigate to the left side panel, choose "Bursary".
+              <p className="body-text text-black mb-4">
+                To edit the Bursary information, navigate to the left side
+                panel, choose "Bursary".
                 <br />
-                Click any of the 2 bursaries to edit, make changes in the available fields and publish when ready.
+                Click any of the 2 bursaries to edit, make changes in the
+                available fields and publish when ready.
               </p>
               <div className="flex justify-align-left mb-4">
                 <img
@@ -421,7 +430,10 @@ export default function Page() {
               <h3 className="heading-3 text-edge-green-dark mb-4">
                 Part 2: Edit information in "How to Apply"
               </h3>
-              <p className="body-text text-black mb-4">Similar steps to Part 1 applies in editing application steps. See the screenshot below for demonstration.</p>
+              <p className="body-text text-black mb-4">
+                Similar steps to Part 1 applies in editing application steps.
+                See the screenshot below for demonstration.
+              </p>
               <div className="flex justify-align-left mb-4">
                 <img
                   src="/documentation/application-demo.png"
@@ -437,11 +449,14 @@ export default function Page() {
               <h3 className="heading-3 text-edge-green-dark mb-4">
                 Part 3: Edit information in "Important Dates"
               </h3>
-              <p className="body-text text-black mb-4">Navigate to the left panel, click "Important Dates".
+              <p className="body-text text-black mb-4">
+                Navigate to the left panel, click "Important Dates".
                 <br />
-                Click (+) sign to add a new important date, enter the information and publish when ready.
+                Click (+) sign to add a new important date, enter the
+                information and publish when ready.
                 <br />
-                To edit the current important date, click the date that needs updating, make changes and publish when ready.
+                To edit the current important date, click the date that needs
+                updating, make changes and publish when ready.
               </p>
               <div className="flex justify-align-left">
                 <img
@@ -462,6 +477,7 @@ export default function Page() {
     </div>
   );
 }
+
 
 
 

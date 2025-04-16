@@ -7,7 +7,7 @@ import { createClient } from '@sanity/client';
 const sanityClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  token: process.env.SANITY_API_TOKEN, // You'll need a token with write permissions
+  token: process.env.SANITY_API_TOKEN, 
   apiVersion: '2022-11-15',
   useCdn: false
 });

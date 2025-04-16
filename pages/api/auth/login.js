@@ -87,7 +87,7 @@ export default async function handler(req, res) {
     // Return token and user info in response
     return res.status(200).json({
       success: true,
-      token, // Include the token in the response
+      token, 
       user: {
         _id: user._id,
         name: user.name,

@@ -183,14 +183,14 @@ export default function Bursary() {
             ) : (
               // Fallback to hardcoded content if no Sanity data
               <p className="body-text text-black mb-4">
-                EDGE is proud to support students in their academic journeys by
+                E.D.G.E is proud to support students in their academic journeys by
                 offering this scholarship as a testament to our commitment to
                 education, innovation, and personal growth. We believe that
                 every student deserves the opportunity to pursue their dreams
                 without financial barriers holding them back. We hope
                 that this scholarship not only provides financial relief but
                 also serves as motivation, reminding students that their efforts
-                are seen, valued, and supported. EDGE remains committed to fostering a culture of
+                are seen, valued, and supported. E.D.G.E remains committed to fostering a culture of
                 learning and excellence, and we look forward to seeing how our
                 scholarship recipients make a lasting impact in their fields and
                 communities.

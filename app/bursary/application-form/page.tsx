@@ -286,7 +286,7 @@ export default function BursaryApplication() {
         title="Local High School Annual Bursary Application" 
         backgroundImage="/images/bursary-hero-banner.jpg"
       />
-      {process.env.NODE_ENV === 'development' && (
+      {/* {process.env.NODE_ENV === 'development' && ( */}
         <div className="mb-6">
           <button
             type="button"
@@ -296,7 +296,7 @@ export default function BursaryApplication() {
             Fill Test Data (Dev Only)
           </button>
         </div>
-      )}
+      
 
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-4">
@@ -335,12 +335,12 @@ export default function BursaryApplication() {
             
             <form onSubmit={handleSubmit} className="space-y-10">
               {/* Personal Information Section */}
-              <div className="bg-white p-6 rounded-lg">
+              <div className="bg-white py-6 rounded-lg">
                 <h3 className="heading-3 text-edge-green-dark mb-6">Personal Information</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="firstName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="firstName" className="block text-body font-medium text-edge-green-dark mb-1">
                       First Name
                     </label>
                     <input
@@ -355,7 +355,7 @@ export default function BursaryApplication() {
                   </div>
                   
                   <div>
-                    <label htmlFor="lastName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="lastName" className="block text-body font-medium text-edge-green-dark mb-1">
                       Last Name
                     </label>
                     <input
@@ -372,7 +372,7 @@ export default function BursaryApplication() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="phoneNumber" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="phoneNumber" className="block text-body font-medium text-edge-green-dark mb-1">
                       Phone Number
                     </label>
                     <input
@@ -387,7 +387,7 @@ export default function BursaryApplication() {
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="email" className="block text-body font-medium text-edge-green-dark mb-1">
                       Email
                     </label>
                     <input
@@ -403,7 +403,7 @@ export default function BursaryApplication() {
                 </div>
                 
                 <div className="mb-4">
-                  <label htmlFor="address" className="block text-base font-medium text-edge-green-dark mb-1">
+                  <label htmlFor="address" className="block text-body font-medium text-edge-green-dark mb-1">
                     Address
                   </label>
                   <input
@@ -419,7 +419,7 @@ export default function BursaryApplication() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="parentFirstName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="parentFirstName" className="block text-body font-medium text-edge-green-dark mb-1">
                       Parent/Guardian First Name
                     </label>
                     <input
@@ -434,7 +434,7 @@ export default function BursaryApplication() {
                   </div>
                   
                   <div>
-                    <label htmlFor="parentLastName" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="parentLastName" className="block text-body font-medium text-edge-green-dark mb-1">
                       Parent/Guardian Last Name
                     </label>
                     <input
@@ -451,7 +451,7 @@ export default function BursaryApplication() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="parentPhoneNumber" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="parentPhoneNumber" className="block text-body font-medium text-edge-green-dark mb-1">
                       Parent/Guardian Phone Number
                     </label>
                     <input
@@ -466,7 +466,7 @@ export default function BursaryApplication() {
                   </div>
                   
                   <div>
-                    <label htmlFor="parentEmail" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="parentEmail" className="block text-body font-medium text-edge-green-dark mb-1">
                       Parent/Guardian Email
                     </label>
                     <input
@@ -483,12 +483,12 @@ export default function BursaryApplication() {
               </div>
               
               {/* Educational Information Section */}
-              <div className="bg-white p-6 rounded-lg">
+              <div className="bg-white rounded-lg">
                 <h3 className="heading-3 text-edge-green-dark mb-6">Educational Information</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="currentSchool" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="currentSchool" className="block text-body font-medium text-edge-green-dark mb-1">
                       Current High School
                     </label>
                     <input
@@ -503,7 +503,7 @@ export default function BursaryApplication() {
                   </div>
                   
                   <div>
-                    <label htmlFor="schoolAddress" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="schoolAddress" className="block text-body font-medium text-edge-green-dark mb-1">
                       Address
                     </label>
                     <input
@@ -520,7 +520,7 @@ export default function BursaryApplication() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div>
-                    <label htmlFor="currentGrade" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="currentGrade" className="block text-body font-medium text-edge-green-dark mb-1">
                       Current Grade
                     </label>
                     <input
@@ -535,7 +535,7 @@ export default function BursaryApplication() {
                   </div>
                   
                   <div>
-                    <label htmlFor="expectedGraduation" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="expectedGraduation" className="block text-body font-medium text-edge-green-dark mb-1">
                       Expected Graduation Date
                     </label>
                     <input
@@ -550,7 +550,7 @@ export default function BursaryApplication() {
                   </div>
                   
                   <div>
-                    <label htmlFor="gpa" className="block text-base font-medium text-edge-green-dark mb-1">
+                    <label htmlFor="gpa" className="block text-body font-medium text-edge-green-dark mb-1">
                       GPA
                     </label>
                     <input
@@ -566,7 +566,7 @@ export default function BursaryApplication() {
                 </div>
                 
                 <div className="mb-4">
-                  <label htmlFor="extracurricular" className="block text-base font-medium text-edge-green-dark mb-1">
+                  <label htmlFor="extracurricular" className="block text-body font-medium text-edge-green-dark mb-1">
                     List all of the Extracurricular Activities that you have participated:
                   </label>
                   <textarea
@@ -582,11 +582,11 @@ export default function BursaryApplication() {
               </div>
               
               {/* Personal Statement Section */}
-              <div className="bg-white p-6 rounded-lg">
+              <div className="bg-white rounded-lg">
                 <h3 className="heading-3 text-edge-green-dark mb-6">Personal Statement</h3>
                 
                 <div className="mb-6">
-                  <label htmlFor="whyNeedBursary" className="block text-base font-medium text-edge-green-dark mb-1">
+                  <label htmlFor="whyNeedBursary" className="block text-body font-medium text-edge-green-dark mb-1">
                     Why do you need this bursary, and how will it help you? (250-500 words)
                   </label>
                   <textarea
@@ -601,7 +601,7 @@ export default function BursaryApplication() {
                 </div>
                 
                 <div>
-                  <label htmlFor="futureGoals" className="block text-base font-medium text-edge-green-dark mb-1">
+                  <label htmlFor="futureGoals" className="block text-body font-medium text-edge-green-dark mb-1">
                     What are your future education and career goals?
                   </label>
                   <textarea
@@ -617,15 +617,15 @@ export default function BursaryApplication() {
               </div>
               
               {/* Supporting Documents Section */}
-              <div className="bg-white p-6 rounded-lg">
+              <div className="bg-white rounded-lg">
                 <h3 className="heading-3 text-edge-green-dark mb-6">Supporting Documents</h3>
                 
                 <div className="mb-2">
-                  <p className="text-base text-edge-green-dark font-medium mb-1">
+                  <p className="text-body text-edge-green-dark font-medium mb-1">
                     Upload your Letter of Recommendation and Academic Transcript 
                     <span className="text-red-500">*</span>
                   </p>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-body text-gray-600 mb-4">
                     Please upload both your Letter of Recommendation and Academic Transcript (maximum 2 files).
                   </p>
                 </div>
@@ -712,11 +712,11 @@ export default function BursaryApplication() {
               </div>
               
               {/* Consent and Declaration Section */}
-              <div className="bg-white p-6 rounded-lg">
+              <div className="bg-white rounded-lg">
                 <h3 className="heading-3 text-edge-green-dark mb-6">Consent and Declaration</h3>
                 
                 <div className="mb-6">
-                  <div className="flex items-start mb-2">
+                  <div className="flex items-center mb-2">
                     <div className="flex items-center h-5">
                       <input
                         type="checkbox"
@@ -725,7 +725,7 @@ export default function BursaryApplication() {
                         required
                       />
                     </div>
-                    <label htmlFor="consent" className="ml-3 text-base font-medium text-edge-green-dark">
+                    <label htmlFor="consent" className="ml-3 text-body font-medium text-edge-green-dark">
                       I certify that all information provided is true and accurate.
                     </label>
                   </div>

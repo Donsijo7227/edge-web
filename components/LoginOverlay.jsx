@@ -1,11 +1,14 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
+import { Eye, EyeOff } from 'lucide-react'; 
 
 export default function LoginOverlay({ isOpen, onClose }) {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const overlayRef = useRef(null);
@@ -64,13 +67,17 @@ export default function LoginOverlay({ isOpen, onClose }) {
     }
   };
 
+  const handleClick = async (e) => {
+        onClose(); // Close the login overlay
+ 
+  };
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-[#123800] bg-opacity-80 flex items-center justify-center z-50">
       <div 
         ref={overlayRef}
-        className="bg-white rounded-lg p-8 max-w-md w-full relative shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+        className="bg-white rounded-lg p-8 max-w-md w-full relative "
         style={{ border: '2px solid #123800', fontFamily: 'Bakbak' }}
       >
         {/* Close button */}
@@ -107,17 +114,26 @@ export default function LoginOverlay({ isOpen, onClose }) {
             />
           </div>
           
-          <div>
-            <label htmlFor="password" className="block text-edge-green-dark text-xl font-semibold mb-2 font-bakbak">Password</label>
+          <div className="relative">
+            <label htmlFor="password" className="block text-edge-green-dark text-xl font-semibold mb-2 font-bakbak">
+              Password
+            </label>
             <input 
-              type="password" 
-              id="password" 
+              type={showPassword ? "text" : "password"}
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-edge-green-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-edge-green-primary font-zain"
+              className="w-full px-4 py-3 border-2 border-edge-green-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-edge-green-primary font-zain pr-12" // pr-12 to make space for the icon
               placeholder="********" 
               required
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-5  bottom-6 transform -translate-y-1/0 text-edge-green-dark focus:outline-none"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
           </div>
           
           <button 
@@ -129,11 +145,16 @@ export default function LoginOverlay({ isOpen, onClose }) {
           </button>
         </form>
         
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center" onClick={handleClick}>
           <p className="text-edge-green-dark text-lg font-bakbak">or</p>
-          <button className="text-edge-green-dark text-lg hover:text-edge-green-primary transition-colors mt-2 font-bakbak">
-            Forget password?
-          </button>
+          <div className="mt-4 text-center">
+            <Link 
+              href="/forgot-password" 
+              className="font-medium text-[#123800] hover:underline"
+            >
+              Forgot your password?
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   }
 
   const { documentIds } = req.body;
-  console.log('📥 Incoming documentIds:', documentIds);
+  // console.log('📥 Incoming documentIds:', documentIds);
 
   try {
     const bursaryDocs = await sanityClient.fetch(
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       { ids: documentIds }
     );
     
-    console.log('📦 Fetched bursaryDocument docs from Sanity:', bursaryDocs);
+    // console.log('📦 Fetched bursaryDocument docs from Sanity:', bursaryDocs);
     
     const projectId = sanityClient.config().projectId;
     const dataset = sanityClient.config().dataset;
@@ -48,7 +48,7 @@ export default async function handler(req, res) {
       // Construct the Sanity CDN URL
       const url = `https://cdn.sanity.io/files/${projectId}/${dataset}/${assetHash}.${ext}`;
       
-      console.log(`📄 Created URL for ${doc.title}: ${url}`);
+      // console.log(`📄 Created URL for ${doc.title}: ${url}`);
       
       return {
         id: doc._id,

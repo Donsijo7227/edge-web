@@ -176,7 +176,7 @@ export default function ResponsiveNavbar() {
                       <Link href="/garden-clubs" onClick={handleDropdownLinkClick}>Garden Clubs</Link>
                     </li>
                     <li className="px-4 py-1 hover:bg-[#a8d080]">
-                      <Link href="/memberhub" onClick={handleDropdownLinkClick}>Member Hub</Link>
+                      <Link href="/member-hub" onClick={handleDropdownLinkClick}>Member Hub</Link>
                     </li>
                   </ul>
                 )}
@@ -304,7 +304,7 @@ export default function ResponsiveNavbar() {
                       </li>
                       <li className="text-center">
                         <Link
-                          href="/memberhub"
+                          href="/member-hub"
                           className="block py-2 hover:text-[#a8d080] transition-colors"
                           onClick={handleDropdownLinkClick}
                         >

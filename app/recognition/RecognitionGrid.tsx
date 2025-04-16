@@ -7,6 +7,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { client, urlFor } from '@/sanity/lib/client';
 
+// Helper function to format category text
+function formatCategoryText(category: string): string {
+  if (!category) return '';
+  
+  // Replace hyphens with spaces
+  const withSpaces = category.replace(/-/g, ' ');
+  
+  // Capitalize the first letter of each word
+  const capitalized = withSpaces.split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  
+  return capitalized;
+}
+
 // TypeScript interface for recognition recipients
 interface RecognitionRecipient {
   _id: string;
@@ -26,6 +41,9 @@ const RecognitionCard = ({ recipient }: { recipient: RecognitionRecipient }) => 
       .height(1000) // Increased height to ensure faces stay in frame
       .url(); // Using default settings to respect hotspot without forced cropping
   
+    // Format the category text
+    const formattedCategory = formatCategoryText(recipient.category) || 'Member';
+    
     return (
       <div className="relative overflow-hidden rounded-md shadow-md h-96">
         <Link href={`/recognition/${recipient.slug.current}`}>
@@ -42,7 +60,7 @@ const RecognitionCard = ({ recipient }: { recipient: RecognitionRecipient }) => 
             )}
             <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
               <h3 className="font-bakbak text-h3-mobile md:text-h3 text-white">{recipient.name}</h3>
-              <p className="font-zain text-white">{recipient.category || 'Member'}</p>
+              <p className="font-zain text-white">{formattedCategory}</p>
             </div>
           </div>
         </Link>

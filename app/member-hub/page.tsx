@@ -193,10 +193,10 @@ export default function MemberHub() {
             <p>{error}</p>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row md:h-[350px]">
-            {/* Left column with image - Fixed for mobile */}
-            <div className="md:w-1/2 mb-4 md:mb-0 h-[350px] md:h-full">
-              <div className="relative rounded-md overflow-hidden h-full w-full bg-gray-100">
+          <div className="flex flex-col md:flex-row" style={{ minHeight: "350px" }}>
+            {/* Left column with image - Fixed height */}
+            <div className="md:w-1/2 mb-4 md:mb-0">
+              <div className="relative rounded-md overflow-hidden w-full bg-gray-100" style={{ height: "350px" }}>
                 <Image 
                   src="/images/memberhub.jpg" 
                   alt="memberhub leaf"
@@ -206,7 +206,6 @@ export default function MemberHub() {
                   priority
                   loading="eager"
                   onLoadingComplete={() => setImageLoaded(true)}
-                  style={{ display: imageLoaded ? 'block' : 'none' }}
                 />
                 {!imageLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -216,17 +215,17 @@ export default function MemberHub() {
               </div>
             </div>
             
-            {/* Right column with resource links */}
-            <div className="md:w-1/2 md:pl-8 flex flex-col justify-between h-[350px] md:h-full py-12">
-              <div className="w-full">
+            {/* Right column with resource links - Updated hover animation to match Garden Club page */}
+            <div className="md:w-1/2 md:pl-8 flex flex-col h-full">
+              <div className="w-full h-full flex flex-col justify-center">
                 {resourceItems.map((item) => {
                   const resource = getResourceByCategory(item.id);
                   
                   return (
-                    <div key={item.id} className="group h-14 mb-7">
+                    <div key={item.id} className="group mb-7">
                       <button 
                         onClick={() => resource && downloadResource(resource)}
-                        className="flex items-center text-edge-green-dark hover:text-edge-green font-bakbak text-h3-mobile md:text-h3 w-full"
+                        className="flex items-center text-edge-green-dark hover:text-edge-green hover:bg-[#f5f9f1] py-3 px-2 rounded-lg transition-colors w-full"
                         disabled={!resource}
                       >
                         <div className="w-10 h-10 mr-4 flex-shrink-0 flex items-center justify-center">
@@ -237,16 +236,27 @@ export default function MemberHub() {
                             height={34}
                           />
                         </div>
-                        <span className="flex-grow text-left">{item.title}</span>
-                        <svg 
-                          className="w-6 h-6 ml-auto text-edge-green-dark transform transition-transform group-hover:translate-x-1 flex-shrink-0" 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          fill="none" 
-                          viewBox="0 0 24 24" 
-                          stroke="currentColor"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
+                        <span className="flex-grow text-left font-bakbak text-h3-mobile md:text-h3">
+                          {item.title}
+                        </span>
+                        <div className="ml-auto">
+                          <svg 
+                            width="24" 
+                            height="24" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="text-edge-green-dark transition-transform group-hover:translate-x-1"
+                          >
+                            <path 
+                              d="M5 12H19M19 12L12 5M19 12L12 19" 
+                              stroke="currentColor" 
+                              strokeWidth="2" 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
                       </button>
                     </div>
                   );

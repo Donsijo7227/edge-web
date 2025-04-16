@@ -300,15 +300,15 @@ export default function BursaryApplication() {
 
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-4">
-        <NextBreadcrumb 
-          homeElement={<span>Home</span>}
-          separator={<span className="mx-2">/</span>}
-          containerClasses="flex items-center text-edge-green-dark"
-          listClasses="hover:underline"
-          activeClasses="font-semibold no-underline"
-          capitalizeLinks={true}
-        />
-      </div>
+          <NextBreadcrumb
+            homeElement={<span>Home</span>}
+            separator={<span className="mx-2">&gt;</span>}
+            containerClasses="flex items-center text-[#123800]"
+            listClasses="hover:underline"
+            activeClasses="font-semibold no-underline"
+            capitalizeLinks={true}
+          />
+        </div>
       
       {/* Application Form Section */}
       <div className="container mx-auto px-4 py-6 content-block">

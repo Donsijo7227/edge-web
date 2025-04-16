@@ -11,6 +11,21 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { use } from 'react';
 
+// Helper function to format category text
+function formatCategoryText(category: string): string {
+  if (!category) return '';
+  
+  // Replace hyphens with spaces
+  const withSpaces = category.replace(/-/g, ' ');
+  
+  // Capitalize the first letter of each word
+  const capitalized = withSpaces.split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  
+  return capitalized;
+}
+
 interface RecognitionDetailProps {
   params: {
     slug: string;
@@ -167,7 +182,7 @@ export default function RecognitionDetailPage({ params }: RecognitionDetailProps
               
               <div className="mb-6">
                 <span className="inline-block px-3 py-1 mb-4 text-white rounded-md bg-edge-green-dark font-zain">
-                  {recipient.category || "Recognition"}
+                  {formatCategoryText(recipient.category) || "Recognition"}
                 </span>
                 {recipient.term && (
                   <p className="font-zain text-edge-text">

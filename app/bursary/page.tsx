@@ -166,8 +166,8 @@ export default function Bursary() {
         <div className="container mx-auto px-4 py-4">
           <NextBreadcrumb
             homeElement={<span>Home</span>}
-            separator={<span className="mx-2">/</span>}
-            containerClasses="flex items-center text-edge-green-dark"
+            separator={<span className="mx-2">&gt;</span>}
+            containerClasses="flex items-center text-[#123800]"
             listClasses="hover:underline"
             activeClasses="font-semibold no-underline"
             capitalizeLinks={true}

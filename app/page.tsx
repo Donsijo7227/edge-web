@@ -19,7 +19,7 @@ export default function Home() {
           </div>
           <div className="relative z-10 container mx-auto px-4 py-12 h-full flex flex-col">
             <div className="flex-1 flex flex-col justify-center max-w-2xl">
-              <h1 className="title text-white mb-4">Find Your Peace at the EDGE of Nature</h1>
+              <h1 className="title text-white mb-4">Find Your Peace at the E.D.G.E of Nature</h1>
               <p className="body-text text-white mb-6">
                 We are a non-profit organization dedicated to educating and promoting all branches of horticulture. Through civic beautification, tree planting, and environmental education, we inspire communities to cultivate a greener, more vibrant future. Join us in making a lasting impact!
               </p>
@@ -34,11 +34,11 @@ export default function Home() {
         </section>
 
         {/* Welcome section */}
-        <section id="learn-more" className="py-16 px-4 content-block">
+        <section id="learn-more" className="px-4 pt-mobile-block md:pt-desktop-block content-block">
           <div className="container mx-auto">
-            <h2 className="heading-2 mb-8 text-[#123800]">Welcome to Our Club</h2>
+            <h2 className="heading-2 text-[#123800] content-block">Welcome to Our Club</h2>
             
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 content-block">
               <div className="space-y-4">
                 <p className="body-text">
                   Welcome to a community where a love for plants, nature, and environmental stewardship brings people together! Our club is dedicated to educating, inspiring, and supporting individuals who share a passion for horticulture, whether you're an experienced gardener or just starting your journey.
@@ -78,9 +78,9 @@ export default function Home() {
         </section>
 
         {/* Become a Member section */}
-        <section className="py-16 px-4 bg-[#a8d080] content-block">
+        <section className="px-4 bg-[#a8d080] py-mobile-block md:py-desktop-block">
           <div className="container mx-auto">
-            <h2 className="heading-2 mb-8 text-[#123800]">Become a Member</h2>
+            <h2 className="heading-2 content-block text-[#123800]">Become a Member</h2>
             
             <div className="grid md:grid-cols-2 gap-8 mb-4">
               <div className="space-y-4">
@@ -110,7 +110,7 @@ export default function Home() {
         </section>
 
         {/* Contact Us section with new layout */}
-        <section className="py-16 px-4 content-block">
+        <section className="px-4 content-block pt-mobile-block md:pt-desktop-block">
           <div className="container mx-auto">
             {/* Heading in its own row */}
             <h2 className="heading-2 mb-8 text-[#123800]">Contact Us</h2>

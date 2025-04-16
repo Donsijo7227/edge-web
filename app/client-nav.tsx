@@ -7,7 +7,7 @@ import Scroll from "@/components/scroll";
 
 export default function ClientNav({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isExceptionPage = pathname?.startsWith('/dashboard')|| pathname?.startsWith('/documentation');
+  const isExceptionPage = pathname?.startsWith('/dashboard')|| pathname?.startsWith('/documentation')|| pathname?.startsWith('/users')|| pathname?.startsWith('/bursary-admin');
 
   if (isExceptionPage) {
     return <>{children}</>;

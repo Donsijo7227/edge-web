@@ -23,7 +23,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         <NextBreadcrumb
             homeElement={<span className="text-edge-green-dark hover:underline">Home</span>}
             separator={<span className="mx-1 text-edge-text"> &gt; </span>}
-            activeClasses="text-edge-text"
+            activeClasses="text-edge-text font-bold" // Added font-bold here
             containerClasses="flex items-center flex-wrap"
             listClasses="text-edge-green-dark hover:underline font-zain"
             capitalizeLinks
